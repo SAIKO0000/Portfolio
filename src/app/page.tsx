@@ -1,103 +1,205 @@
-import Image from "next/image";
+'use client';
+
+import { useProjects } from '@/hooks/useProjects';
+import { ThemeProvider, useTheme } from '@/hooks/useTheme';
+import ThemeToggle from '@/components/ThemeToggle';
+import AnimatedSection from '@/components/AnimatedSection';
+import MCPDemo from '@/components/MCPDemo';
+import SkillsSection from '@/components/SkillsSection';
+import PerformanceDashboard from '@/components/PerformanceDashboard';
+
+function PortfolioContent() {
+  const { projects, loading, error, featuredProjects } = useProjects();
+  const { isDark } = useTheme();
+
+  return (
+    <div className={`min-h-screen transition-colors duration-300 ${
+      isDark ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'
+    }`}>
+      <ThemeToggle />
+      
+      <main className="container mx-auto px-4 py-20">
+        <div className="text-center">
+          <AnimatedSection>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              AI-Enhanced Developer Portfolio
+            </h1>
+            <p className={`text-xl mb-8 ${
+              isDark ? 'text-gray-300' : 'text-gray-600'
+            }`}>
+              Showcasing cutting-edge development with MCP tools and modern React patterns
+            </p>
+          </AnimatedSection>
+          
+          <AnimatedSection delay={1}>
+            <div className="flex justify-center gap-4 mb-12 flex-wrap">
+              <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                🚀 Next.js 15.5.2
+              </span>
+              <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+                ⚛️ React 19.1.1
+              </span>
+              <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">
+                🎨 Tailwind CSS 4.1.13
+              </span>
+              <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">
+                🤖 MCP Tools
+              </span>
+            </div>
+          </AnimatedSection>
+          
+          {/* Projects Section */}
+          <AnimatedSection delay={2}>
+            <div className="max-w-4xl mx-auto mb-12">
+              <h2 className="text-2xl font-semibold mb-4">Featured Projects</h2>
+              {loading && (
+                <div className="text-lg">Loading projects...</div>
+              )}
+              {error && (
+                <div className="text-red-600">{error}</div>
+              )}
+              {!loading && !error && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {featuredProjects.map((project, index) => (
+                    <AnimatedSection key={project.id} delay={3 + index}>
+                      <div className={`rounded-lg p-6 text-left transition-all duration-300 hover:scale-105 ${
+                        isDark 
+                          ? 'bg-gray-800 hover:bg-gray-700' 
+                          : 'bg-gray-50 hover:bg-gray-100'
+                      }`}>
+                        <h3 className="text-lg font-semibold mb-2">{project.title}</h3>
+                        <p className={`mb-4 ${
+                          isDark ? 'text-gray-300' : 'text-gray-600'
+                        }`}>{project.description}</p>
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {project.technologies.map((tech) => (
+                            <span key={tech} className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="flex gap-2">
+                          <a 
+                            href={project.githubUrl} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className={`px-4 py-2 rounded text-sm transition-colors ${
+                              isDark
+                                ? 'bg-gray-700 text-white hover:bg-gray-600'
+                                : 'bg-gray-800 text-white hover:bg-gray-700'
+                            }`}
+                          >
+                            GitHub
+                          </a>
+                          {project.liveUrl && (
+                            <a 
+                              href={project.liveUrl} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-500 transition-colors"
+                            >
+                              Live Demo
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </AnimatedSection>
+                  ))}
+                </div>
+              )}
+            </div>
+          </AnimatedSection>
+
+          {/* Implementation Status */}
+          <AnimatedSection delay={5}>
+            <div className="max-w-2xl mx-auto">
+              <h2 className="text-2xl font-semibold mb-4">Implementation Status</h2>
+              <div className={`rounded-lg p-6 ${
+                isDark ? 'bg-gray-800' : 'bg-gray-50'
+              }`}>
+                <div className="space-y-3 text-left">
+                  <div className="flex items-center">
+                    <span className="text-green-500 mr-2">✅</span>
+                    <span>Next.js 15.5.2 with React 19.1.1 setup</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-green-500 mr-2">✅</span>
+                    <span>Custom hooks architecture (useProjects + useTheme working!)</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-green-500 mr-2">✅</span>
+                    <span>Theme switching with animations</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-green-500 mr-2">✅</span>
+                    <span>Intersection observer animations</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-green-500 mr-2">✅</span>
+                    <span>Project data loading: {projects.length} projects</span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-blue-500 mr-2">🔧</span>
+                    <span>MCP Demo component coming next</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+
+          {/* Custom Hooks Status */}
+          <AnimatedSection delay={6}>
+            <div className="mt-12">
+              <h3 className="text-xl font-semibold mb-4">Custom Hooks Progress</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <h4 className="font-medium">useProjects ✅</h4>
+                  <p className="text-sm text-gray-600">Project data management - Working!</p>
+                </div>
+                <div className="bg-green-50 p-4 rounded-lg">
+                  <h4 className="font-medium">useTheme ✅</h4>
+                  <p className="text-sm text-gray-600">Dark/light mode - Working!</p>
+                </div>
+                <div className="bg-purple-50 p-4 rounded-lg">
+                  <h4 className="font-medium">useAnimation ✅</h4>
+                  <p className="text-sm text-gray-600">Scroll animations - Working!</p>
+                </div>
+                <div className="bg-yellow-50 p-4 rounded-lg">
+                  <h4 className="font-medium">useScrollPosition</h4>
+                  <p className="text-sm text-gray-600">Ready to integrate</p>
+                </div>
+                <div className="bg-red-50 p-4 rounded-lg">
+                  <h4 className="font-medium">useContactForm</h4>
+                  <p className="text-sm text-gray-600">Ready to integrate</p>
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+
+          {/* MCP Tools Demo */}
+          <AnimatedSection delay={7}>
+            <div className="mt-16">
+              <MCPDemo />
+            </div>
+          </AnimatedSection>
+
+          {/* Skills Section */}
+          <AnimatedSection delay={8}>
+            <div className="mt-16">
+              <SkillsSection />
+            </div>
+          </AnimatedSection>
+        </div>
+      </main>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    <ThemeProvider>
+      <PerformanceDashboard />
+      <PortfolioContent />
+    </ThemeProvider>
   );
 }
