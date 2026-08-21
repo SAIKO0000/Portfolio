@@ -13,7 +13,7 @@ export interface UseIntersectionAnimationOptions {
   delay?: number;
 }
 
-export function useIntersectionAnimation(
+export function useIntersectionAnimation<T extends HTMLElement = HTMLElement>(
   options: UseIntersectionAnimationOptions = {}
 ) {
   const {
@@ -23,7 +23,7 @@ export function useIntersectionAnimation(
     delay = 0
   } = options;
 
-  const elementRef = useRef<HTMLElement>(null);
+  const elementRef = useRef<T>(null);
   const [state, setState] = useState<AnimationState>({
     isVisible: false,
     isAnimating: false,

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useTheme } from '@/hooks/useTheme';
+import { siteConfig } from '@/data/portfolio';
 
 interface ContactFormData {
   name: string;
@@ -105,7 +106,7 @@ export default function ContactForm() {
                 <div>
                   <p className="font-medium">Email</p>
                   <p className={isDark ? 'text-gray-300' : 'text-gray-600'}>
-                    main.markdaniel.iguban@cvsu.edu.ph
+                    {siteConfig.email}
                   </p>
                 </div>
               </div>
@@ -115,7 +116,7 @@ export default function ContactForm() {
                 <div>
                   <p className="font-medium">Location</p>
                   <p className={isDark ? 'text-gray-300' : 'text-gray-600'}>
-                    Philippines
+                    {siteConfig.location}
                   </p>
                 </div>
               </div>
@@ -125,7 +126,7 @@ export default function ContactForm() {
                 <div>
                   <p className="font-medium">Availability</p>
                   <p className={isDark ? 'text-gray-300' : 'text-gray-600'}>
-                    Open for freelance and full-time opportunities
+                    {siteConfig.availability}
                   </p>
                 </div>
               </div>

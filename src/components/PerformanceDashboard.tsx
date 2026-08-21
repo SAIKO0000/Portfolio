@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useTheme } from '@/hooks/useTheme';
 
 interface PerformanceMetric {
@@ -20,58 +20,49 @@ interface AnalyticsData {
   topCountries: Array<{ country: string; visits: number }>;
 }
 
+const metricThresholds: Record<string, { good: number; needsImprovement: number }> = {
+  LCP: { good: 2500, needsImprovement: 4000 },
+  FID: { good: 100, needsImprovement: 300 },
+  CLS: { good: 0.1, needsImprovement: 0.25 },
+  FCP: { good: 1800, needsImprovement: 3000 },
+  TTFB: { good: 800, needsImprovement: 1800 },
+};
+
+function getMetricStatus(metricName: string, value: number): PerformanceMetric['status'] {
+  const thresholds = metricThresholds[metricName];
+  if (!thresholds || value <= thresholds.good) return 'good';
+  if (value <= thresholds.needsImprovement) return 'needs-improvement';
+  return 'poor';
+}
+
+function getMetricDescription(metricName: string): string {
+  const descriptions: Record<string, string> = {
+    LCP: 'Largest Contentful Paint - measures loading performance',
+    FID: 'First Input Delay - measures interactivity',
+    CLS: 'Cumulative Layout Shift - measures visual stability',
+    FCP: 'First Contentful Paint - measures perceived loading speed',
+    TTFB: 'Time to First Byte - measures connection and server response time',
+  };
+  return descriptions[metricName] ?? '';
+}
+
+function processWebVitalsMetrics(
+  parsedMetrics: Record<string, { value: number }>,
+): PerformanceMetric[] {
+  return Object.entries(parsedMetrics).map(([name, data]) => ({
+    name,
+    value: Math.round(data.value * 100) / 100,
+    unit: name === 'CLS' ? '' : 'ms',
+    status: getMetricStatus(name, data.value),
+    description: getMetricDescription(name),
+  }));
+}
+
 export default function PerformanceDashboard() {
   const { isDark } = useTheme();
   const [performanceMetrics, setPerformanceMetrics] = useState<PerformanceMetric[]>([]);
   const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-
-  const metricThresholds: Record<string, { good: number; needsImprovement: number }> = {
-    LCP: { good: 2500, needsImprovement: 4000 },
-    FID: { good: 100, needsImprovement: 300 },
-    CLS: { good: 0.1, needsImprovement: 0.25 },
-    FCP: { good: 1800, needsImprovement: 3000 },
-    TTFB: { good: 800, needsImprovement: 1800 }
-  };
-
-  const getMetricStatus = (metricName: string, value: number): 'good' | 'needs-improvement' | 'poor' => {
-    const thresholds = metricThresholds[metricName];
-    if (!thresholds) return 'good';
-    
-    if (value <= thresholds.good) return 'good';
-    if (value <= thresholds.needsImprovement) return 'needs-improvement';
-    return 'poor';
-  };
-
-  const getMetricDescription = (metricName: string): string => {
-    const descriptions: Record<string, string> = {
-      LCP: 'Largest Contentful Paint - measures loading performance',
-      FID: 'First Input Delay - measures interactivity',
-      CLS: 'Cumulative Layout Shift - measures visual stability',
-      FCP: 'First Contentful Paint - measures perceived loading speed',
-      TTFB: 'Time to First Byte - measures connection and server response time'
-    };
-    return descriptions[metricName] || '';
-  };
-
-  const processWebVitalsMetrics = useCallback((parsedMetrics: Record<string, { value: number }>): PerformanceMetric[] => {
-    const metrics: PerformanceMetric[] = [];
-    
-    Object.entries(parsedMetrics).forEach(([name, data]: [string, { value: number }]) => {
-      const status = getMetricStatus(name, data.value);
-      const description = getMetricDescription(name);
-
-      metrics.push({
-        name,
-        value: Math.round(data.value * 100) / 100,
-        unit: name === 'CLS' ? '' : 'ms',
-        status,
-        description
-      });
-    });
-
-    return metrics;
-  }, [getMetricStatus, getMetricDescription]);
 
   const addMemoryMetrics = (metrics: PerformanceMetric[]): void => {
     if ('memory' in performance) {
@@ -126,7 +117,7 @@ export default function PerformanceDashboard() {
         ]
       });
     }
-  }, [processWebVitalsMetrics]);
+  }, []);
 
   const getStatusColor = (status: string) => {
     switch (status) {

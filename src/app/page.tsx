@@ -7,6 +7,7 @@ import AnimatedSection from '@/components/AnimatedSection';
 import MCPDemo from '@/components/MCPDemo';
 import SkillsSection from '@/components/SkillsSection';
 import PerformanceDashboard from '@/components/PerformanceDashboard';
+import { siteConfig } from '@/data/portfolio';
 
 function PortfolioContent() {
   const { projects, loading, error, featuredProjects } = useProjects();
@@ -22,12 +23,12 @@ function PortfolioContent() {
         <div className="text-center">
           <AnimatedSection>
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              AI-Enhanced Developer Portfolio
+              {siteConfig.title}
             </h1>
             <p className={`text-xl mb-8 ${
               isDark ? 'text-gray-300' : 'text-gray-600'
             }`}>
-              Showcasing cutting-edge development with MCP tools and modern React patterns
+              {siteConfig.description}
             </p>
           </AnimatedSection>
           
