@@ -1,94 +1,64 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import WebVitals from "@/components/WebVitals";
-import StructuredData from "@/components/StructuredData";
+import type { Metadata, Viewport } from 'next';
+import { Archivo, IBM_Plex_Mono } from 'next/font/google';
+import { siteConfig } from '@/data/portfolio';
+import './globals.css';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const archivo = Archivo({
+  variable: '--font-archivo',
+  subsets: ['latin'],
+  display: 'swap',
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const plexMono = IBM_Plex_Mono({
+  variable: '--font-plex-mono',
+  subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://portfolio-q1ik41oiz-mark-daniel-igubans-projects.vercel.app'),
+  metadataBase: new URL(siteConfig.siteUrl),
   title: {
-    default: "AI-Enhanced Developer Portfolio | Modern React & Next.js",
-    template: "%s | AI Portfolio"
+    default: `${siteConfig.name} — Software Engineer`,
+    template: `%s — ${siteConfig.name}`,
   },
-  description: "Full-stack developer showcasing AI-integrated projects with Next.js 15.5.2, React 19.1.1, TypeScript, and MCP tools integration. Professional portfolio with performance optimization and modern development practices.",
+  description: siteConfig.description,
+  applicationName: `${siteConfig.name} Portfolio`,
+  authors: [{ name: siteConfig.name, url: siteConfig.siteUrl }],
+  creator: siteConfig.name,
   keywords: [
-    "Next.js Developer",
-    "React Developer", 
-    "TypeScript Developer",
-    "AI Integration",
-    "MCP Tools",
-    "Full-Stack Developer",
-    "Frontend Developer",
-    "Web Development",
-    "JavaScript Developer",
-    "Modern Web Development"
+    'Software Engineer',
+    'Full-stack Developer',
+    'Next.js Developer',
+    'TypeScript Developer',
+    'Computer Vision',
+    'Philippines',
   ],
-  authors: [{ name: "Mark Daniel Iguban", url: "https://portfolio-q1ik41oiz-mark-daniel-igubans-projects.vercel.app" }],
-  creator: "Mark Daniel Iguban",
+  alternates: { canonical: '/' },
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://portfolio-q1ik41oiz-mark-daniel-igubans-projects.vercel.app",
-    title: "AI-Enhanced Developer Portfolio | Modern React & Next.js",
-    description: "Professional developer portfolio showcasing AI-integrated projects, modern React patterns, and cutting-edge web technologies.",
-    siteName: "AI Portfolio",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "AI-Enhanced Developer Portfolio"
-      }
-    ]
+    type: 'website',
+    locale: 'en_US',
+    url: '/',
+    title: `${siteConfig.name} — Software Engineer`,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
   },
   twitter: {
-    card: "summary_large_image",
-    title: "AI-Enhanced Developer Portfolio",
-    description: "Professional developer portfolio with AI integration and modern web technologies",
-    images: ["/og-image.png"]
+    card: 'summary_large_image',
+    title: `${siteConfig.name} — Software Engineer`,
+    description: siteConfig.description,
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1
-    }
-  },
-  verification: {
-    google: "your-google-verification-code", // Replace with actual verification code
-  }
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = {
+  colorScheme: 'light',
+  themeColor: '#F5F2EA',
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <head>
-        <StructuredData type="person" />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <WebVitals />
-        {children}
-      </body>
+    <html lang="en" className={`${archivo.variable} ${plexMono.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

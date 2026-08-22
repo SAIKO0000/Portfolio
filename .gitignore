@@ -12,6 +12,7 @@
 
 # testing
 /coverage
+/.tmp-visual/
 
 # next.js
 /.next/
