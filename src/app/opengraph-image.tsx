@@ -21,9 +21,8 @@ export default function OpenGraphImage() {
           border: '20px solid #171717',
         }}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start' }}>
           <div style={{ fontSize: 28, fontWeight: 700 }}>Mark Daniel Iguban</div>
-          <div style={{ display: 'flex', width: 72, height: 72, color: '#FFFFFF', background: '#2457E6', alignItems: 'center', justifyContent: 'center', fontSize: 26, fontWeight: 700 }}>MI</div>
         </div>
         <div style={{ display: 'flex', maxWidth: 970, fontSize: 72, lineHeight: 1.02, letterSpacing: '-3px', fontWeight: 700 }}>
           I build dependable software for complex, real-world workflows.

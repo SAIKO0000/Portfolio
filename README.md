@@ -7,7 +7,7 @@ An evidence-led software-engineering portfolio built with Next.js, React, TypeSc
 - Next.js App Router with static/server-rendered content.
 - Typed portfolio content in `src/data/portfolio.ts`.
 - No database, CMS, analytics, or hosted contact form.
-- Client JavaScript is limited to navigation, copy-email feedback, and restrained reveal behavior.
+- Client JavaScript is limited to navigation, active case-study chapter tracking, the manual product tour, copy-email feedback, and restrained reveal behavior.
 - Project evidence has an explicit publication state; only verified evidence is eligible for production.
 
 ## Routes
@@ -35,7 +35,18 @@ pnpm typecheck
 pnpm build
 ```
 
-The planned acceptance phase will add `pnpm test:e2e`. Its permanent Playwright suite will cover the homepage and both case studies at the four approved viewports.
+The permanent Playwright suite covers the homepage and both case studies in Chrome at 390x844, 768x1024, 1280x720, and 1440x900. It includes recruiter-flow, responsive-overflow, runtime, reduced-motion, mobile-navigation, and automated accessibility checks. Run it against a production build in a second terminal:
+
+```bash
+pnpm build
+pnpm exec next start --hostname 127.0.0.1 --port 4180
+```
+
+```bash
+pnpm test:e2e
+```
+
+Set `PLAYWRIGHT_BASE_URL` to use another already-running deployment.
 
 ## Content and evidence
 

@@ -1,16 +1,22 @@
 export type PublicationState = 'verified' | 'withheld' | 'pending';
+export type SocialPlatform = 'linkedin' | 'github' | 'instagram' | 'facebook';
+
+export interface SocialProfile {
+  platform: SocialPlatform;
+  label: string;
+  handle: string;
+  href: string;
+}
 
 export interface SiteConfig {
   name: string;
-  shortName: string;
   headline: string;
   introduction: string;
   description: string;
   email: string;
   location: string;
   opportunity: string;
-  githubUrl: string;
-  linkedinUrl: string;
+  socialProfiles: SocialProfile[];
   siteUrl: string;
   resumePath: string;
 }
@@ -67,9 +73,8 @@ export interface CaseStudySection {
 }
 
 export interface CaseStudy extends ProjectSummary {
-  sixtySecondSummary: string;
   sections: CaseStudySection[];
-  limitations: string[];
+  improvements: string[];
   nextSlug?: string;
 }
 
@@ -84,7 +89,6 @@ const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
 export const siteConfig: SiteConfig = {
   name: 'Mark Daniel Iguban',
-  shortName: 'MI',
   headline: 'I build dependable software for complex, real-world workflows.',
   introduction:
     'I’m Mark Daniel Iguban, a recent computer science graduate working across full-stack products and applied computer vision.',
@@ -93,8 +97,32 @@ export const siteConfig: SiteConfig = {
   email: 'igubanmark0@gmail.com',
   location: 'Philippines / remote',
   opportunity: 'Seeking full-time software-engineering roles',
-  githubUrl: 'https://github.com/SAIKO0000',
-  linkedinUrl: 'https://www.linkedin.com/in/mark-daniel-iguban-aa07751b6/',
+  socialProfiles: [
+    {
+      platform: 'linkedin',
+      label: 'LinkedIn',
+      handle: 'Mark Daniel Iguban',
+      href: 'https://www.linkedin.com/in/mark-daniel-iguban-aa07751b6/',
+    },
+    {
+      platform: 'github',
+      label: 'GitHub',
+      handle: '@SAIKO0000',
+      href: 'https://github.com/SAIKO0000',
+    },
+    {
+      platform: 'instagram',
+      label: 'Instagram',
+      handle: '@sircartierr0',
+      href: 'https://www.instagram.com/sircartierr0/',
+    },
+    {
+      platform: 'facebook',
+      label: 'Facebook',
+      handle: 'MarkDaniel.Iguban',
+      href: 'https://www.facebook.com/MarkDaniel.Iguban',
+    },
+  ],
   siteUrl: configuredSiteUrl ?? 'http://localhost:3000',
   resumePath: '/Mark-Daniel-Iguban-Resume.pdf',
 };
@@ -105,7 +133,7 @@ const projTrack: CaseStudy = {
   label: 'Full-stack product engineering',
   summary:
     'A project-operations workspace designed to make schedules, responsibilities, and reporting easier to coordinate.',
-  role: 'Full-stack developer in a team project',
+  role: 'Full-stack co-developer · Equal two-person build',
   year: '2025',
   technologies: ['Next.js', 'React', 'TypeScript', 'Supabase', 'Firebase'],
   outcome:
@@ -135,76 +163,97 @@ const projTrack: CaseStudy = {
       approvedForPublic: true,
     },
   ],
-  media: [],
-  sixtySecondSummary:
-    'ProjTrack organizes project planning and reporting work in one product surface. My focus was the full-stack path from operational requirements to role-aware screens, data-backed workflows, and a deployment that another person can inspect.',
+  media: [
+    {
+      id: 'projtrack-dashboard',
+      kind: 'image',
+      src: '/projtrack-portfolio-screenshots/01-dashboard-overview.png',
+      alt: 'ProjTrack demo dashboard showing project totals, progress trends, status distribution, and project navigation.',
+      caption: 'Dashboard overview with project status, ownership, and progress signals. Public demo with synthetic, browser-local records.',
+      publicationState: 'verified',
+    },
+    {
+      id: 'projtrack-portfolio',
+      kind: 'image',
+      src: '/projtrack-portfolio-screenshots/02-project-portfolio.png',
+      alt: 'ProjTrack demo project portfolio showing search, status filters, review assignment, project metrics, and project cards.',
+      caption: 'Project portfolio view with search, status filters, review assignment, and project cards.',
+      publicationState: 'verified',
+    },
+    {
+      id: 'projtrack-create',
+      kind: 'image',
+      src: '/projtrack-portfolio-screenshots/03-create-project-workflow.png',
+      alt: 'ProjTrack demo create-project form showing client, location, status, team size, and schedule fields.',
+      caption: 'A structured create-project workflow that collects ownership, schedule, location, and delivery context.',
+      publicationState: 'verified',
+    },
+    {
+      id: 'projtrack-gantt',
+      kind: 'image',
+      src: '/projtrack-portfolio-screenshots/04-gantt-project-timeline.png',
+      alt: 'ProjTrack demo Gantt chart showing task filters, assignees, progress states, and a monthly project timeline.',
+      caption: 'Monthly Gantt workflow with task filters, owners, progress states, and completion windows.',
+      publicationState: 'verified',
+    },
+    {
+      id: 'projtrack-calendar',
+      kind: 'image',
+      src: '/projtrack-portfolio-screenshots/05-calendar-scheduling.png',
+      alt: 'ProjTrack demo scheduling calendar showing project filters and upcoming engineering events.',
+      caption: 'Scheduling calendar that connects project filters, delivery dates, and upcoming engineering events.',
+      publicationState: 'verified',
+    },
+    {
+      id: 'projtrack-documents',
+      kind: 'image',
+      src: '/projtrack-portfolio-screenshots/06-reports-document-control.png',
+      alt: 'ProjTrack demo document-control workspace showing report approval states, reviewer notes, filters, and file actions.',
+      caption: 'Document-control workspace with approval status, reviewer context, filters, and file actions.',
+      publicationState: 'verified',
+    },
+  ],
   sections: [
     {
-      id: 'problem',
-      label: 'Problem and context',
+      id: 'challenge',
+      label: 'Challenge',
       title: 'Project information loses value when the workflow around it is fragmented.',
       paragraphs: [
         'Planning, scheduling, progress updates, and reports are closely related, but they are often handled as separate documents. That makes ownership harder to see and turns routine coordination into manual reconciliation.',
-        'ProjTrack was shaped as a single operational workspace: the interface needed to expose the right project context without making every screen feel like an administrative dashboard.',
-      ],
-    },
-    {
-      id: 'role',
-      label: 'Role and team',
-      title: 'I worked across interface, application logic, and data-backed behavior.',
-      paragraphs: [
-        'This was a team-based project. My case study concentrates on the product-engineering work I can explain directly: shaping workflows, implementing responsive interfaces, connecting application state to hosted data services, and testing the resulting paths.',
-      ],
-    },
-    {
-      id: 'constraints',
-      label: 'User and business constraints',
-      title: 'The product had to stay legible while representing real operational rules.',
-      paragraphs: [
-        'Different responsibilities require different actions and levels of visibility. Scheduling information also needs to remain consistent with the project record and its reports.',
+        'The interface therefore had to expose project context, responsibility, and next actions without turning every screen into a dense administrative dashboard.',
       ],
       points: [
-        'Keep role-dependent actions understandable.',
-        'Preserve clear status and ownership signals.',
-        'Support planning and reporting without duplicating the same information.',
-        'Maintain usable layouts across desktop and smaller screens.',
+        'Keep role-dependent actions and ownership understandable.',
+        'Keep schedules, project records, and reports consistent.',
+        'Support detailed operational work without losing scanability.',
       ],
     },
     {
-      id: 'architecture',
-      label: 'Architecture and data flow',
-      title: 'Typed UI boundaries kept product behavior close to the data it represents.',
+      id: 'approach',
+      label: 'Approach',
+      title: 'Typed product states connected information to the actions people needed to take.',
       paragraphs: [
-        'The React and Next.js interface models project records, schedules, and reporting actions as explicit product states. Hosted data services provide persistence, while TypeScript keeps the UI contracts visible during implementation.',
-        'The public architecture diagram will be added after it is checked against the final repository structure. No diagram is shown in this preview as factual evidence yet.',
+        'The Next.js and React interface models projects, schedules, reporting actions, and role-aware states explicitly. TypeScript keeps those contracts visible across views, while hosted services support persistence and product integrations.',
       ],
-    },
-    {
-      id: 'decisions',
-      label: 'Technical decisions',
-      title: 'The most useful decisions reduced ambiguity in the workflow.',
-      paragraphs: [],
       points: [
-        'Organize navigation around jobs users perform, rather than around implementation modules.',
-        'Use shared typed models so status and schedule data mean the same thing across views.',
-        'Treat responsive behavior as part of the workflow, not a late visual adjustment.',
-        'Keep the public demo separate from claims that require private project evidence.',
+        'Organized navigation around user jobs rather than implementation modules.',
+        'Used shared typed models so status and schedule data retain the same meaning across views.',
+        'Designed responsive behavior as part of each workflow instead of treating it as a final visual pass.',
       ],
     },
     {
-      id: 'reflection',
-      label: 'Outcome and reflection',
-      title: 'The strongest lesson was to design the handoff between information and action.',
+      id: 'result',
+      label: 'Result',
+      title: 'The result is a working product demo—and a clearer approach to operational software.',
       paragraphs: [
-        'Building ProjTrack made the cost of ambiguous state visible. A polished screen is not enough when people cannot tell who owns the next action or how one update affects the wider project.',
-        'A future iteration would formalize the domain model earlier and document the access model alongside each workflow before expanding the interface.',
+        'The public demo makes the core project, timeline, document, and reporting workflows available for direct inspection. It demonstrates the product as a connected system without relying on unsupported productivity metrics.',
+        'Building ProjTrack made the cost of ambiguous state visible: a polished screen is not enough when people cannot tell who owns the next action or how one update affects the wider project.',
       ],
     },
   ],
-  limitations: [
-    'The public repository link is withheld until placeholder metadata and broken screenshot references are corrected in a separate reviewed change.',
-    'No quantitative outcome is published because a traceable measurement method and comparison baseline have not been approved.',
-    'Interface captures are still moving through the asset review gate.',
+  improvements: [
+    'Formalize the domain and access models earlier, alongside each workflow.',
+    'Add structured usability and performance validation before publishing numerical outcome claims.',
   ],
   nextSlug: 'frozen-shoulder-dss',
 };
@@ -224,78 +273,47 @@ const frozenShoulder: CaseStudy = {
   links: [],
   evidence: [],
   media: [],
-  sixtySecondSummary:
-    'Frozen Shoulder DSS explores how a CPU-friendly pose-processing pipeline can support rehabilitation assessment and reporting. I worked across research, application design, joint-angle logic, repetition and compensation signals, and the workflow that turns a session into a reviewable report.',
   sections: [
     {
-      id: 'problem',
-      label: 'Rehabilitation problem',
+      id: 'challenge',
+      label: 'Challenge',
       title: 'Useful movement feedback depends on more than detecting a pose.',
       paragraphs: [
         'A rehabilitation tool must connect observed motion to a repeatable assessment workflow. It also needs to communicate uncertainty and avoid presenting a noisy estimate as a clinical fact.',
-        'The prototype focused on making movement observations reviewable while keeping the system practical on ordinary CPU hardware.',
-      ],
-    },
-    {
-      id: 'role',
-      label: 'Research and engineering role',
-      title: 'I connected the research question to an end-to-end working pipeline.',
-      paragraphs: [
-        'My work covered the application flow, pose-landmark processing, range-of-motion calculations, repetition and compensation logic, reliability handling, and report-oriented outputs. I also treated evaluation design and public-data safety as part of the engineering problem.',
-      ],
-    },
-    {
-      id: 'constraints',
-      label: 'CPU and usability constraints',
-      title: 'The system had to remain understandable under imperfect input conditions.',
-      paragraphs: [
-        'Camera position, occlusion, clothing, lighting, and movement pace can all change landmark quality. The experience therefore needs observable reliability states and conservative feedback instead of silently accepting every frame.',
+        'Camera position, occlusion, clothing, lighting, and movement pace can all affect landmark quality, while the system still needs to remain practical on ordinary CPU hardware.',
       ],
       points: [
         'Operate without requiring a dedicated GPU.',
         'Separate unstable observations from usable movement samples.',
         'Keep setup and session feedback understandable to a non-specialist user.',
-        'Avoid exposing participant-identifying or health-sensitive material.',
       ],
     },
     {
-      id: 'pipeline',
-      label: 'Pose-processing pipeline',
+      id: 'approach',
+      label: 'Approach',
       title: 'Frame input becomes feedback through a sequence of explicit checks.',
       paragraphs: [
-        'The working model follows a staged flow: capture a frame, estimate landmarks, assess landmark reliability, calculate relevant joint geometry, update movement state, detect compensation patterns, and record session output.',
-        'The public pipeline diagram and demonstration will use synthetic or deliberately re-enacted input after review.',
+        'The working model captures a frame, estimates landmarks, assesses reliability, calculates joint geometry, updates movement state, detects compensation patterns, and records session output. Temporal state turns those observations into range-of-motion, repetition, and compensation feedback, while the reporting layer organizes the session into something a person can review.',
+      ],
+      points: [
+        'Gate calculations using landmark reliability instead of accepting every frame.',
+        'Use explicit state transitions for repetition counting.',
+        'Keep compensation feedback separate from the primary movement signal.',
       ],
     },
     {
-      id: 'logic',
-      label: 'ROM, repetition, and reliability',
-      title: 'Temporal state matters as much as any single angle.',
+      id: 'result',
+      label: 'Result',
+      title: 'The project made reliability and evidence boundaries part of the product.',
       paragraphs: [
-        'Range-of-motion estimates become more useful when they are interpreted over a movement sequence. Repetition counting needs thresholds and state transitions, while compensation feedback requires its own conditions so it does not compete with the primary movement signal.',
-      ],
-    },
-    {
-      id: 'reporting',
-      label: 'Reporting workflow',
-      title: 'A session should end in something a person can review—not a stream of landmarks.',
-      paragraphs: [
-        'The reporting layer organizes recorded movement observations into a session-level artifact. Public examples will be sanitized and will avoid clinical claims beyond the verified scope of the prototype.',
-      ],
-    },
-    {
-      id: 'reflection',
-      label: 'Evaluation and reflection',
-      title: 'A decision-support system must make its evidence boundaries visible.',
-      paragraphs: [
-        'The project reinforced that evaluation design cannot be separated from implementation. Future validation should define the reference method, population, protocol, denominators, and error analysis before performance figures are presented publicly.',
+        'The prototype connects pose observations to a reviewable exercise-session workflow while remaining conservative about uncertain input and clinical interpretation.',
+        'The strongest lesson was that evaluation design cannot be separated from implementation: the reference method, population, protocol, denominators, and error analysis must be defined before performance figures are presented.',
       ],
     },
   ],
-  limitations: [
-    'No participant footage, health-sensitive data, disputed metric, or private repository link is published.',
-    'The prototype is decision support, not a replacement for clinical judgment.',
-    'Public visuals remain blocked until synthetic or re-enacted captures are reviewed for accuracy and privacy.',
+  improvements: [
+    'Validate reliability across more camera positions, movement conditions, and representative sessions.',
+    'Define a formal reference protocol and error-analysis method before publishing performance metrics.',
   ],
   nextSlug: 'projtrack',
 };
@@ -383,6 +401,10 @@ export function verifiedLinks(links: ProjectLink[]): ProjectLink[] {
 
 export function verifiedEvidence(items: EvidenceItem[]): EvidenceItem[] {
   return items.filter(isEvidencePublishable);
+}
+
+export function verifiedMedia(items: MediaAsset[]): MediaAsset[] {
+  return items.filter((item) => item.publicationState === 'verified');
 }
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {

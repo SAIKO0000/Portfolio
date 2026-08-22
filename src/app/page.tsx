@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import { CopyEmail } from '@/components/site/CopyEmail';
-import { ProjectPlaceholder } from '@/components/site/ProjectPlaceholder';
+import { DeveloperCredential } from '@/components/site/DeveloperCredential';
+import { ProjectCover } from '@/components/site/ProjectCover';
 import { SiteFooter } from '@/components/site/SiteFooter';
 import { SiteHeader } from '@/components/site/SiteHeader';
+import { SocialProfileIndex } from '@/components/site/SocialProfileIndex';
 import { StructuredData } from '@/components/site/StructuredData';
 import {
   capabilities,
@@ -23,22 +25,25 @@ export default function Home() {
       <main id="main-content">
         <section className="hero site-container" aria-labelledby="hero-title">
           <div className="hero__statement">
-            <p className="eyebrow">Software engineer · Philippines</p>
+            <p className="hero__kicker">Software engineer <span aria-hidden="true">/</span> Philippines</p>
             <h1 id="hero-title">{siteConfig.headline}</h1>
             <p className="hero__introduction">{siteConfig.introduction}</p>
-            <a className="arrow-link" href="#work">Explore selected work <span aria-hidden="true">↘</span></a>
+            <a className="primary-action" href="#work">View selected work <span aria-hidden="true">↘</span></a>
           </div>
 
           <aside className="evidence-index" aria-label="Professional summary">
-            <p className="eyebrow eyebrow--inverse">At a glance</p>
+            <div className="evidence-index__heading">
+              <p className="eyebrow eyebrow--inverse">At a glance</p>
+              <p>Product-minded engineering, grounded in real workflows.</p>
+            </div>
             <dl>
               <div>
                 <dt>Focus</dt>
-                <dd>Full-stack software engineering</dd>
+                <dd>Full-stack products</dd>
               </div>
               <div>
                 <dt>Education</dt>
-                <dd>Recent computer science graduate</dd>
+                <dd>Recent CS graduate</dd>
               </div>
               <div>
                 <dt>Location</dt>
@@ -56,24 +61,26 @@ export default function Home() {
         </section>
 
         <section id="work" className="section site-container" aria-labelledby="selected-work-title">
-          <div className="section-heading">
-            <p className="eyebrow">01 / Selected work</p>
-            <h2 id="selected-work-title">Products shaped around real constraints.</h2>
-          </div>
+          <header className="section-intro section-intro--work">
+            <h2 id="selected-work-title">Selected work</h2>
+            <p>Two projects that show how I turn operational and technical constraints into software people can understand and use.</p>
+          </header>
 
           <div className="selected-work-grid">
             <article className="project-panel project-panel--featured">
-              <ProjectPlaceholder project={projTrack.title} variant="product" />
+              <Link className="project-panel__visual-link" href={`/work/${projTrack.slug}`} aria-label={`View ${projTrack.title} case study`}>
+                <ProjectCover project={projTrack.title} variant="product" />
+              </Link>
               <div className="project-panel__body">
                 <div className="project-panel__meta">
                   <span>{projTrack.label}</span>
                   <span>{projTrack.year}</span>
                 </div>
-                <h3>{projTrack.title}</h3>
+                <h3><Link href={`/work/${projTrack.slug}`}>{projTrack.title}</Link></h3>
                 <p>{projTrack.summary}</p>
                 <dl className="project-facts">
                   <div><dt>Role</dt><dd>{projTrack.role}</dd></div>
-                  <div><dt>Learning</dt><dd>{projTrack.outcome}</dd></div>
+                  <div><dt>Evidence</dt><dd>Working public product demo</dd></div>
                 </dl>
                 <div className="tag-list" aria-label={`${projTrack.title} technologies`}>
                   {projTrack.technologies.map((technology) => <span key={technology}>{technology}</span>)}
@@ -85,17 +92,19 @@ export default function Home() {
             </article>
 
             <article className="project-panel project-panel--complementary">
-              <ProjectPlaceholder project={frozenShoulder.title} variant="vision" />
+              <Link className="project-panel__visual-link" href={`/work/${frozenShoulder.slug}`} aria-label={`View ${frozenShoulder.title} case study`}>
+                <ProjectCover project={frozenShoulder.title} variant="vision" />
+              </Link>
               <div className="project-panel__body">
                 <div className="project-panel__meta">
                   <span>{frozenShoulder.label}</span>
                   <span>{frozenShoulder.year}</span>
                 </div>
-                <h3>{frozenShoulder.title}</h3>
+                <h3><Link href={`/work/${frozenShoulder.slug}`}>{frozenShoulder.title}</Link></h3>
                 <p>{frozenShoulder.summary}</p>
                 <dl className="project-facts">
                   <div><dt>Role</dt><dd>{frozenShoulder.role}</dd></div>
-                  <div><dt>Learning</dt><dd>{frozenShoulder.outcome}</dd></div>
+                  <div><dt>Constraint</dt><dd>CPU-friendly, privacy-conscious feedback</dd></div>
                 </dl>
                 <div className="tag-list" aria-label={`${frozenShoulder.title} technologies`}>
                   {frozenShoulder.technologies.map((technology) => <span key={technology}>{technology}</span>)}
@@ -109,13 +118,13 @@ export default function Home() {
 
           <div className="supporting-work" aria-labelledby="supporting-work-title">
             <div className="supporting-work__heading">
-              <p className="eyebrow">Supporting work</p>
-              <h3 id="supporting-work-title">More systems, kept concise.</h3>
+              <h3 id="supporting-work-title">Supporting work</h3>
+              <p>Additional systems presented at the level their current evidence supports.</p>
             </div>
             <div>
               {supportingProjects.map((project, index) => (
                 <article className="project-row" key={project.slug}>
-                  <span className="project-row__number">0{index + 3}</span>
+                  <span className="project-row__number" aria-hidden="true">0{index + 3}</span>
                   <div>
                     <p className="project-row__label">{project.label}</p>
                     <h4>{project.title}</h4>
@@ -134,11 +143,11 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section section--ruled site-container" aria-labelledby="capabilities-title">
-          <div className="section-heading section-heading--compact">
-            <p className="eyebrow">02 / Capabilities</p>
-            <h2 id="capabilities-title">Skills connected to work, not percentages.</h2>
-          </div>
+        <section className="section section--compact section--ruled site-container" aria-labelledby="capabilities-title">
+          <header className="section-intro">
+            <h2 id="capabilities-title">Capabilities backed by work</h2>
+            <p>No percentage bars or keyword clouds—each capability points to a project where it had to work in practice.</p>
+          </header>
           <div className="capability-list">
             {capabilities.map((capability, index) => {
               const isCaseStudy = caseStudies.some((study) => study.slug === capability.evidenceProjectSlug);
@@ -157,11 +166,11 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about" className="section about site-container" aria-labelledby="about-title">
-          <div className="section-heading">
-            <p className="eyebrow">03 / About</p>
-            <h2 id="about-title">I like software that earns trust through clarity.</h2>
-          </div>
+        <section id="about" className="section section--compact about site-container" aria-labelledby="about-title">
+          <header className="section-intro">
+            <h2 id="about-title">About</h2>
+            <p>I like software that earns trust through clear behavior, explicit constraints, and honest evidence.</p>
+          </header>
           <div className="about__content">
             <div className="about__lead">
               <p>
@@ -186,17 +195,19 @@ export default function Home() {
 
         <section id="contact" className="contact-section" aria-labelledby="contact-title">
           <div className="site-container contact-section__inner">
-            <p className="eyebrow">04 / Contact</p>
-            <h2 id="contact-title">Have a software problem worth making clearer?</h2>
-            <p>I’m looking for a full-time software-engineering role in the Philippines or with a remote team.</p>
-            <div className="contact-actions">
-              <a className="primary-link" href={`mailto:${siteConfig.email}`}>{siteConfig.email} <span aria-hidden="true">↗</span></a>
-              <CopyEmail email={siteConfig.email} />
+            <div className="contact-section__main">
+              <div className="contact-section__copy">
+                <p className="contact-section__label">Available for full-time roles</p>
+                <h2 id="contact-title">I’m ready to contribute to a product team.</h2>
+                <p>I’m looking for a full-time software-engineering role in the Philippines or with a remote team.</p>
+                <div className="contact-actions">
+                  <a className="primary-link" href={`mailto:${siteConfig.email}`}>{siteConfig.email} <span aria-hidden="true">↗</span></a>
+                  <CopyEmail email={siteConfig.email} />
+                </div>
+              </div>
+              <DeveloperCredential />
             </div>
-            <div className="social-links" aria-label="Social profiles">
-              <a href={siteConfig.githubUrl} target="_blank" rel="noreferrer">GitHub ↗</a>
-              <a href={siteConfig.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn ↗</a>
-            </div>
+            <SocialProfileIndex profiles={siteConfig.socialProfiles} />
           </div>
         </section>
       </main>
@@ -210,7 +221,7 @@ export default function Home() {
           email: `mailto:${siteConfig.email}`,
           jobTitle: 'Software Engineer',
           alumniOf: { '@type': 'CollegeOrUniversity', name: 'Cavite State University' },
-          sameAs: [siteConfig.githubUrl, siteConfig.linkedinUrl],
+          sameAs: siteConfig.socialProfiles.map(({ href }) => href),
         }}
       />
     </>

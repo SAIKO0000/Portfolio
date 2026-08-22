@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ProjectPlaceholder } from '@/components/site/ProjectPlaceholder';
+import { CaseStudyNav, type CaseNavItem } from '@/components/site/CaseStudyNav';
+import { ProjectCover } from '@/components/site/ProjectCover';
+import { ProductTour } from '@/components/site/ProductTour';
 import { SiteFooter } from '@/components/site/SiteFooter';
 import { SiteHeader } from '@/components/site/SiteHeader';
 import { StructuredData } from '@/components/site/StructuredData';
-import { caseStudies, getCaseStudy, siteConfig, verifiedEvidence, verifiedLinks } from '@/data/portfolio';
+import { caseStudies, getCaseStudy, siteConfig, verifiedLinks, verifiedMedia } from '@/data/portfolio';
 
 interface CaseStudyPageProps {
   params: Promise<{ slug: string }>;
@@ -41,8 +43,13 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
 
   const nextStudy = study.nextSlug ? getCaseStudy(study.nextSlug) : undefined;
   const publicLinks = verifiedLinks(study.links);
-  const publicEvidence = verifiedEvidence(study.evidence);
-  const placeholderVariant = study.slug === 'projtrack' ? 'product' : 'vision';
+  const publicMedia = verifiedMedia(study.media);
+  const coverVariant = study.slug === 'projtrack' ? 'product' : 'vision';
+  const hasShowcase = publicMedia.length > 1;
+  const navItems: CaseNavItem[] = [
+    ...(hasShowcase ? [{ id: 'showcase', label: 'Showcase' }] : []),
+    ...study.sections.map((section) => ({ id: section.id, label: section.label })),
+  ];
 
   return (
     <>
@@ -60,28 +67,6 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
               <p className="eyebrow">{study.label}</p>
               <h1>{study.title}</h1>
               <p className="case-hero__summary">{study.summary}</p>
-            </div>
-            <dl className="case-meta">
-              <div><dt>Role</dt><dd>{study.role}</dd></div>
-              <div><dt>Year</dt><dd>{study.year}</dd></div>
-              <div><dt>Stack</dt><dd>{study.technologies.join(' · ')}</dd></div>
-            </dl>
-          </div>
-          <ProjectPlaceholder project={study.title} variant={placeholderVariant} />
-        </header>
-
-        <div className="case-layout site-container">
-          <aside className="case-toc" aria-label="Case study chapters">
-            <p className="eyebrow">On this page</p>
-            <a href="#summary">60-second summary</a>
-            {study.sections.map((section) => <a key={section.id} href={`#${section.id}`}>{section.label}</a>)}
-            <a href="#limitations">Limitations</a>
-          </aside>
-
-          <div className="case-content">
-            <section id="summary" className="case-section case-section--summary">
-              <p className="eyebrow">00 / 60-second summary</p>
-              <p className="case-summary">{study.sixtySecondSummary}</p>
               {publicLinks.length > 0 && (
                 <div className="case-actions">
                   {publicLinks.map((link) => (
@@ -91,11 +76,34 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
                   ))}
                 </div>
               )}
-            </section>
+            </div>
+            <dl className="case-meta">
+              <div><dt>Role</dt><dd>{study.role}</dd></div>
+              <div><dt>Year</dt><dd>{study.year}</dd></div>
+              <div><dt>Stack</dt><dd>{study.technologies.join(' · ')}</dd></div>
+            </dl>
+          </div>
+        </header>
 
-            {study.sections.map((section, index) => (
-              <section id={section.id} className="case-section" key={section.id}>
-                <p className="eyebrow">{String(index + 1).padStart(2, '0')} / {section.label}</p>
+        <CaseStudyNav items={navItems} />
+
+        {hasShowcase ? (
+          <section id="showcase" className="case-showcase site-container" aria-label={`${study.title} product showcase`}>
+            <ProductTour assets={publicMedia} product={study.title} />
+          </section>
+        ) : (
+          <div className="case-cover-stage site-container">
+            <ProjectCover project={study.title} variant={coverVariant} />
+          </div>
+        )}
+
+        <div className="case-layout site-container">
+          <div className="case-content">
+            {study.sections.map((section) => (
+              <section key={section.id} id={section.id} className="case-section">
+                <p className="eyebrow">
+                  {String(navItems.findIndex((item) => item.id === section.id) + 1).padStart(2, '0')} / {section.label}
+                </p>
                 <h2>{section.title}</h2>
                 {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                 {section.points && (
@@ -103,31 +111,16 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
                     {section.points.map((point) => <li key={point}>{point}</li>)}
                   </ul>
                 )}
+                {section.id === 'result' && (
+                  <div className="case-improvements">
+                    <p className="eyebrow">What I would improve next</p>
+                    <ul className="case-points">
+                      {study.improvements.map((improvement) => <li key={improvement}>{improvement}</li>)}
+                    </ul>
+                  </div>
+                )}
               </section>
             ))}
-
-            {publicEvidence.length > 0 && (
-              <section className="case-section" aria-labelledby="evidence-title">
-                <p className="eyebrow">Verified evidence</p>
-                <h2 id="evidence-title">Artifacts available for inspection.</h2>
-                <ul className="evidence-list">
-                  {publicEvidence.map((item) => (
-                    <li key={item.id}>
-                      <strong>{item.title}</strong>
-                      <span>{item.description}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-
-            <section id="limitations" className="case-section case-section--limitations">
-              <p className="eyebrow">Limitations and next validation</p>
-              <h2>What this case study does not claim.</h2>
-              <ul className="case-points">
-                {study.limitations.map((limitation) => <li key={limitation}>{limitation}</li>)}
-              </ul>
-            </section>
           </div>
         </div>
 
@@ -151,6 +144,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
           url: `${siteConfig.siteUrl}/work/${study.slug}`,
           creator: { '@type': 'Person', name: siteConfig.name, url: siteConfig.siteUrl },
           keywords: study.technologies,
+          ...(publicMedia[0] ? { image: `${siteConfig.siteUrl}${publicMedia[0].src}` } : {}),
         }}
       />
     </>

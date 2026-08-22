@@ -13,6 +13,8 @@
 # testing
 /coverage
 /.tmp-visual/
+/playwright-report/
+/test-results/
 
 # next.js
 /.next/
@@ -27,6 +29,9 @@
 
 # private editable source documents
 /resume*.docx
+
+# superseded local source assets
+/public/Portrait.JPG
 
 # debug
 npm-debug.log*
