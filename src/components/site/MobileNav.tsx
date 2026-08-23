@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { siteConfig } from '@/data/portfolio';
+import { ThemeToggle } from './ThemeToggle';
 
 const navigation = [
   { label: 'Work', href: '/#work' },
@@ -58,6 +59,7 @@ export function MobileNav() {
               <span aria-hidden="true">{item.utility ? 'PDF ↗' : '·'}</span>
             </a>
           ))}
+          <ThemeToggle />
         </nav>
       )}
     </div>

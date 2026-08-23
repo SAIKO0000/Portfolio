@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { siteConfig } from '@/data/portfolio';
+import { ThemeToggle } from './ThemeToggle';
 
 const navigation = [
   { label: 'Work', href: '/#work', sectionId: 'work' },
@@ -47,6 +48,7 @@ export function DesktopNav() {
           {item.utility && <span aria-hidden="true">↗</span>}
         </a>
       ))}
+      <ThemeToggle compact />
     </nav>
   );
 }

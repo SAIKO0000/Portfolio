@@ -6,7 +6,7 @@ Frame/Shift is an internal working name, not visitor-facing branding. The public
 
 ## Design intent
 
-The site is a light, evidence-led **Modern Tool portfolio** with a selective micro-bento project composition and restrained editorial typography. It should feel calm, technical, direct, and recognizably personal without behaving like a magazine, dashboard, or 3D showcase.
+The site is an evidence-led **Modern Tool portfolio** with a selective micro-bento project composition, restrained editorial typography, and coordinated light and dark material palettes. It should feel calm, technical, direct, and recognizably personal without behaving like a magazine, dashboard, or 3D showcase.
 
 Recruiter conventions control the journey: a sticky navigation bar, one-screen positioning and action, plainly named sections, linear mobile order, visible case-study links, and direct contact. The seven/five selected-work composition creates hierarchy without turning every section into a grid. Editorial devices are limited to the oversized hero statement, mono annotations, keylines, and asymmetric project emphasis.
 
@@ -31,14 +31,15 @@ Mark's 46 saved components consistently favor tactile controls, retro hardware, 
 
 ### Color
 
-| Token | Value | Use |
-| --- | --- | --- |
-| Paper | `#F5F2EA` | Approximately 75% of page area |
-| White | `#FFFFFF` | 15–20%; real media and necessary surfaces |
-| Graphite | `#171717` | Primary text, keylines, and controls |
-| Signal cobalt | `#2457E6` | Under 5%, except the hero evidence panel |
+| Token | Light | Dark | Use |
+| --- | --- | --- | --- |
+| Paper | `#F5F2EA` | `#11110F` | Dominant page field |
+| Surface | `#FFFFFF` | `#1A1A17` | Necessary panels and section contrast |
+| Graphite | `#171717` | `#F3F0E8` | Primary text, keylines, and controls |
+| Signal cobalt | `#2457E6` | `#7C9AFF` | Links, focus, and small signals |
+| Inverse cobalt | `#2457E6` | `#2457E6` | Hero evidence panel and white-on-cobalt surfaces |
 
-Use white text on cobalt. Never place graphite body text on cobalt. White and paper need a graphite keyline when their boundary matters. Cobalt links require an underline or another non-color cue. Focus must remain visible without hover.
+Use white text on the inverse cobalt panel. Never place graphite body text on that panel. Surface and paper need a graphite keyline when their boundary matters. Cobalt links require an underline or another non-color cue. Focus must remain visible without hover. Project screenshots retain their source colors and are never filtered to imitate the selected theme.
 
 ### Typography
 
@@ -109,6 +110,8 @@ Desktop chapter navigation starts below the 72px sticky header, fits within the 
 
 ## Interaction and motion
 
+- The header appearance control follows the operating-system preference until the visitor makes an explicit choice; that choice persists locally without a theme-provider dependency.
+- The appearance-control icon uses the existing 220ms response timing; palette changes are immediate to avoid low-contrast intermediate states, and reduced motion makes the icon response effectively immediate.
 - 140ms: press and focus response.
 - 220ms: hover and frame-offset response.
 - 360ms: one restrained entrance transition.

@@ -74,6 +74,25 @@ test.describe('homepage', () => {
     expect(Number.parseFloat(animationDuration)).toBeLessThanOrEqual(0.01);
     await expect(page.getByRole('link', { name: /view selected work/i })).toBeVisible();
   });
+
+  test('switches and persists the selected appearance', async ({ page }, testInfo) => {
+    await page.goto('/');
+
+    if (testInfo.project.name === 'mobile-390') {
+      await page.getByRole('button', { name: /menu/i }).click();
+    }
+
+    const appearanceToggle = page.getByRole('button', { name: /switch to dark mode/i });
+    await expect(appearanceToggle).toBeVisible();
+    await appearanceToggle.click();
+
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await expect(page.getByRole('button', { name: /switch to light mode/i })).toBeVisible();
+    await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#11110F');
+
+    await page.reload();
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  });
 });
 
 for (const path of ['/work/projtrack', '/work/frozen-shoulder-dss']) {

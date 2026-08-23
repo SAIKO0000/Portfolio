@@ -12,7 +12,7 @@ Build an evidence-led recruiter portfolio for Mark Daniel Iguban, a recent compu
 - Frozen Shoulder DSS follows as the applied-computer-vision differentiator.
 - Accounting Modernization and Resource Hive remain concise supporting work.
 - Frame/Shift is an internal design-system name; the public identity is Mark's full name.
-- The site is static/server-first, database-free, CMS-free, light-only, and hosted on Vercel.
+- The site is static/server-first, database-free, CMS-free, supports an accessible light/dark appearance, and is hosted on Vercel.
 - Typed local content under `src/data` is the source of truth.
 - Only evidence marked `verified` may ship. Pending or withheld evidence is excluded from the public UI.
 - Quantitative claims require a measurement method, denominator or baseline, supporting artifact, and explicit approval.
@@ -50,7 +50,7 @@ Build an evidence-led recruiter portfolio for Mark Daniel Iguban, a recent compu
 
 - Custom domain and Cloudflare DNS.
 - Privacy-conscious analytics tied to a specific decision.
-- Dark mode, additional case studies, and writing.
+- Additional case studies and writing.
 - A CMS or database only if recurring non-developer editing or genuinely dynamic content makes it necessary.
 
 ## Risks and gates
@@ -63,6 +63,7 @@ Build an evidence-led recruiter portfolio for Mark Daniel Iguban, a recent compu
 
 ## Completed
 
+- Added a dependency-free Frame/Shift dark mode that follows the operating-system preference on first visit, persists an explicit choice, updates browser chrome, and remains accessible from desktop and mobile navigation. Evidence: lint, type checking, production build, and permanent Playwright coverage for toggling and persistence.
 - Adopted a static-first architecture and removed the previous Supabase design.
 - Installed the repository-local `web-design-engineer` and `project-planner` skills.
 - Confirmed the Frame/Shift design direction, palette, typography, grid, hierarchy, motion limits, and evidence policy.

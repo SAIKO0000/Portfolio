@@ -51,13 +51,31 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  colorScheme: 'light',
+  colorScheme: 'light dark',
   themeColor: '#F5F2EA',
 };
 
+const themeInitializer = `
+  (function () {
+    try {
+      var storedTheme = window.localStorage.getItem('portfolio-theme');
+      var theme = storedTheme === 'light' || storedTheme === 'dark'
+        ? storedTheme
+        : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme;
+      var themeColor = document.querySelector('meta[name="theme-color"]');
+      if (themeColor) themeColor.setAttribute('content', theme === 'dark' ? '#11110F' : '#F5F2EA');
+    } catch (_) {}
+  })();
+`;
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${archivo.variable} ${plexMono.variable}`}>
+    <html lang="en" className={`${archivo.variable} ${plexMono.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitializer }} />
+      </head>
       <body>{children}</body>
     </html>
   );

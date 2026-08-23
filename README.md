@@ -7,7 +7,7 @@ An evidence-led software-engineering portfolio built with Next.js, React, TypeSc
 - Next.js App Router with static/server-rendered content.
 - Typed portfolio content in `src/data/portfolio.ts`.
 - No database, CMS, analytics, or hosted contact form.
-- Client JavaScript is limited to navigation, active case-study chapter tracking, the manual product tour, copy-email feedback, and restrained reveal behavior.
+- Client JavaScript is limited to navigation, the persistent light/dark appearance control, active case-study chapter tracking, the manual product tour, copy-email feedback, and restrained reveal behavior.
 - Project evidence has an explicit publication state; only verified evidence is eligible for production.
 
 ## Routes
@@ -68,4 +68,4 @@ Deploy the production build to Vercel. Set `NEXT_PUBLIC_SITE_URL` to the verifie
 pnpm build
 ```
 
-Custom domains, analytics, dark mode, a CMS, and additional case studies are intentionally deferred.
+Custom domains, analytics, a CMS, and additional case studies are intentionally deferred.
