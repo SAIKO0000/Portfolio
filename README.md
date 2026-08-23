@@ -63,7 +63,7 @@ The source résumé DOCX is private and ignored. Only the reviewed PDF may be pu
 
 ## Deployment
 
-Deploy through the Git-connected Vercel project. Set `NEXT_PUBLIC_SITE_URL` to the verified stable production alias and keep `NEXT_PUBLIC_ENABLE_INDEXING=false` until visual, accessibility, evidence, and link acceptance are complete. Change the indexing flag to `true` only for an accepted production release.
+Deploy through the Git-connected Vercel project at `https://mark-daniel-iguban-portfolio.vercel.app`. Set `NEXT_PUBLIC_SITE_URL` to that stable production alias and keep `NEXT_PUBLIC_ENABLE_INDEXING=false` until visual, accessibility, evidence, link, and unauthenticated production acceptance are complete. Change the indexing flag to `true` only for an accepted public release.
 
 Keep `NEXT_PUBLIC_ENABLE_OBSERVABILITY=false` until Web Analytics and Speed Insights are enabled in the Vercel dashboard. Set it to `true` and redeploy after both products are active; this prevents missing-script errors in local and pre-activation environments.
 
