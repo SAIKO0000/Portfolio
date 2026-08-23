@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Archivo, IBM_Plex_Mono } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { siteConfig } from '@/data/portfolio';
 import './globals.css';
 
@@ -15,6 +17,8 @@ const plexMono = IBM_Plex_Mono({
   weight: ['400', '500', '600'],
   display: 'swap',
 });
+
+const observabilityEnabled = process.env.NEXT_PUBLIC_ENABLE_OBSERVABILITY === 'true';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
@@ -65,7 +69,7 @@ const themeInitializer = `
       document.documentElement.dataset.theme = theme;
       document.documentElement.style.colorScheme = theme;
       var themeColor = document.querySelector('meta[name="theme-color"]');
-      if (themeColor) themeColor.setAttribute('content', theme === 'dark' ? '#11110F' : '#F5F2EA');
+      if (themeColor) themeColor.setAttribute('content', theme === 'dark' ? '#181815' : '#F5F2EA');
     } catch (_) {}
   })();
 `;
@@ -76,7 +80,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitializer }} />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        {observabilityEnabled && (
+          <>
+            <Analytics />
+            <SpeedInsights />
+          </>
+        )}
+      </body>
     </html>
   );
 }

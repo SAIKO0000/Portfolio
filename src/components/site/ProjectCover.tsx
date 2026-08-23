@@ -21,7 +21,11 @@ export function ProjectCover({ project, variant }: ProjectCoverProps) {
       };
 
   return (
-    <div className={`project-cover project-cover--${variant}`} role="img" aria-label={`${project} project cover`}>
+    <div
+      className={`project-cover project-cover--${variant}`}
+      role="img"
+      aria-label={`${project} project cover. ${content.eyebrow}. ${content.meta}. ${content.index}. ${content.annotation}. ${content.category}.`}
+    >
       <div className="project-cover__canvas" aria-hidden="true">
         <span className="project-cover__rail">
           <span>{content.eyebrow}</span>

@@ -6,14 +6,15 @@ An evidence-led software-engineering portfolio built with Next.js, React, TypeSc
 
 - Next.js App Router with static/server-rendered content.
 - Typed portfolio content in `src/data/portfolio.ts`.
-- No database, CMS, analytics, or hosted contact form.
+- No database, CMS, or hosted contact form.
+- Vercel Web Analytics and Speed Insights provide privacy-conscious traffic and real-user performance measurement.
 - Client JavaScript is limited to navigation, the persistent light/dark appearance control, active case-study chapter tracking, the manual product tour, copy-email feedback, and restrained reveal behavior.
 - Project evidence has an explicit publication state; only verified evidence is eligible for production.
 
 ## Routes
 
 - `/` — homepage and selected work.
-- `/work/projtrack` — flagship full-stack case study.
+- `/work/projtrack` — Relay, the flagship full-stack case study. The stable route retains the project's original technical slug.
 - `/work/frozen-shoulder-dss` — applied-computer-vision case study.
 
 ## Local setup
@@ -62,10 +63,12 @@ The source résumé DOCX is private and ignored. Only the reviewed PDF may be pu
 
 ## Deployment
 
-Deploy the production build to Vercel. Set `NEXT_PUBLIC_SITE_URL` to the verified stable production alias; previews remain non-indexed until visual, accessibility, evidence, and link acceptance is complete.
+Deploy through the Git-connected Vercel project. Set `NEXT_PUBLIC_SITE_URL` to the verified stable production alias and keep `NEXT_PUBLIC_ENABLE_INDEXING=false` until visual, accessibility, evidence, and link acceptance are complete. Change the indexing flag to `true` only for an accepted production release.
+
+Keep `NEXT_PUBLIC_ENABLE_OBSERVABILITY=false` until Web Analytics and Speed Insights are enabled in the Vercel dashboard. Set it to `true` and redeploy after both products are active; this prevents missing-script errors in local and pre-activation environments.
 
 ```bash
 pnpm build
 ```
 
-Custom domains, analytics, a CMS, and additional case studies are intentionally deferred.
+Vercel Web Analytics and Speed Insights must also be enabled for the project in the Vercel dashboard. Custom domains, a CMS, and additional case studies are intentionally deferred.

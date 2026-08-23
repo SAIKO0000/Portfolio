@@ -91,7 +91,7 @@ export const siteConfig: SiteConfig = {
   name: 'Mark Daniel Iguban',
   headline: 'I build dependable software for complex, real-world workflows.',
   introduction:
-    'I’m Mark Daniel Iguban, a recent computer science graduate working across full-stack products and applied computer vision.',
+    'I’m Mark Daniel Iguban, a computer science graduate working across full-stack products and applied computer vision.',
   description:
     'Portfolio of Mark Daniel Iguban, a software engineer focused on full-stack products, applied computer vision, and dependable backend systems.',
   email: 'igubanmark0@gmail.com',
@@ -127,12 +127,12 @@ export const siteConfig: SiteConfig = {
   resumePath: '/Mark-Daniel-Iguban-Resume.pdf',
 };
 
-const projTrack: CaseStudy = {
+const relay: CaseStudy = {
   slug: 'projtrack',
-  title: 'ProjTrack',
+  title: 'Relay',
   label: 'Full-stack product engineering',
   summary:
-    'A project-operations workspace designed to make schedules, responsibilities, and reporting easier to coordinate.',
+    'A project-operations workspace built for an electrical-engineering company, carrying schedules, tasks, responsibilities, and reporting between teams.',
   role: 'Full-stack co-developer · Equal two-person build',
   year: '2025',
   technologies: ['Next.js', 'React', 'TypeScript', 'Supabase', 'Firebase'],
@@ -168,7 +168,7 @@ const projTrack: CaseStudy = {
       id: 'projtrack-dashboard',
       kind: 'image',
       src: '/projtrack-portfolio-screenshots/01-dashboard-overview.png',
-      alt: 'ProjTrack demo dashboard showing project totals, progress trends, status distribution, and project navigation.',
+      alt: 'Relay demo dashboard showing project totals, progress trends, status distribution, and project navigation.',
       caption: 'Dashboard overview with project status, ownership, and progress signals. Public demo with synthetic, browser-local records.',
       publicationState: 'verified',
     },
@@ -176,7 +176,7 @@ const projTrack: CaseStudy = {
       id: 'projtrack-portfolio',
       kind: 'image',
       src: '/projtrack-portfolio-screenshots/02-project-portfolio.png',
-      alt: 'ProjTrack demo project portfolio showing search, status filters, review assignment, project metrics, and project cards.',
+      alt: 'Relay demo project portfolio showing search, status filters, review assignment, project metrics, and project cards.',
       caption: 'Project portfolio view with search, status filters, review assignment, and project cards.',
       publicationState: 'verified',
     },
@@ -184,7 +184,7 @@ const projTrack: CaseStudy = {
       id: 'projtrack-create',
       kind: 'image',
       src: '/projtrack-portfolio-screenshots/03-create-project-workflow.png',
-      alt: 'ProjTrack demo create-project form showing client, location, status, team size, and schedule fields.',
+      alt: 'Relay demo create-project form showing client, location, status, team size, and schedule fields.',
       caption: 'A structured create-project workflow that collects ownership, schedule, location, and delivery context.',
       publicationState: 'verified',
     },
@@ -192,7 +192,7 @@ const projTrack: CaseStudy = {
       id: 'projtrack-gantt',
       kind: 'image',
       src: '/projtrack-portfolio-screenshots/04-gantt-project-timeline.png',
-      alt: 'ProjTrack demo Gantt chart showing task filters, assignees, progress states, and a monthly project timeline.',
+      alt: 'Relay demo Gantt chart showing task filters, assignees, progress states, and a monthly project timeline.',
       caption: 'Monthly Gantt workflow with task filters, owners, progress states, and completion windows.',
       publicationState: 'verified',
     },
@@ -200,7 +200,7 @@ const projTrack: CaseStudy = {
       id: 'projtrack-calendar',
       kind: 'image',
       src: '/projtrack-portfolio-screenshots/05-calendar-scheduling.png',
-      alt: 'ProjTrack demo scheduling calendar showing project filters and upcoming engineering events.',
+      alt: 'Relay demo scheduling calendar showing project filters and upcoming engineering events.',
       caption: 'Scheduling calendar that connects project filters, delivery dates, and upcoming engineering events.',
       publicationState: 'verified',
     },
@@ -208,7 +208,7 @@ const projTrack: CaseStudy = {
       id: 'projtrack-documents',
       kind: 'image',
       src: '/projtrack-portfolio-screenshots/06-reports-document-control.png',
-      alt: 'ProjTrack demo document-control workspace showing report approval states, reviewer notes, filters, and file actions.',
+      alt: 'Relay demo document-control workspace showing report approval states, reviewer notes, filters, and file actions.',
       caption: 'Document-control workspace with approval status, reviewer context, filters, and file actions.',
       publicationState: 'verified',
     },
@@ -220,6 +220,7 @@ const projTrack: CaseStudy = {
       title: 'Project information loses value when the workflow around it is fragmented.',
       paragraphs: [
         'Planning, scheduling, progress updates, and reports are closely related, but they are often handled as separate documents. That makes ownership harder to see and turns routine coordination into manual reconciliation.',
+        "Relay's name reflects that role: like an electrical relay passing a signal onward, the workspace carries tasks, milestones, and reporting context between teams.",
         'The interface therefore had to expose project context, responsibility, and next actions without turning every screen into a dense administrative dashboard.',
       ],
       points: [
@@ -247,7 +248,7 @@ const projTrack: CaseStudy = {
       title: 'The result is a working product demo—and a clearer approach to operational software.',
       paragraphs: [
         'The public demo makes the core project, timeline, document, and reporting workflows available for direct inspection. It demonstrates the product as a connected system without relying on unsupported productivity metrics.',
-        'Building ProjTrack made the cost of ambiguous state visible: a polished screen is not enough when people cannot tell who owns the next action or how one update affects the wider project.',
+        'Building Relay made the cost of ambiguous state visible: a polished screen is not enough when people cannot tell who owns the next action or how one update affects the wider project.',
       ],
     },
   ],
@@ -272,7 +273,40 @@ const frozenShoulder: CaseStudy = {
   size: 'complementary',
   links: [],
   evidence: [],
-  media: [],
+  media: [
+    {
+      id: 'frozen-interface',
+      kind: 'image',
+      src: '/frozen-shoulder-dss/interface-calibration-demo.png',
+      alt: 'Sanitized Frozen Shoulder DSS interface showing calibration, pose landmarks, exercise selection, and session state.',
+      caption: 'A privacy-edited calibration and movement-analysis view using a synthetic participant identifier.',
+      publicationState: 'verified',
+    },
+    {
+      id: 'frozen-session-report',
+      kind: 'image',
+      src: '/frozen-shoulder-dss/session-report-demo.png',
+      alt: 'Synthetic Frozen Shoulder DSS session report showing range of motion, repetitions, and compensation observations.',
+      caption: 'Example reporting output generated from an approved simulated session; it demonstrates the reporting workflow rather than clinical performance.',
+      publicationState: 'verified',
+    },
+    {
+      id: 'frozen-processing-pipeline',
+      kind: 'diagram',
+      src: '/frozen-shoulder-dss/pose-processing-pipeline.svg',
+      alt: 'Diagram showing frame input, landmark reliability checks, joint geometry, movement state, and session output.',
+      caption: 'The processing checks that separate a detected pose from reviewable session feedback.',
+      publicationState: 'pending',
+    },
+    {
+      id: 'frozen-field-context',
+      kind: 'image',
+      src: '/frozen-shoulder-dss/field-prototype-context.png',
+      alt: 'Privacy-edited photograph of the Frozen Shoulder DSS prototype running on ordinary laptop hardware during field testing.',
+      caption: 'A privacy-edited field-testing view showing the prototype running on ordinary laptop hardware.',
+      publicationState: 'verified',
+    },
+  ],
   sections: [
     {
       id: 'challenge',
@@ -318,7 +352,7 @@ const frozenShoulder: CaseStudy = {
   nextSlug: 'projtrack',
 };
 
-export const caseStudies: CaseStudy[] = [projTrack, frozenShoulder];
+export const caseStudies: CaseStudy[] = [relay, frozenShoulder];
 
 export const supportingProjects: ProjectSummary[] = [
   {

@@ -29,6 +29,7 @@
 
 # private editable source documents
 /resume*.docx
+/.private-assets/
 
 # superseded local source assets
 /public/Portrait.JPG

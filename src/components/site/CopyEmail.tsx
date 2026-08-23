@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface CopyEmailProps {
   email: string;
@@ -8,6 +8,12 @@ interface CopyEmailProps {
 
 export function CopyEmail({ email }: CopyEmailProps) {
   const [status, setStatus] = useState<'idle' | 'copied' | 'failed'>('idle');
+
+  useEffect(() => {
+    if (status === 'idle') return;
+    const resetTimer = window.setTimeout(() => setStatus('idle'), 2800);
+    return () => window.clearTimeout(resetTimer);
+  }, [status]);
 
   const copyAddress = async () => {
     try {
@@ -18,11 +24,17 @@ export function CopyEmail({ email }: CopyEmailProps) {
     }
   };
 
-  const label = status === 'copied' ? 'Copied' : status === 'failed' ? 'Copy failed' : 'Copy address';
+  const label = status === 'copied' ? 'Copied' : status === 'failed' ? 'Try again' : 'Copy email';
 
   return (
-    <button className="text-button" type="button" onClick={copyAddress} aria-live="polite">
-      {label}
+    <button
+      className="copy-email-control__button"
+      type="button"
+      onClick={copyAddress}
+      aria-live="polite"
+    >
+      <span>{label}</span>
+      <span aria-hidden="true">{status === 'copied' ? '✓' : '+'}</span>
     </button>
   );
 }

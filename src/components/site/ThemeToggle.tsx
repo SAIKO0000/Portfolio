@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -21,8 +21,28 @@ function applyTheme(theme: Theme) {
   document.documentElement.style.colorScheme = theme;
   document
     .querySelector<HTMLMetaElement>('meta[name="theme-color"]')
-    ?.setAttribute('content', theme === 'dark' ? '#11110F' : '#F5F2EA');
+    ?.setAttribute('content', theme === 'dark' ? '#181815' : '#F5F2EA');
   window.dispatchEvent(new CustomEvent<Theme>(THEME_CHANGE_EVENT, { detail: theme }));
+}
+
+function getThemeSnapshot(): Theme {
+  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+}
+
+function subscribeToTheme(onStoreChange: () => void) {
+  const colorPreference = window.matchMedia('(prefers-color-scheme: dark)');
+  const followSystemTheme = (event: MediaQueryListEvent) => {
+    if (readStoredTheme()) return;
+    applyTheme(event.matches ? 'dark' : 'light');
+  };
+
+  colorPreference.addEventListener('change', followSystemTheme);
+  window.addEventListener(THEME_CHANGE_EVENT, onStoreChange);
+
+  return () => {
+    colorPreference.removeEventListener('change', followSystemTheme);
+    window.removeEventListener(THEME_CHANGE_EVENT, onStoreChange);
+  };
 }
 
 interface ThemeToggleProps {
@@ -30,37 +50,12 @@ interface ThemeToggleProps {
 }
 
 export function ThemeToggle({ compact = false }: ThemeToggleProps) {
-  const [theme, setTheme] = useState<Theme>('light');
-
-  useEffect(() => {
-    const currentTheme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
-    setTheme(currentTheme);
-    applyTheme(currentTheme);
-
-    const colorPreference = window.matchMedia('(prefers-color-scheme: dark)');
-    const followSystemTheme = (event: MediaQueryListEvent) => {
-      if (readStoredTheme()) return;
-      const systemTheme = event.matches ? 'dark' : 'light';
-      setTheme(systemTheme);
-      applyTheme(systemTheme);
-    };
-    const syncTheme = (event: Event) => {
-      setTheme((event as CustomEvent<Theme>).detail);
-    };
-
-    colorPreference.addEventListener('change', followSystemTheme);
-    window.addEventListener(THEME_CHANGE_EVENT, syncTheme);
-    return () => {
-      colorPreference.removeEventListener('change', followSystemTheme);
-      window.removeEventListener(THEME_CHANGE_EVENT, syncTheme);
-    };
-  }, []);
+  const theme = useSyncExternalStore(subscribeToTheme, getThemeSnapshot, () => 'light');
 
   const nextTheme = theme === 'dark' ? 'light' : 'dark';
   const actionLabel = `Switch to ${nextTheme} mode`;
 
   const toggleTheme = () => {
-    setTheme(nextTheme);
     applyTheme(nextTheme);
     try {
       window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme);

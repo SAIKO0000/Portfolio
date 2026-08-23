@@ -33,11 +33,11 @@ Mark's 46 saved components consistently favor tactile controls, retro hardware, 
 
 | Token | Light | Dark | Use |
 | --- | --- | --- | --- |
-| Paper | `#F5F2EA` | `#11110F` | Dominant page field |
-| Surface | `#FFFFFF` | `#1A1A17` | Necessary panels and section contrast |
-| Graphite | `#171717` | `#F3F0E8` | Primary text, keylines, and controls |
+| Paper | `#F5F2EA` | `#181815` | Dominant page field |
+| Surface | `#FFFFFF` | `#22221E` | Necessary panels and section contrast |
+| Graphite | `#171717` | `#F1EEE6` | Primary text, keylines, and controls |
 | Signal cobalt | `#2457E6` | `#7C9AFF` | Links, focus, and small signals |
-| Inverse cobalt | `#2457E6` | `#2457E6` | Hero evidence panel and white-on-cobalt surfaces |
+| Inverse cobalt | `#2457E6` | `#2048BD` | Hero evidence panel and white-on-cobalt surfaces |
 
 Use white text on the inverse cobalt panel. Never place graphite body text on that panel. Surface and paper need a graphite keyline when their boundary matters. Cobalt links require an underline or another non-color cue. Focus must remain visible without hover. Project screenshots retain their source colors and are never filtered to imitate the selected theme.
 
@@ -61,8 +61,8 @@ Prefer left alignment. Centered text is reserved for an earned pull quote or clo
 - Desktop: 12 columns, 32px gutters.
 - Maximum content width: 1240px.
 - Desktop hero: seven-column statement and five-column evidence index.
-- Selected work: ProjTrack seven columns and Frozen Shoulder five columns.
-- Mobile semantic order: ProjTrack, Frozen Shoulder, Accounting, Resource Hive.
+- Selected work: Relay seven columns and Frozen Shoulder five columns.
+- Mobile semantic order: Relay, Frozen Shoulder, Accounting, Resource Hive.
 - Homepage section rhythm favors `48 / 64 / 72`; case studies may use `96 / 128` where long-form reading earns it.
 - Macro spacing tokens remain `8 / 16 / 24 / 32 / 48 / 64 / 96 / 128`.
 - `4` and `12` are limited to component internals or optical correction.
@@ -81,7 +81,7 @@ Homepage order:
 
 1. Navigation: Work, About, Résumé, Contact.
 2. Split hero with the site's only inverse-cobalt panel.
-3. Selected work: ProjTrack then Frozen Shoulder DSS.
+3. Selected work: Relay then Frozen Shoulder DSS.
 4. Supporting work: Accounting Modernization and Resource Hive as editorial rows.
 5. Evidence-linked capabilities.
 6. About and education.
@@ -94,7 +94,13 @@ The homepage omits numbered chapter labels. Plain section names make the page ea
 
 The header stays available while scrolling. Its active state may identify Work, About, or Contact, but the resume download must never appear active merely because no section is selected. Section-to-section movement is provided by the sticky navigation and hero action; redundant next-section buttons are not added.
 
-Homepage project covers are intentional 16:10 Frame/Shift compositions, not evidence placeholders. Multiple type scales and asymmetric placement establish hierarchy, while every annotation names real project scope: ProjTrack uses project operations, live demo, core workflow, and equal two-person build context; Frozen Shoulder uses rehabilitation DSS, research, feedback workflow, and CPU-friendly computer-vision context. Real interface evidence appears inside each case study.
+About remains a calm narrative-and-education section. Personal interests stay in the copy instead of becoming a decorative background system.
+
+Contact combines the site's interactive developer credential with a conversion-first action sequence: a visible selectable email address, a compact primary `Copy email` action with an in-button success state, a friendlier `Open Gmail` web-composer link, and the Elsewhere social index. The visible address is intentionally plain text so it does not duplicate the Gmail action or rely on an operating-system `mailto:` handler. The contact utility uses a dependable two-tier structure: the address receives the full first row, followed by two balanced actions. Only exceptionally narrow screens stack the actions. Case-study closing actions route to this section with the label `Start a conversation`. Do not add a lanyard, global background treatment, or ambient decoration around the credential.
+
+The existing evidence-linked capability section owns technical positioning. A future Toolkit extension may add a compact, grouped inventory of verified languages, frameworks, data tools, infrastructure, and design software, but it must not become a standalone logo cloud. Labels carry meaning; monochrome icons are secondary scanning aids, and important technologies should point back to work where they were used.
+
+Homepage project covers are intentional 16:10 Frame/Shift compositions, not evidence placeholders. Multiple type scales and asymmetric placement establish hierarchy, while every annotation names real project scope: Relay uses project operations, live demo, core workflow, and equal two-person build context; Frozen Shoulder uses rehabilitation DSS, research, feedback workflow, and CPU-friendly computer-vision context. Real interface evidence appears inside each case study.
 
 ### Case-study composition
 
@@ -104,7 +110,7 @@ Homepage project covers are intentional 16:10 Frame/Shift compositions, not evid
 - Approach: one architecture explanation and up to three consequential decisions.
 - Result: working artifact, lessons, and two concrete improvements without fabricated metrics.
 
-ProjTrack's Showcase spans the full 1240px content width before the narrower reading column. Its custom Frame/Shift Product Theater keeps the 16:10 screenshot dominant, uses a thin graphite frame with one 4px cobalt offset, and avoids stock laptop shells, decorative controls, or perspective effects. Desktop tabs divide into four equal columns with no scrollbars. Mobile may scroll the tab labels horizontally without a visible scrollbar and always provides a direct full-resolution image link because dense desktop interfaces cannot remain fully legible at phone width.
+Relay's Showcase spans the full 1240px content width before the narrower reading column. Its custom Frame/Shift Product Theater keeps the 16:10 screenshot dominant, uses a thin graphite frame with one 4px cobalt offset, and avoids stock laptop shells, decorative controls, or perspective effects. Desktop tabs divide into four equal columns with no scrollbars. Mobile may scroll the tab labels horizontally without a visible scrollbar and always provides a direct full-resolution image link because dense desktop interfaces cannot remain fully legible at phone width.
 
 Desktop chapter navigation starts below the 72px sticky header, fits within the remaining viewport, and marks the active chapter. Mobile uses a non-sticky `Jump to` disclosure instead of consuming viewport height with a second sticky bar.
 
@@ -118,8 +124,9 @@ Desktop chapter navigation starts below the 72px sticky header, fits within the 
 - Maximum translation: 4px.
 - Animate only `transform` and `opacity`.
 - A frame keyline may move 2–4px to expose cobalt on hover or focus.
-- The ProjTrack product theater uses labeled tabs, previous/next controls, one visible counter, and a 220ms crossfade with a 2–4px frame offset.
+- The Relay product theater uses labeled tabs, previous/next controls, one visible counter, and a 220ms crossfade with a 2–4px frame offset.
 - Product tours never autoplay. Screenshots remain uncropped at 16:10 and include a direct full-resolution link.
+- The credential may be dragged to orbit or clicked to reverse. No ambient spin, physics simulation, lanyard treatment, or global background motion is allowed.
 - Desktop media uses a custom graphite product frame with one cobalt offset layer; mobile reduces decorative framing while preserving the screenshot and controls.
 - Do not use parallax, scroll hijacking, cursor following, magnetic controls, ambient loops, large reveal travel, or card scaling.
 - Reduced motion uses immediate state changes or opacity-only feedback.
@@ -139,15 +146,16 @@ When any requirement is missing, omit the claim. Do not render pending evidence 
 
 | Project | Required asset | State | Public-safety requirement |
 | --- | --- | --- | --- |
-| ProjTrack | Dashboard capture | Verified | Public demo; synthetic, browser-local records; no personal contact data |
-| ProjTrack | Gantt or scheduling capture | Verified | Public demo; synthetic, browser-local records; no personal contact data |
-| ProjTrack | Document-control workspace | Verified | Public demo; synthetic, browser-local records; no personal contact data |
-| ProjTrack | Project portfolio capture | Verified | Public demo; synthetic, browser-local records; no personal contact data |
-| ProjTrack | Report-editing workflow | Pending | Real, accurate, no private user data |
-| ProjTrack | Responsive/detail capture | Pending | Real, accurate, no private user data |
-| Frozen Shoulder | Analysis frame | Pending | Synthetic or deliberately re-enacted |
-| Frozen Shoulder | Session/report output | Pending | Sanitized; no participant identifiers |
-| Frozen Shoulder | Processing-pipeline diagram | Pending | Accurate to reviewed implementation |
+| Relay | Dashboard capture | Verified | Public demo; synthetic, browser-local records; no personal contact data |
+| Relay | Gantt or scheduling capture | Verified | Public demo; synthetic, browser-local records; no personal contact data |
+| Relay | Document-control workspace | Verified | Public demo; synthetic, browser-local records; no personal contact data |
+| Relay | Project portfolio capture | Verified | Public demo; synthetic, browser-local records; no personal contact data |
+| Relay | Report-editing workflow | Pending | Real, accurate, no private user data |
+| Relay | Responsive/detail capture | Pending | Real, accurate, no private user data |
+| Frozen Shoulder | Sanitized interface/calibration capture | Verified | `public/frozen-shoulder-dss/interface-calibration-demo.png`; visible faces are pixelated and the participant identifier is synthetic (`DEMO-001`) |
+| Frozen Shoulder | Synthetic session/report output | Verified | `public/frozen-shoulder-dss/session-report-demo.png`; approved simulated data, presented as workflow evidence rather than a clinical-performance claim |
+| Frozen Shoulder | Pose-processing pipeline diagram | Pending | Recreate from the implemented reliability, geometry, state, and reporting flow; do not publish the low-resolution source figure directly |
+| Frozen Shoulder | Field prototype context | Verified | `public/frozen-shoulder-dss/field-prototype-context.png`; the face visible on the laptop display is pixelated |
 | Frozen Shoulder | Short demo recording | Pending | Sanitized and approved |
 | Accounting | Architecture/data-flow diagram | Pending | Accurate to public repository |
 | Accounting | API, migration, audit, or ledger artifact | Pending | Real and safe to disclose |
@@ -157,6 +165,8 @@ When any requirement is missing, omit the claim. Do not render pending evidence 
 | Portfolio | Résumé PDF | Pending | Reviewed; phone only inside PDF |
 
 Development previews may use clearly labeled evidence placeholders inside case studies. Every evidence placeholder blocks production launch; intentional abstract homepage covers do not.
+
+Raw thesis photographs and extracted figures are stored only under the ignored `.private-assets/frozen-shoulder-dss/` workspace folder. They must never remain under `public`, enter Git history, or be referenced by a production route. `image99.png`, `image136.png`, and `image79.png` remain private source references. Only the approved simulated graph and the two privacy-edited derivatives listed above are published; the original thesis assets remain excluded from v1.
 
 ## Identity assets
 

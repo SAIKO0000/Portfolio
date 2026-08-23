@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import type { MouseEvent } from 'react';
 
 export interface CaseNavItem {
   id: string;
@@ -13,7 +14,6 @@ interface CaseStudyNavProps {
 
 export function CaseStudyNav({ items }: CaseStudyNavProps) {
   const [activeId, setActiveId] = useState(items[0]?.id ?? '');
-  const detailsRef = useRef<HTMLDetailsElement>(null);
 
   useEffect(() => {
     const sections = items
@@ -36,8 +36,11 @@ export function CaseStudyNav({ items }: CaseStudyNavProps) {
   }, [items]);
 
   const activeLabel = items.find((item) => item.id === activeId)?.label ?? items[0]?.label;
+  const closeJumpMenu = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.currentTarget.closest('details')?.removeAttribute('open');
+  };
 
-  const links = (onNavigate?: () => void) => items.map((item, index) => (
+  const links = (onNavigate?: (event: MouseEvent<HTMLAnchorElement>) => void) => items.map((item, index) => (
     <a
       key={item.id}
       href={`#${item.id}`}
@@ -55,14 +58,14 @@ export function CaseStudyNav({ items }: CaseStudyNavProps) {
         <p className="eyebrow">Case navigation</p>
         <nav className="case-nav__desktop" aria-label="Case study chapters">{links()}</nav>
 
-        <details className="case-jump" ref={detailsRef}>
+        <details className="case-jump">
           <summary>
             <span>Jump to</span>
             <span className="case-jump__current">{activeLabel}</span>
             <span className="case-jump__icon" aria-hidden="true">+</span>
           </summary>
           <nav aria-label="Case study chapters">
-            {links(() => detailsRef.current?.removeAttribute('open'))}
+            {links(closeJumpMenu)}
           </nav>
         </details>
       </div>

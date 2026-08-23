@@ -272,7 +272,6 @@ export function DeveloperCredential() {
         ref={buttonRef}
         className="developer-credential"
         type="button"
-        aria-label={flipped ? 'Show front of developer credential' : 'Show reverse of developer credential'}
         aria-pressed={flipped}
         data-dragging="false"
         onClick={handleClick}
@@ -281,8 +280,9 @@ export function DeveloperCredential() {
         onPointerUp={finishDrag}
         onPointerCancel={(event) => finishDrag(event, true)}
       >
+        <span className="sr-only">{flipped ? 'Show front of developer credential' : 'Show reverse of developer credential'}</span>
         <span ref={cardRef} className="developer-credential__card" data-dragging="false">
-          <span className="developer-credential__face developer-credential__face--front">
+          <span className="developer-credential__face developer-credential__face--front" aria-hidden={flipped}>
             <span className="developer-credential__rail">
               <strong>Frame / Shift</strong>
               <span>Builder credential</span>
@@ -309,7 +309,7 @@ export function DeveloperCredential() {
             </span>
           </span>
 
-          <span className="developer-credential__face developer-credential__face--back">
+          <span className="developer-credential__face developer-credential__face--back" aria-hidden={!flipped}>
             <span className="developer-credential__rail">
               <strong>Off hours / 02</strong>
               <span>Reverse side</span>

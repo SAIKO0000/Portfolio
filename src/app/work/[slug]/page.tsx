@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CaseStudyNav, type CaseNavItem } from '@/components/site/CaseStudyNav';
+import { FrozenShoulderEvidence } from '@/components/site/FrozenShoulderEvidence';
 import { ProjectCover } from '@/components/site/ProjectCover';
 import { ProductTour } from '@/components/site/ProductTour';
 import { SiteFooter } from '@/components/site/SiteFooter';
@@ -45,9 +46,13 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
   const publicLinks = verifiedLinks(study.links);
   const publicMedia = verifiedMedia(study.media);
   const coverVariant = study.slug === 'projtrack' ? 'product' : 'vision';
-  const hasShowcase = publicMedia.length > 1;
+  const isFrozenShoulder = study.slug === 'frozen-shoulder-dss';
+  const hasFrozenShoulderShowcase = isFrozenShoulder
+    && ['frozen-interface', 'frozen-session-report', 'frozen-field-context']
+      .every((id) => publicMedia.some((asset) => asset.id === id));
+  const hasProductShowcase = !isFrozenShoulder && publicMedia.length > 1;
   const navItems: CaseNavItem[] = [
-    ...(hasShowcase ? [{ id: 'showcase', label: 'Showcase' }] : []),
+    ...(hasProductShowcase || hasFrozenShoulderShowcase ? [{ id: 'showcase', label: 'Showcase' }] : []),
     ...study.sections.map((section) => ({ id: section.id, label: section.label })),
   ];
 
@@ -87,7 +92,11 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
 
         <CaseStudyNav items={navItems} />
 
-        {hasShowcase ? (
+        {hasFrozenShoulderShowcase ? (
+          <section id="showcase" className="case-showcase site-container" aria-label="Frozen Shoulder DSS evidence showcase">
+            <FrozenShoulderEvidence assets={publicMedia} />
+          </section>
+        ) : hasProductShowcase ? (
           <section id="showcase" className="case-showcase site-container" aria-label={`${study.title} product showcase`}>
             <ProductTour assets={publicMedia} product={study.title} />
           </section>
@@ -130,7 +139,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
               <p className="eyebrow">Continue</p>
               {nextStudy && <Link href={`/work/${nextStudy.slug}`}>Next: {nextStudy.title} <span aria-hidden="true">↗</span></Link>}
             </div>
-            <a href={`mailto:${siteConfig.email}`}>Discuss a role <span aria-hidden="true">↗</span></a>
+            <Link href="/#contact">Start a conversation <span aria-hidden="true">↘</span></Link>
           </div>
         </section>
       </main>

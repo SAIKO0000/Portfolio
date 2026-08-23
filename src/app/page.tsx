@@ -16,7 +16,8 @@ import {
 } from '@/data/portfolio';
 
 export default function Home() {
-  const [projTrack, frozenShoulder] = caseStudies;
+  const [relay, frozenShoulder] = caseStudies;
+  const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(siteConfig.email)}&su=${encodeURIComponent('Software engineering opportunity — Mark Daniel Iguban')}`;
 
   return (
     <>
@@ -43,7 +44,7 @@ export default function Home() {
               </div>
               <div>
                 <dt>Education</dt>
-                <dd>Recent CS graduate</dd>
+                <dd>Computer science graduate</dd>
               </div>
               <div>
                 <dt>Location</dt>
@@ -68,31 +69,31 @@ export default function Home() {
 
           <div className="selected-work-grid">
             <article className="project-panel project-panel--featured">
-              <Link className="project-panel__visual-link" href={`/work/${projTrack.slug}`} aria-label={`View ${projTrack.title} case study`}>
-                <ProjectCover project={projTrack.title} variant="product" />
+              <Link className="project-panel__visual-link" href={`/work/${relay.slug}`}>
+                <ProjectCover project={relay.title} variant="product" />
               </Link>
               <div className="project-panel__body">
                 <div className="project-panel__meta">
-                  <span>{projTrack.label}</span>
-                  <span>{projTrack.year}</span>
+                  <span>{relay.label}</span>
+                  <span>{relay.year}</span>
                 </div>
-                <h3><Link href={`/work/${projTrack.slug}`}>{projTrack.title}</Link></h3>
-                <p>{projTrack.summary}</p>
+                <h3><Link href={`/work/${relay.slug}`}>{relay.title}</Link></h3>
+                <p>{relay.summary}</p>
                 <dl className="project-facts">
-                  <div><dt>Role</dt><dd>{projTrack.role}</dd></div>
+                  <div><dt>Role</dt><dd>{relay.role}</dd></div>
                   <div><dt>Evidence</dt><dd>Working public product demo</dd></div>
                 </dl>
-                <div className="tag-list" aria-label={`${projTrack.title} technologies`}>
-                  {projTrack.technologies.map((technology) => <span key={technology}>{technology}</span>)}
+                <div className="tag-list" aria-label={`${relay.title} technologies`}>
+                  {relay.technologies.map((technology) => <span key={technology}>{technology}</span>)}
                 </div>
-                <Link className="arrow-link" href={`/work/${projTrack.slug}`}>
+                <Link className="arrow-link" href={`/work/${relay.slug}`}>
                   Read case study <span aria-hidden="true">↗</span>
                 </Link>
               </div>
             </article>
 
             <article className="project-panel project-panel--complementary">
-              <Link className="project-panel__visual-link" href={`/work/${frozenShoulder.slug}`} aria-label={`View ${frozenShoulder.title} case study`}>
+              <Link className="project-panel__visual-link" href={`/work/${frozenShoulder.slug}`}>
                 <ProjectCover project={frozenShoulder.title} variant="vision" />
               </Link>
               <div className="project-panel__body">
@@ -174,7 +175,7 @@ export default function Home() {
           <div className="about__content">
             <div className="about__lead">
               <p>
-                I’m a recent BS Computer Science graduate from Cavite State University. I enjoy the point where a complicated process becomes a product someone can actually understand and use.
+                I’m a computer science graduate from Cavite State University. I enjoy the point where a complicated process becomes a product someone can actually understand and use.
               </p>
             </div>
             <div className="about__details">
@@ -200,9 +201,21 @@ export default function Home() {
                 <p className="contact-section__label">Available for full-time roles</p>
                 <h2 id="contact-title">I’m ready to contribute to a product team.</h2>
                 <p>I’m looking for a full-time software-engineering role in the Philippines or with a remote team.</p>
-                <div className="contact-actions">
-                  <a className="primary-link" href={`mailto:${siteConfig.email}`}>{siteConfig.email} <span aria-hidden="true">↗</span></a>
+                <div className="contact-rail" aria-label="Email contact options">
+                  <div className="contact-rail__address">
+                    <span>Direct email</span>
+                    <p>{siteConfig.email}</p>
+                  </div>
                   <CopyEmail email={siteConfig.email} />
+                  <a
+                    className="contact-rail__gmail"
+                    href={gmailComposeUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <span>Open Gmail</span>
+                    <span aria-hidden="true">↗</span>
+                  </a>
                 </div>
               </div>
               <DeveloperCredential />

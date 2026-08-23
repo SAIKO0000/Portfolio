@@ -21,8 +21,22 @@ test.describe('homepage', () => {
     await expect(page.getByRole('link', { name: /view selected work/i })).toBeVisible();
     await expect(page.locator('.desktop-nav a', { hasText: 'Résumé' })).not.toHaveAttribute('aria-current');
     await expect(page.getByRole('heading', { name: 'Selected work' })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'ProjTrack' })).toBeVisible();
-    await expect(page.getByRole('img', { name: /ProjTrack project cover/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Relay' })).toBeVisible();
+    await expect(page.getByRole('img', { name: /Relay project cover/i })).toBeVisible();
+
+    await expect(page.locator('#about .developer-credential')).toHaveCount(0);
+    await expect(page.locator('#contact .developer-credential')).toHaveCount(1);
+
+    const contact = page.locator('#contact');
+    await expect(contact.getByRole('button', { name: 'Copy email' })).toBeVisible();
+    await expect(contact.getByText('igubanmark0@gmail.com', { exact: true })).not.toHaveAttribute('href');
+    const gmailLink = contact.getByRole('link', { name: 'Open Gmail' });
+    await expect(gmailLink).toHaveAttribute(
+      'href',
+      /^https:\/\/mail\.google\.com\/mail\/\?view=cm&fs=1&to=igubanmark0%40gmail\.com&su=Software%20engineering%20opportunity/,
+    );
+    await expect(gmailLink).toHaveAttribute('target', '_blank');
+    await expect(gmailLink).toHaveAttribute('rel', 'noreferrer');
 
     const elsewhere = page.getByRole('navigation', { name: 'Elsewhere' });
     const profileLinks = elsewhere.getByRole('link');
@@ -88,10 +102,16 @@ test.describe('homepage', () => {
 
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
     await expect(page.getByRole('button', { name: /switch to light mode/i })).toBeVisible();
-    await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#11110F');
+    await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#181815');
 
     await page.reload();
     await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  });
+
+  test('copies the email address with useful feedback', async ({ page }) => {
+    await page.goto('/#contact');
+    await page.getByRole('button', { name: 'Copy email' }).click();
+    await expect(page.getByRole('button', { name: 'Copied' })).toBeVisible();
   });
 });
 
@@ -103,9 +123,10 @@ for (const path of ['/work/projtrack', '/work/frozen-shoulder-dss']) {
     expect(response?.ok()).toBe(true);
     await expect(page.getByRole('main')).toBeVisible();
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Start a conversation' })).toHaveAttribute('href', '/#contact');
 
     if (path === '/work/projtrack') {
-      await expect(page.getByRole('img', { name: /ProjTrack demo dashboard/i })).toBeVisible();
+      await expect(page.getByRole('img', { name: /Relay demo dashboard/i })).toBeVisible();
       await expect(page.locator('.product-stage__active').getByRole('heading', { name: 'Dashboard' })).toBeVisible();
 
       const showcaseBox = await page.locator('#showcase').boundingBox();
@@ -114,14 +135,14 @@ for (const path of ['/work/projtrack', '/work/frozen-shoulder-dss']) {
       expect(challengeBox).not.toBeNull();
       expect(showcaseBox?.y ?? Infinity).toBeLessThan(challengeBox?.y ?? 0);
 
-      const tablist = page.getByRole('tablist', { name: /ProjTrack product features/i });
+      const tablist = page.getByRole('tablist', { name: /Relay product features/i });
       const productTabs = tablist.getByRole('tab');
       await expect(productTabs).toHaveCount(6);
       await expect(productTabs.filter({ hasText: 'Dashboard' })).toHaveAttribute('aria-selected', 'true');
       await expect(productTabs.filter({ hasText: 'Calendar' })).toBeVisible();
       await productTabs.filter({ hasText: 'Timeline' }).click();
       await expect(productTabs.filter({ hasText: 'Timeline' })).toHaveAttribute('aria-selected', 'true');
-      await expect(page.getByRole('img', { name: /ProjTrack demo Gantt chart/i })).toBeVisible();
+      await expect(page.getByRole('img', { name: /Relay demo Gantt chart/i })).toBeVisible();
       await expect(page.getByRole('link', { name: /open full image/i })).toHaveAttribute('href', /04-gantt-project-timeline\.png/);
 
       const tabOverflow = await tablist.evaluate((element) => ({
@@ -142,6 +163,15 @@ for (const path of ['/work/projtrack', '/work/frozen-shoulder-dss']) {
         expect(navBox?.y ?? 0).toBeGreaterThanOrEqual(72);
         expect((navBox?.y ?? 0) + (navBox?.height ?? Infinity)).toBeLessThanOrEqual(testInfo.project.use.viewport?.height ?? Infinity);
       }
+    }
+
+    if (path === '/work/frozen-shoulder-dss') {
+      await expect(page.getByRole('heading', { name: /From movement capture to reviewable session evidence/i })).toBeVisible();
+      await expect(page.getByRole('img', { name: /Sanitized Frozen Shoulder DSS interface/i })).toBeVisible();
+      await expect(page.getByRole('img', { name: /Synthetic Frozen Shoulder DSS session report/i })).toBeVisible();
+      await expect(page.getByRole('img', { name: /Privacy-edited photograph/i })).toBeVisible();
+      await expect(page.getByRole('list', { name: 'Pose-processing pipeline' })).toBeVisible();
+      await expect(page.getByText('Pending re-enacted evidence')).toHaveCount(0);
     }
 
     const hasHorizontalOverflow = await page.evaluate(
