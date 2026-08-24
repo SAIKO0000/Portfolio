@@ -92,7 +92,7 @@ The hero evidence index contains role, graduate status, location/remote availabi
 
 The homepage omits numbered chapter labels. Plain section names make the page easier to scan, while project numbers remain legitimate identity and ordering devices. At 390x844, the headline, introduction, and primary action must fit before the evidence panel. At 1280x720, the entire split hero must fit. At 1440x900, the selected-work heading and the beginning of project evidence should also be visible.
 
-The header stays available while scrolling. Its active state may identify Work, About, or Contact, but the resume download must never appear active merely because no section is selected. Section-to-section movement is provided by the sticky navigation and hero action; redundant next-section buttons are not added.
+The header stays available while scrolling. Its active state may identify Work, About, or Contact, but the resume download must never appear active merely because no section is selected. The complete mark-and-name lockup is the persistent home control: selecting it on the homepage returns to the absolute top, while selecting it from another route returns to the homepage at the top. Same-page movement is smooth unless reduced motion is requested; cross-route movement is immediate. Section-to-section movement is provided by the sticky navigation and hero action; redundant next-section buttons are not added.
 
 About remains a calm narrative-and-education section. Personal interests stay in the copy instead of becoming a decorative background system.
 

@@ -129,6 +129,34 @@ test.describe('homepage', () => {
     expect(pdf).toContain('https://www.linkedin.com/in/mark-daniel-iguban-aa07751b6/');
     expect(pdf).toContain('https://github.com/SAIKO0000');
   });
+
+  test('brand home control resets the homepage and cross-route scroll position', async ({ page }) => {
+    await page.goto('/#contact');
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(100);
+
+    await page.locator('.site-wordmark').click();
+
+    await expect(page).toHaveURL('/');
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(2);
+
+    await page.goto('/work/relay');
+    await page.evaluate(() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'auto' }));
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(100);
+
+    await page.locator('.site-wordmark').click();
+
+    await expect(page).toHaveURL('/');
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(2);
+
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.evaluate(() => window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'auto' }));
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(100);
+
+    await page.locator('.site-wordmark').focus();
+    await page.keyboard.press('Enter');
+
+    expect(await page.evaluate(() => window.scrollY)).toBeLessThan(2);
+  });
 });
 
 for (const path of ['/work/relay', '/work/frozen-shoulder-dss']) {
