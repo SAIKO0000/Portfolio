@@ -21,12 +21,13 @@ Build an evidence-led recruiter portfolio for Mark Daniel Iguban, a computer sci
 - Case studies use a concise recruiter-first structure: compact project introduction, immediate Showcase when verified media exists, then Challenge, Approach, and Result.
 - Abstract homepage project covers are identity and hierarchy devices. Their varied typography must communicate real project scope, mode, and collaboration context; verified interface evidence belongs inside the corresponding case study.
 - Relay is an equal two-person collaboration in which both contributors worked full stack.
-- Relay is the public product name. The stable `/work/projtrack` route, screenshot directory, evidence IDs, demo URL, and repository URL retain the original technical identifier until those external assets are deliberately migrated.
+- Relay is the public product name. Its live demo now uses `relay-portfolio-demo.vercel.app`; the stable `/work/projtrack` route, screenshot directory, evidence IDs, and repository URL retain the original technical identifier until those remaining assets are deliberately migrated.
 - The interactive credential remains in Contact as a bounded personality moment. The lanyard/Y2K background experiment was rejected and must not return without a new explicit design decision.
 - Dark mode uses warm charcoal surfaces and a deeper large cobalt panel; brighter cobalt is reserved for links, focus, and compact signals.
 - Contact uses a plain selectable address, `Copy email` as the primary utility, and a friendlier `Open Gmail` web composer as the distinct secondary path; visible `mailto:` actions are excluded because they depend on local handler configuration and duplicate the same destination.
-- Vercel remains the primary host for v1 because it provides the least provider-specific path for the current Next.js application. Git-connected previews precede production, the stable alias is centralized through `NEXT_PUBLIC_SITE_URL`, and indexing remains explicitly gated.
-- Vercel Web Analytics and Speed Insights provide privacy-conscious traffic and real-user performance measurement. Reconsider Cloudflare Workers only if cost, edge-platform features, or a future custom-domain strategy justifies maintaining the OpenNext adapter.
+- Vercel remains the primary host for v1 because it provides the least provider-specific path for the current Next.js application. Git-connected previews precede production, `https://markiguban.dev` is the canonical public domain, `www.markiguban.dev` permanently redirects to the apex, and generated `.vercel.app` URLs remain deployment aliases.
+- The domain remains registered with Name.com and uses Name.com DNS records pointed to Vercel. Auto-renew is disabled by owner choice, so manual renewal reminders are required to protect the public URL and accumulated search signals.
+- Vercel Web Analytics remains gated behind Mark's required interactive confirmation. Speed Insights remains optional because Vercel identifies activation as potentially billable. Reconsider Cloudflare Workers only if cost or edge-platform requirements justify maintaining the OpenNext adapter.
 
 ## Now — review checkpoint
 
@@ -51,12 +52,13 @@ Build an evidence-led recruiter portfolio for Mark Daniel Iguban, a computer sci
 - [x] Verify primary navigation, mobile Escape behavior, focus return, reduced motion, route rendering, media alternatives, and horizontal overflow in the permanent suite.
 - [x] Confirm no runtime, hydration, clipping, serious/critical automated accessibility, or design-token failures in the implemented feedback pass.
 - [x] Capture acceptance screenshots at all four viewports as local review records.
-- [ ] Enable Web Analytics and Speed Insights in the Vercel dashboard, set `NEXT_PUBLIC_ENABLE_OBSERVABILITY=true`, and complete final link, metadata, structured-data, copy-email, font, asset, and analytics acceptance against the Git-connected preview. Verification: automated checks pass and both observability scripts load without console errors.
-- [ ] Make the stable Vercel alias publicly accessible by explicitly disabling inherited project-wide SSO protection or by attaching a custom domain, then enable production indexing after unauthenticated acceptance. Verification: the homepage, both case studies, canonical metadata, sitemap, robots policy, structured data, and social preview resolve without a Vercel login.
+- [ ] Split the combined observability gate, enable Web Analytics through Mark's required interactive Vercel confirmation, and verify only its approved script without console errors. Keep Speed Insights disabled unless Mark separately accepts its billing terms. Verification: analytics appears in the Vercel dashboard, production loads the analytics script, and no Speed Insights script loads.
+- [x] Attach and verify `markiguban.dev`, redirect `www` permanently to the apex, rebuild with the custom canonical URL, and enable production indexing after unauthenticated acceptance. Verification: all five public endpoints return `200`, `www` returns `308`, robots permits crawling, sitemap and route canonicals use the apex, and both domains report valid Vercel configuration on 2026-08-25.
 
 ## Later
 
-- Custom domain and Cloudflare DNS.
+- Consider Cloudflare DNS only if a concrete DNS, security, or edge requirement justifies migrating from the working Name.com DNS configuration.
+- Consider Speed Insights only after reviewing current pricing and accepting the account-level billing terms.
 - Additional case studies and writing.
 - A CMS or database only if recurring non-developer editing or genuinely dynamic content makes it necessary.
 
@@ -66,10 +68,11 @@ Build an evidence-led recruiter portfolio for Mark Daniel Iguban, a computer sci
 - Frozen Shoulder material may contain sensitive health or participant data; only synthetic, deliberately re-enacted, or sanitized material can be public.
 - Project outcome metrics remain excluded until their methods, baselines, artifacts, and public approval are documented.
 - Resource Hive's production URL needs verification before it is published.
-- The fresh Vercel project inherited account-level SSO protection for all generated `.vercel.app` URLs. The production build is verified through Vercel's authenticated bypass, but the public alias still redirects unauthenticated visitors to Vercel login until that protection is explicitly disabled or a custom domain is attached.
+- Domain auto-renew is disabled. Missing the manual renewal window would interrupt the portfolio and could weaken accumulated search signals; maintain independent 60-day and 30-day reminders.
 
 ## Completed
 
+- Connected the Name.com-registered `markiguban.dev` domain to the Git-connected Vercel project using project-specific apex A records and a `www` CNAME, configured a permanent `www`-to-apex redirect, updated the production canonical environment, enabled indexing, and verified HTTPS, HSTS, all public routes, robots, sitemap, structured data, and route canonicals without authentication. Evidence: production deployment `dpl_BpUENCDo7LfNhnDAF7LUDVkkQLgP` and live checks on 2026-08-25.
 - Promoted the approved portfolio checkpoint to GitHub `main`, created a separate Git-connected Vercel project named `mark-daniel-iguban-portfolio`, configured the canonical and release gates, deployed the current static build, verified all five production endpoints and canonical metadata through Vercel's authenticated path, moved the clean alias, and permanently removed the legacy Vercel project. Evidence: commit `769d8b5`, Vercel deployment `dpl_DmAeJ7qDpzh8BSJS9jFeptzvwFEY`, and successful route checks on 2026-08-24.
 - Preserved the pre-experiment dark-mode appearance in commit `c6a496e` and local branch `backup/pre-about-credential-redesign`. The subsequent lanyard experiment was reviewed and rejected; the credential returned to Contact while the warm-charcoal palette, copy-first email controls, and case-study routing back to Contact were retained.
 - Added a dependency-free Frame/Shift dark mode that follows the operating-system preference on first visit, persists an explicit choice, updates browser chrome, and remains accessible from desktop and mobile navigation. Evidence: lint, type checking, production build, and permanent Playwright coverage for toggling and persistence.

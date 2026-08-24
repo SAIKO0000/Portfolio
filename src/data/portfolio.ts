@@ -142,7 +142,7 @@ const relay: CaseStudy = {
   links: [
     {
       label: 'View live product',
-      href: 'https://projtrack-portfolio-demo.vercel.app',
+      href: 'https://relay-portfolio-demo.vercel.app',
       kind: 'live',
       publicationState: 'verified',
     },
@@ -159,7 +159,7 @@ const relay: CaseStudy = {
       title: 'Public product demo',
       description: 'A working deployment is available for direct inspection.',
       publicationState: 'verified',
-      artifact: 'https://projtrack-portfolio-demo.vercel.app',
+      artifact: 'https://relay-portfolio-demo.vercel.app',
       approvedForPublic: true,
     },
   ],

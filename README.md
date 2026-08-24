@@ -63,12 +63,12 @@ The source résumé DOCX is private and ignored. Only the reviewed PDF may be pu
 
 ## Deployment
 
-Deploy through the Git-connected Vercel project at `https://mark-daniel-iguban-portfolio.vercel.app`. Set `NEXT_PUBLIC_SITE_URL` to that stable production alias and keep `NEXT_PUBLIC_ENABLE_INDEXING=false` until visual, accessibility, evidence, link, and unauthenticated production acceptance are complete. Change the indexing flag to `true` only for an accepted public release.
+Deploy through the Git-connected Vercel project with `https://markiguban.dev` as the canonical production domain. The `www` variant permanently redirects to the apex domain, while generated `.vercel.app` URLs remain deployment aliases. Production uses `NEXT_PUBLIC_SITE_URL=https://markiguban.dev` and `NEXT_PUBLIC_ENABLE_INDEXING=true` after unauthenticated route, metadata, robots, sitemap, and HTTPS acceptance.
 
-Keep `NEXT_PUBLIC_ENABLE_OBSERVABILITY=false` until Web Analytics and Speed Insights are enabled in the Vercel dashboard. Set it to `true` and redeploy after both products are active; this prevents missing-script errors in local and pre-activation environments.
+Keep the current combined `NEXT_PUBLIC_ENABLE_OBSERVABILITY=false` unless both Web Analytics and Speed Insights are intentionally enabled. If only free Web Analytics is approved, split this combined gate into separate analytics and Speed Insights flags before redeploying; this avoids loading a product whose billing terms were not accepted.
 
 ```bash
 pnpm build
 ```
 
-Vercel Web Analytics and Speed Insights must also be enabled for the project in the Vercel dashboard. Custom domains, a CMS, and additional case studies are intentionally deferred.
+Web Analytics requires an explicit account confirmation. Speed Insights remains optional because Vercel identifies its activation as potentially billable. A CMS and additional case studies remain intentionally deferred.
