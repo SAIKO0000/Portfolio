@@ -286,7 +286,8 @@ test('unknown routes return the branded recovery page', async ({ page }, testInf
   const accessibility = await new AxeBuilder({ page }).analyze();
   const seriousViolations = accessibility.violations.filter(({ impact }) => impact === 'serious' || impact === 'critical');
   expect(seriousViolations).toEqual([]);
-  expect(
-    runtimeErrors.filter((message) => message !== 'Failed to load resource: the server responded with a status of 404 (Not Found)'),
-  ).toEqual([]);
+  const unexpectedRuntimeErrors = runtimeErrors.filter(
+    (message) => !/^Failed to load resource: the server responded with a status of 404 \((?:Not Found)?\)$/.test(message),
+  );
+  expect(unexpectedRuntimeErrors).toEqual([]);
 });

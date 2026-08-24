@@ -17,13 +17,22 @@ export function SiteWordmark() {
   useEffect(() => {
     if (pathname !== '/') return;
 
+    let shouldResetScroll = window.location.hash === '#site-top';
+
     try {
-      if (window.sessionStorage.getItem(returnHomeScrollKey) !== 'true') return;
-      window.sessionStorage.removeItem(returnHomeScrollKey);
-      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      if (window.sessionStorage.getItem(returnHomeScrollKey) === 'true') {
+        window.sessionStorage.removeItem(returnHomeScrollKey);
+        shouldResetScroll = true;
+      }
     } catch {
       // The link's native navigation and Next.js scroll behavior remain the fallback.
     }
+
+    if (!shouldResetScroll) return;
+    if (window.location.hash === '#site-top') {
+      window.history.replaceState(window.history.state, '', '/');
+    }
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, [pathname]);
 
   const handleHomeClick = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -49,7 +58,7 @@ export function SiteWordmark() {
   };
 
   return (
-    <Link className="site-wordmark" href="/" scroll onClick={handleHomeClick}>
+    <Link className="site-wordmark" href="/#site-top" scroll onClick={handleHomeClick}>
       <span className="site-wordmark__icon" aria-hidden="true">
         <ShiftMark />
       </span>
