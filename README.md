@@ -14,7 +14,7 @@ An evidence-led software-engineering portfolio built with Next.js, React, TypeSc
 ## Routes
 
 - `/` — homepage and selected work.
-- `/work/projtrack` — Relay, the flagship full-stack case study. The stable route retains the project's original technical slug.
+- `/work/relay` — Relay, the flagship full-stack case study. The retired `/work/projtrack` route permanently redirects here.
 - `/work/frozen-shoulder-dss` — applied-computer-vision case study.
 
 ## Local setup

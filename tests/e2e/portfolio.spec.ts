@@ -115,7 +115,7 @@ test.describe('homepage', () => {
   });
 });
 
-for (const path of ['/work/projtrack', '/work/frozen-shoulder-dss']) {
+for (const path of ['/work/relay', '/work/frozen-shoulder-dss']) {
   test(`${path} renders its case study without runtime failures`, async ({ page }, testInfo) => {
     const runtimeErrors = watchRuntimeErrors(page);
     const response = await page.goto(path);
@@ -125,7 +125,7 @@ for (const path of ['/work/projtrack', '/work/frozen-shoulder-dss']) {
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Start a conversation' })).toHaveAttribute('href', '/#contact');
 
-    if (path === '/work/projtrack') {
+    if (path === '/work/relay') {
       await expect(page.getByRole('img', { name: /Relay demo dashboard/i })).toBeVisible();
       await expect(page.locator('.product-stage__active').getByRole('heading', { name: 'Dashboard' })).toBeVisible();
 
@@ -181,3 +181,10 @@ for (const path of ['/work/projtrack', '/work/frozen-shoulder-dss']) {
     expect(runtimeErrors).toEqual([]);
   });
 }
+
+test('/work/projtrack permanently redirects to the Relay case study', async ({ request }) => {
+  const response = await request.get('/work/projtrack', { maxRedirects: 0 });
+
+  expect(response.status()).toBe(308);
+  expect(response.headers().location).toBe('/work/relay');
+});

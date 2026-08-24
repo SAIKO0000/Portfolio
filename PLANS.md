@@ -21,7 +21,7 @@ Build an evidence-led recruiter portfolio for Mark Daniel Iguban, a computer sci
 - Case studies use a concise recruiter-first structure: compact project introduction, immediate Showcase when verified media exists, then Challenge, Approach, and Result.
 - Abstract homepage project covers are identity and hierarchy devices. Their varied typography must communicate real project scope, mode, and collaboration context; verified interface evidence belongs inside the corresponding case study.
 - Relay is an equal two-person collaboration in which both contributors worked full stack.
-- Relay is the public product name. Its live demo now uses `relay-portfolio-demo.vercel.app`; the stable `/work/projtrack` route, screenshot directory, evidence IDs, and repository URL retain the original technical identifier until those remaining assets are deliberately migrated.
+- Relay is the public product name. Its public case study uses `/work/relay` and its live demo uses `relay-portfolio-demo.vercel.app`; `/work/projtrack` permanently redirects to the renamed route. The screenshot directory, evidence IDs, and repository URL retain the original technical identifier until those remaining assets are deliberately migrated.
 - The interactive credential remains in Contact as a bounded personality moment. The lanyard/Y2K background experiment was rejected and must not return without a new explicit design decision.
 - Dark mode uses warm charcoal surfaces and a deeper large cobalt panel; brighter cobalt is reserved for links, focus, and compact signals.
 - Contact uses a plain selectable address, `Copy email` as the primary utility, and a friendlier `Open Gmail` web composer as the distinct secondary path; visible `mailto:` actions are excluded because they depend on local handler configuration and duplicate the same destination.
@@ -47,7 +47,7 @@ Build an evidence-led recruiter portfolio for Mark Daniel Iguban, a computer sci
 
 ## Acceptance and launch
 
-- [x] Add permanent Playwright smoke and accessibility checks for `/`, `/work/projtrack`, and `/work/frozen-shoulder-dss`.
+- [x] Add permanent Playwright smoke and accessibility checks for `/`, `/work/relay`, and `/work/frozen-shoulder-dss`, plus redirect coverage for the retired `/work/projtrack` route.
 - [x] Test 390×844, 768×1024, 1280×720, and 1440×900 viewports.
 - [x] Verify primary navigation, mobile Escape behavior, focus return, reduced motion, route rendering, media alternatives, and horizontal overflow in the permanent suite.
 - [x] Confirm no runtime, hydration, clipping, serious/critical automated accessibility, or design-token failures in the implemented feedback pass.
@@ -72,6 +72,7 @@ Build an evidence-led recruiter portfolio for Mark Daniel Iguban, a computer sci
 
 ## Completed
 
+- Migrated Relay's public case-study route from `/work/projtrack` to `/work/relay`, updated all generated navigation, metadata, structured data, and sitemap consumers through the typed slug, and retained a permanent compatibility redirect from the retired path. Evidence: lint, type checking, production build, and 28 passing Playwright tests across four viewports on 2026-08-25.
 - Connected the Name.com-registered `markiguban.dev` domain to the Git-connected Vercel project using project-specific apex A records and a `www` CNAME, configured a permanent `www`-to-apex redirect, updated the production canonical environment, enabled indexing, and verified HTTPS, HSTS, all public routes, robots, sitemap, structured data, and route canonicals without authentication. Evidence: production deployment `dpl_BpUENCDo7LfNhnDAF7LUDVkkQLgP` and live checks on 2026-08-25.
 - Promoted the approved portfolio checkpoint to GitHub `main`, created a separate Git-connected Vercel project named `mark-daniel-iguban-portfolio`, configured the canonical and release gates, deployed the current static build, verified all five production endpoints and canonical metadata through Vercel's authenticated path, moved the clean alias, and permanently removed the legacy Vercel project. Evidence: commit `769d8b5`, Vercel deployment `dpl_DmAeJ7qDpzh8BSJS9jFeptzvwFEY`, and successful route checks on 2026-08-24.
 - Preserved the pre-experiment dark-mode appearance in commit `c6a496e` and local branch `backup/pre-about-credential-redesign`. The subsequent lanyard experiment was reviewed and rejected; the credential returned to Contact while the warm-charcoal palette, copy-first email controls, and case-study routing back to Contact were retained.

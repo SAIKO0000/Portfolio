@@ -128,7 +128,7 @@ export const siteConfig: SiteConfig = {
 };
 
 const relay: CaseStudy = {
-  slug: 'projtrack',
+  slug: 'relay',
   title: 'Relay',
   label: 'Full-stack product engineering',
   summary:
@@ -349,7 +349,7 @@ const frozenShoulder: CaseStudy = {
     'Validate reliability across more camera positions, movement conditions, and representative sessions.',
     'Define a formal reference protocol and error-analysis method before publishing performance metrics.',
   ],
-  nextSlug: 'projtrack',
+  nextSlug: 'relay',
 };
 
 export const caseStudies: CaseStudy[] = [relay, frozenShoulder];
@@ -406,7 +406,7 @@ export const capabilities: Capability[] = [
     id: 'full-stack',
     title: 'Full-stack product engineering',
     description: 'I connect user workflows, typed interfaces, application behavior, and persistent data.',
-    evidenceProjectSlug: 'projtrack',
+    evidenceProjectSlug: 'relay',
   },
   {
     id: 'computer-vision',

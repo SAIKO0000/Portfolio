@@ -45,7 +45,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
   const nextStudy = study.nextSlug ? getCaseStudy(study.nextSlug) : undefined;
   const publicLinks = verifiedLinks(study.links);
   const publicMedia = verifiedMedia(study.media);
-  const coverVariant = study.slug === 'projtrack' ? 'product' : 'vision';
+  const coverVariant = study.slug === 'relay' ? 'product' : 'vision';
   const isFrozenShoulder = study.slug === 'frozen-shoulder-dss';
   const hasFrozenShoulderShowcase = isFrozenShoulder
     && ['frozen-interface', 'frozen-session-report', 'frozen-field-context']
