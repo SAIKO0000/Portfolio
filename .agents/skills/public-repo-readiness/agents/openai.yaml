@@ -1,0 +1,3 @@
+interface:
+  display_name: "Public Repo Readiness"
+  short_description: "Audit projects before linking them publicly"

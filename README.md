@@ -37,7 +37,7 @@ pnpm typecheck
 pnpm build
 ```
 
-The permanent Playwright suite covers the homepage, both case studies, and the custom 404 in Chrome at 390x844, 768x1024, 1280x720, and 1440x900. It includes recruiter-flow, responsive-overflow, product-tour navigation, runtime, reduced-motion, mobile-navigation, recovery, and automated accessibility checks. Run it against a production build in a second terminal:
+The permanent Playwright suite covers the homepage, both case studies, and the custom 404 in Chrome at 390x844, 768x1024, 1280x720, 1440x900, and 1920x1080. It includes recruiter-flow, responsive-overflow, product-tour navigation, runtime, reduced-motion, mobile-navigation, recovery, and automated accessibility checks. Run it against a production build in a second terminal:
 
 ```bash
 pnpm build

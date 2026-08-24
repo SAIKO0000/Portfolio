@@ -48,7 +48,7 @@ Build an evidence-led recruiter portfolio for Mark Daniel Iguban, a computer sci
 ## Acceptance and launch
 
 - [x] Add permanent Playwright smoke and accessibility checks for `/`, `/work/relay`, and `/work/frozen-shoulder-dss`, plus redirect coverage for the retired `/work/projtrack` route.
-- [x] Test 390×844, 768×1024, 1280×720, and 1440×900 viewports.
+- [x] Test 390×844, 768×1024, 1280×720, 1440×900, and 1920×1080 viewports.
 - [x] Verify primary navigation, mobile Escape behavior, focus return, reduced motion, route rendering, media alternatives, and horizontal overflow in the permanent suite.
 - [x] Confirm no runtime, hydration, clipping, serious/critical automated accessibility, or design-token failures in the implemented feedback pass.
 - [x] Capture acceptance screenshots at all four viewports as local review records.
@@ -72,6 +72,7 @@ Build an evidence-led recruiter portfolio for Mark Daniel Iguban, a computer sci
 
 ## Completed
 
+- Added the focused repository-local skill stack for interface standards, React/Next.js performance, evidence-led portfolio copy, public-repository readiness, identity consistency, and release validation. Expanded the permanent Playwright matrix with Mark's 1920×1080 review environment. Evidence: all six skills pass the official validator; lint, type checking, production build, and 55 Playwright tests pass across five viewports on 2026-08-25.
 - Migrated Relay's public case-study route from `/work/projtrack` to `/work/relay`, updated all generated navigation, metadata, structured data, and sitemap consumers through the typed slug, and retained a permanent compatibility redirect from the retired path. Evidence: lint, type checking, production build, and 28 passing Playwright tests across four viewports on 2026-08-25.
 - Connected the Name.com-registered `markiguban.dev` domain to the Git-connected Vercel project using project-specific apex A records and a `www` CNAME, configured a permanent `www`-to-apex redirect, updated the production canonical environment, enabled indexing, and verified HTTPS, HSTS, all public routes, robots, sitemap, structured data, and route canonicals without authentication. Evidence: production deployment `dpl_BpUENCDo7LfNhnDAF7LUDVkkQLgP` and live checks on 2026-08-25.
 - Promoted the approved portfolio checkpoint to GitHub `main`, created a separate Git-connected Vercel project named `mark-daniel-iguban-portfolio`, configured the canonical and release gates, deployed the current static build, verified all five production endpoints and canonical metadata through Vercel's authenticated path, moved the clean alias, and permanently removed the legacy Vercel project. Evidence: commit `769d8b5`, Vercel deployment `dpl_DmAeJ7qDpzh8BSJS9jFeptzvwFEY`, and successful route checks on 2026-08-24.
