@@ -113,6 +113,22 @@ test.describe('homepage', () => {
     await page.getByRole('button', { name: 'Copy email' }).click();
     await expect(page.getByRole('button', { name: 'Copied' })).toBeVisible();
   });
+
+  test('serves the reviewed résumé from every résumé link', async ({ page, request }) => {
+    await page.goto('/');
+
+    const resumeLinks = page.locator('a[href="/Mark-Daniel-Iguban-Resume.pdf"]');
+    expect(await resumeLinks.count()).toBeGreaterThan(0);
+
+    const response = await request.get('/Mark-Daniel-Iguban-Resume.pdf');
+    expect(response.ok()).toBe(true);
+    expect(response.headers()['content-type']).toContain('application/pdf');
+
+    const pdf = (await response.body()).toString('latin1');
+    expect(pdf).toContain('https://markiguban.dev/');
+    expect(pdf).toContain('https://www.linkedin.com/in/mark-daniel-iguban-aa07751b6/');
+    expect(pdf).toContain('https://github.com/SAIKO0000');
+  });
 });
 
 for (const path of ['/work/relay', '/work/frozen-shoulder-dss']) {
@@ -151,6 +167,23 @@ for (const path of ['/work/relay', '/work/frozen-shoulder-dss']) {
       }));
       expect(tabOverflow.vertical).toBe(false);
 
+      if (testInfo.project.name === 'mobile-390' || testInfo.project.name === 'tablet-768') {
+        expect(tabOverflow.horizontal).toBe(true);
+        await expect.poll(async () => tablist.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+
+        const activeTabVisibility = await productTabs.filter({ hasText: 'Timeline' }).evaluate((element) => {
+          const tabBounds = element.getBoundingClientRect();
+          const listBounds = element.parentElement?.getBoundingClientRect();
+
+          return {
+            left: listBounds ? tabBounds.left - listBounds.left : -Infinity,
+            right: listBounds ? listBounds.right - tabBounds.right : -Infinity,
+          };
+        });
+        expect(activeTabVisibility.left).toBeGreaterThanOrEqual(-1);
+        expect(activeTabVisibility.right).toBeGreaterThanOrEqual(-1);
+      }
+
       if (testInfo.project.name === 'mobile-390') {
         await expect(page.locator('.case-jump')).toBeVisible();
       } else if (testInfo.project.name === 'laptop-1280' || testInfo.project.name === 'desktop-1440') {
@@ -182,9 +215,50 @@ for (const path of ['/work/relay', '/work/frozen-shoulder-dss']) {
   });
 }
 
+test('next-project navigation starts at the destination page top', async ({ page }) => {
+  await page.goto('/work/relay');
+  await page.locator('.case-next').scrollIntoViewIfNeeded();
+  expect(await page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+
+  await page.getByRole('link', { name: /Next: Frozen Shoulder DSS/i }).click();
+
+  await expect(page).toHaveURL('/work/frozen-shoulder-dss');
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(2);
+});
+
 test('/work/projtrack permanently redirects to the Relay case study', async ({ request }) => {
   const response = await request.get('/work/projtrack', { maxRedirects: 0 });
 
   expect(response.status()).toBe(308);
   expect(response.headers().location).toBe('/work/relay');
+});
+
+test('unknown routes return the branded recovery page', async ({ page }, testInfo) => {
+  const runtimeErrors = watchRuntimeErrors(page);
+  const response = await page.goto('/missing-page-for-acceptance');
+
+  expect(response?.status()).toBe(404);
+  await expect(page.getByRole('heading', { level: 1, name: 'This page slipped out of frame.' })).toBeVisible();
+  await expect(page.getByRole('link', { name: /Return home/i })).toHaveAttribute('href', '/');
+  await expect(page.getByRole('link', { name: /View selected work/i })).toHaveAttribute('href', '/#work');
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+  await expect(page.locator('.not-found-code')).toBeVisible();
+
+  const hasHorizontalOverflow = await page.evaluate(
+    () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+  );
+  expect(hasHorizontalOverflow).toBe(false);
+
+  const recoveryBox = await page.locator('.not-found-actions').boundingBox();
+  expect(recoveryBox).not.toBeNull();
+  expect((recoveryBox?.y ?? Infinity) + (recoveryBox?.height ?? 0)).toBeLessThanOrEqual(
+    testInfo.project.use.viewport?.height ?? Infinity,
+  );
+
+  const accessibility = await new AxeBuilder({ page }).analyze();
+  const seriousViolations = accessibility.violations.filter(({ impact }) => impact === 'serious' || impact === 'critical');
+  expect(seriousViolations).toEqual([]);
+  expect(
+    runtimeErrors.filter((message) => message !== 'Failed to load resource: the server responded with a status of 404 (Not Found)'),
+  ).toEqual([]);
 });

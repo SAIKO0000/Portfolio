@@ -8,7 +8,7 @@ An evidence-led software-engineering portfolio built with Next.js, React, TypeSc
 - Typed portfolio content in `src/data/portfolio.ts`.
 - No database, CMS, or hosted contact form.
 - Vercel Web Analytics and Speed Insights provide privacy-conscious traffic and real-user performance measurement.
-- Client JavaScript is limited to navigation, the persistent light/dark appearance control, active case-study chapter tracking, the manual product tour, copy-email feedback, and restrained reveal behavior.
+- Client JavaScript is limited to navigation, the persistent light/dark appearance control, active case-study chapter tracking, the manual product tour with active-tab visibility management, copy-email feedback, and restrained reveal behavior.
 - Project evidence has an explicit publication state; only verified evidence is eligible for production.
 
 ## Routes
@@ -16,6 +16,7 @@ An evidence-led software-engineering portfolio built with Next.js, React, TypeSc
 - `/` — homepage and selected work.
 - `/work/relay` — Relay, the flagship full-stack case study. The retired `/work/projtrack` route permanently redirects here.
 - `/work/frozen-shoulder-dss` — applied-computer-vision case study.
+- Unmatched paths return the branded, recovery-focused 404 page.
 
 ## Local setup
 
@@ -36,7 +37,7 @@ pnpm typecheck
 pnpm build
 ```
 
-The permanent Playwright suite covers the homepage and both case studies in Chrome at 390x844, 768x1024, 1280x720, and 1440x900. It includes recruiter-flow, responsive-overflow, runtime, reduced-motion, mobile-navigation, and automated accessibility checks. Run it against a production build in a second terminal:
+The permanent Playwright suite covers the homepage, both case studies, and the custom 404 in Chrome at 390x844, 768x1024, 1280x720, and 1440x900. It includes recruiter-flow, responsive-overflow, product-tour navigation, runtime, reduced-motion, mobile-navigation, recovery, and automated accessibility checks. Run it against a production build in a second terminal:
 
 ```bash
 pnpm build

@@ -125,11 +125,16 @@ Desktop chapter navigation starts below the 72px sticky header, fits within the 
 - Animate only `transform` and `opacity`.
 - A frame keyline may move 2–4px to expose cobalt on hover or focus.
 - The Relay product theater uses labeled tabs, previous/next controls, one visible counter, and a 220ms crossfade with a 2–4px frame offset.
+- On mobile and tablet, the Relay tab strip remains manually scrollable and automatically centers the active feature after tab, arrow, or keyboard selection. The first and last items clamp to the strip edges, proximity snapping assists manual swipes, and reduced motion makes repositioning immediate.
 - Product tours never autoplay. Screenshots remain uncropped at 16:10 and include a direct full-resolution link.
 - The credential may be dragged to orbit or clicked to reverse. No ambient spin, physics simulation, lanyard treatment, or global background motion is allowed.
 - Desktop media uses a custom graphite product frame with one cobalt offset layer; mobile reduces decorative framing while preserving the screenshot and controls.
 - Do not use parallax, scroll hijacking, cursor following, magnetic controls, ambient loops, large reveal travel, or card scaling.
 - Reduced motion uses immediate state changes or opacity-only feedback.
+
+## Error recovery
+
+Unknown routes use a branded but recovery-first 404 page. The page keeps the global header and footer, explains the missing route in plain language, and offers direct paths to the homepage and selected work. Its oversized `4 [Shift Mark] 4` graphic reuses the approved identity vocabulary without becoming a game, novelty interaction, or dead end. The composition uses existing tokens, includes no new dependency, supports both color modes, and preserves the framework-provided 404 status and `noindex` behavior.
 
 ## Evidence rules
 

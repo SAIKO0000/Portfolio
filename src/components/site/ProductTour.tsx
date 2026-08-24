@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useRef, useState, type KeyboardEvent } from 'react';
+import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import type { MediaAsset } from '@/data/portfolio';
 
 interface ProductTourProps {
@@ -20,8 +20,25 @@ const featureLabels: Record<string, string> = {
 
 export function ProductTour({ assets, product }: ProductTourProps) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const tabListRef = useRef<HTMLDivElement | null>(null);
   const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const activeAsset = assets[activeIndex];
+
+  useEffect(() => {
+    const tabList = tabListRef.current;
+    const activeTab = tabRefs.current[activeIndex];
+    if (!tabList || !activeTab || tabList.scrollWidth <= tabList.clientWidth) return;
+
+    const preferredLeft = activeTab.offsetLeft - ((tabList.clientWidth - activeTab.offsetWidth) / 2);
+    const maximumLeft = tabList.scrollWidth - tabList.clientWidth;
+    const left = Math.min(maximumLeft, Math.max(0, preferredLeft));
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    tabList.scrollTo({
+      left,
+      behavior: reducedMotion ? 'auto' : 'smooth',
+    });
+  }, [activeIndex]);
 
   if (!activeAsset) return null;
 
@@ -76,7 +93,12 @@ export function ProductTour({ assets, product }: ProductTourProps) {
           </a>
         </div>
 
-        <div className="product-stage__tabs" role="tablist" aria-label={`${product} product features`}>
+        <div
+          ref={tabListRef}
+          className="product-stage__tabs"
+          role="tablist"
+          aria-label={`${product} product features`}
+        >
           {assets.map((asset, index) => (
             <button
               key={asset.id}
