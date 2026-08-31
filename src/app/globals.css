@@ -2638,6 +2638,112 @@ button {
   margin-top: 24px;
 }
 
+.case-live-cta-shell {
+  display: grid;
+  width: min(100%, 336px);
+  gap: 8px;
+}
+
+.case-live-cta__meta {
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.075em;
+  text-transform: uppercase;
+}
+
+.case-live-cta {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-height: 58px;
+  grid-template-columns: minmax(0, 1fr) 54px;
+  align-items: stretch;
+  border: 1px solid var(--graphite);
+  border-radius: 2px;
+  color: var(--graphite);
+  background: var(--paper);
+  text-decoration: none;
+  touch-action: manipulation;
+  transition:
+    color var(--press) ease,
+    transform var(--press) ease;
+}
+
+.case-live-cta::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border: 1px solid var(--cobalt);
+  content: '';
+  transform: translate(4px, 4px);
+  transition: transform var(--response) cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-live-cta__label,
+.case-live-cta__arrow {
+  display: flex;
+  align-items: center;
+}
+
+.case-live-cta__label {
+  min-width: 0;
+  padding-inline: 18px;
+  font-size: 18px;
+  font-weight: 650;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.case-live-cta__arrow {
+  justify-content: center;
+  border-left: 1px solid var(--graphite);
+  color: var(--on-cobalt);
+  background: var(--cobalt-panel);
+  font-size: 18px;
+  transition: transform var(--response) cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.case-live-cta:focus-visible {
+  outline-color: var(--graphite);
+  color: var(--cobalt);
+}
+
+.case-live-cta:focus-visible::after {
+  transform: translate(2px, 2px);
+}
+
+.case-live-cta:focus-visible .case-live-cta__arrow {
+  transform: translate(2px, -2px);
+}
+
+.case-live-cta:active {
+  transform: translate(1px, 1px);
+}
+
+.case-live-cta:active::after {
+  transform: translate(1px, 1px);
+}
+
+.case-live-cta:active .case-live-cta__arrow {
+  transform: translate(1px, -1px);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .case-live-cta:hover {
+    color: var(--cobalt);
+  }
+
+  .case-live-cta:hover::after {
+    transform: translate(2px, 2px);
+  }
+
+  .case-live-cta:hover .case-live-cta__arrow {
+    transform: translate(2px, -2px);
+  }
+}
+
 .case-points {
   margin: 32px 0 0;
   padding: 0;
@@ -3069,6 +3175,9 @@ button {
 
   .site-wordmark:hover,
   .site-wordmark:focus-visible,
+  .case-live-cta:hover,
+  .case-live-cta:focus-visible,
+  .case-live-cta:active,
   .arrow-link:hover,
   .arrow-link:focus-visible,
   .primary-link:hover,
@@ -3088,6 +3197,9 @@ button {
 
   .site-wordmark:hover .shift-mark__moving,
   .site-wordmark:focus-visible .shift-mark__moving,
+  .case-live-cta:hover .case-live-cta__arrow,
+  .case-live-cta:focus-visible .case-live-cta__arrow,
+  .case-live-cta:active .case-live-cta__arrow,
   .primary-action:hover::before,
   .primary-action:focus-visible::before,
   .primary-action:hover span,
@@ -3095,5 +3207,11 @@ button {
   .project-panel__visual-link:hover .project-cover__frame,
   .project-panel__visual-link:focus-visible .project-cover__frame {
     transform: none;
+  }
+
+  .case-live-cta:hover::after,
+  .case-live-cta:focus-visible::after,
+  .case-live-cta:active::after {
+    transform: translate(4px, 4px);
   }
 }

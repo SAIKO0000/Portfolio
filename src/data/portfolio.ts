@@ -141,7 +141,7 @@ const relay: CaseStudy = {
   size: 'featured',
   links: [
     {
-      label: 'View live product',
+      label: 'Open Relay Demo',
       href: 'https://relay-portfolio-demo.vercel.app',
       kind: 'live',
       publicationState: 'verified',

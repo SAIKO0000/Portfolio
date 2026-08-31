@@ -74,9 +74,24 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
               <p className="case-hero__summary">{study.summary}</p>
               {publicLinks.length > 0 && (
                 <div className="case-actions">
-                  {publicLinks.map((link) => (
-                    <a key={link.href} className="arrow-link" href={link.href} target="_blank" rel="noreferrer">
+                  {publicLinks.map((link) => link.kind === 'live' ? (
+                    <div className="case-live-cta-shell" key={link.href}>
+                      <span className="case-live-cta__meta">Public demo</span>
+                      <a
+                        className="case-live-cta"
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span className="case-live-cta__label">{link.label}</span>
+                        <span className="case-live-cta__arrow" aria-hidden="true">↗</span>
+                        <span className="sr-only"> (opens in a new tab)</span>
+                      </a>
+                    </div>
+                  ) : (
+                    <a key={link.href} className="arrow-link" href={link.href} target="_blank" rel="noopener noreferrer">
                       {link.label} <span aria-hidden="true">↗</span>
+                      <span className="sr-only"> (opens in a new tab)</span>
                     </a>
                   ))}
                 </div>
