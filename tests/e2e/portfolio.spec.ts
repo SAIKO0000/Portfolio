@@ -87,6 +87,31 @@ test.describe('homepage', () => {
     const animationDuration = await page.locator('.hero').evaluate((element) => getComputedStyle(element).animationDuration);
     expect(Number.parseFloat(animationDuration)).toBeLessThanOrEqual(0.01);
     await expect(page.getByRole('link', { name: /view selected work/i })).toBeVisible();
+
+    await page.evaluate(() => window.scrollTo({ top: 640, behavior: 'auto' }));
+    await expect(page.locator('.site-header')).not.toHaveAttribute('data-mobile-hidden', 'true');
+  });
+
+  test('yields mobile space on downward scroll and returns on upward intent', async ({ page }, testInfo) => {
+    await page.goto('/');
+
+    const header = page.locator('.site-header');
+    await page.evaluate(() => window.scrollTo({ top: 640, behavior: 'auto' }));
+
+    if (testInfo.project.name !== 'mobile-390') {
+      await expect(header).not.toHaveAttribute('data-mobile-hidden', 'true');
+      return;
+    }
+
+    await expect(header).toHaveAttribute('data-mobile-hidden', 'true');
+
+    await page.evaluate(() => window.scrollBy({ top: -48, behavior: 'auto' }));
+    await expect(header).not.toHaveAttribute('data-mobile-hidden', 'true');
+
+    await page.getByRole('button', { name: /menu/i }).click();
+    await expect(page.getByRole('navigation', { name: 'Mobile navigation' })).toBeVisible();
+    await page.evaluate(() => window.scrollBy({ top: 160, behavior: 'auto' }));
+    await expect(header).not.toHaveAttribute('data-mobile-hidden', 'true');
   });
 
   test('switches and persists the selected appearance', async ({ page }, testInfo) => {

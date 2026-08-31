@@ -1,8 +1,13 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { siteConfig } from '@/data/portfolio';
 import { ThemeToggle } from './ThemeToggle';
+
+interface MobileNavProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
 
 const navigation = [
   { label: 'Work', href: '/#work' },
@@ -11,8 +16,7 @@ const navigation = [
   { label: 'Résumé', href: siteConfig.resumePath, utility: true },
 ];
 
-export function MobileNav() {
-  const [open, setOpen] = useState(false);
+export function MobileNav({ open, onOpenChange }: MobileNavProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -20,14 +24,14 @@ export function MobileNav() {
 
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        setOpen(false);
+        onOpenChange(false);
         buttonRef.current?.focus();
       }
     };
 
     document.addEventListener('keydown', closeOnEscape);
     return () => document.removeEventListener('keydown', closeOnEscape);
-  }, [open]);
+  }, [onOpenChange, open]);
 
   return (
     <div className="mobile-nav">
@@ -38,7 +42,7 @@ export function MobileNav() {
         aria-expanded={open}
         aria-controls="mobile-navigation"
         aria-haspopup="true"
-        onClick={() => setOpen((current) => !current)}
+        onClick={() => onOpenChange(!open)}
       >
         <span>{open ? 'Close' : 'Menu'}</span>
         <span aria-hidden="true">{open ? '×' : '+'}</span>
@@ -53,7 +57,7 @@ export function MobileNav() {
               className={item.utility ? 'mobile-nav__utility' : undefined}
               target={item.utility ? '_blank' : undefined}
               rel={item.utility ? 'noreferrer noopener' : undefined}
-              onClick={() => setOpen(false)}
+              onClick={() => onOpenChange(false)}
             >
               <span>{item.label}</span>
               <span aria-hidden="true">{item.utility ? 'PDF ↗' : '·'}</span>

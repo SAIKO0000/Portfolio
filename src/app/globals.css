@@ -163,6 +163,18 @@ button {
   backdrop-filter: blur(6px);
 }
 
+@media (max-width: 767px) {
+  .site-header {
+    transform: translateY(0);
+    transition: transform var(--response) cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .site-header[data-mobile-hidden='true'] {
+    pointer-events: none;
+    transform: translateY(calc(-100% - 1px));
+  }
+}
+
 .site-header__inner {
   display: flex;
   min-height: 72px;
@@ -3160,6 +3172,13 @@ button {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .site-header,
+  .site-header[data-mobile-hidden='true'] {
+    pointer-events: auto;
+    transform: none;
+    transition: none;
+  }
+
   html {
     scroll-behavior: auto;
   }
