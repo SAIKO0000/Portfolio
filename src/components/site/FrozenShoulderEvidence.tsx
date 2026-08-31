@@ -65,7 +65,10 @@ export function FrozenShoulderEvidence({ assets }: FrozenShoulderEvidenceProps) 
         <div className="research-evidence__copy">
           <p className="evidence-index-label">01 / Working interface</p>
           <h3>Calibration gives each movement an explicit starting state.</h3>
-          <p>{interfaceAsset.caption}</p>
+          <p className="research-evidence__caption">{interfaceAsset.caption}</p>
+          <a className="arrow-link" href={interfaceAsset.src} target="_blank" rel="noreferrer">
+            Open full interface <span aria-hidden="true">↗</span>
+          </a>
           <dl className="research-evidence__facts">
             <div>
               <dt>Observe</dt>

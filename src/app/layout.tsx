@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from 'next';
 import { Archivo, IBM_Plex_Mono } from 'next/font/google';
-import { Analytics } from '@vercel/analytics/next';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { siteConfig } from '@/data/portfolio';
 import './globals.css';
 
@@ -17,8 +15,6 @@ const plexMono = IBM_Plex_Mono({
   weight: ['400', '500', '600'],
   display: 'swap',
 });
-
-const observabilityEnabled = process.env.NEXT_PUBLIC_ENABLE_OBSERVABILITY === 'true';
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
@@ -87,12 +83,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         {children}
-        {observabilityEnabled && (
-          <>
-            <Analytics />
-            <SpeedInsights />
-          </>
-        )}
       </body>
     </html>
   );

@@ -110,7 +110,7 @@ Homepage project covers are intentional 16:10 Frame/Shift compositions, not evid
 - Approach: one architecture explanation and up to three consequential decisions.
 - Result: working artifact, lessons, and two concrete improvements without fabricated metrics.
 
-Relay's Showcase spans the full 1240px content width before the narrower reading column. Its custom Frame/Shift Product Theater keeps the 16:10 screenshot dominant, uses a thin graphite frame with one 4px cobalt offset, and avoids stock laptop shells, decorative controls, or perspective effects. Desktop tabs divide into four equal columns with no scrollbars. Mobile may scroll the tab labels horizontally without a visible scrollbar and always provides a direct full-resolution image link because dense desktop interfaces cannot remain fully legible at phone width.
+Relay's Showcase spans the full 1240px content width before the narrower reading column. Its custom Frame/Shift Product Theater keeps the 16:10 screenshot dominant, uses a thin graphite frame with one 6px cobalt offset, and avoids stock laptop shells, decorative controls, or perspective effects. Desktop uses a six-item vertical feature rail beside the screenshot. Mobile and tablet follow the semantic reading order of active-feature summary, horizontally scrollable tabs, screenshot, then previous/next controls. Every tab retains a valid tab-panel relationship, and a direct full-resolution image link remains available because dense desktop interfaces cannot remain fully legible at phone width.
 
 Desktop chapter navigation starts below the 72px sticky header, fits within the remaining viewport, and marks the active chapter. Mobile uses a non-sticky `Jump to` disclosure instead of consuming viewport height with a second sticky bar.
 
@@ -127,6 +127,7 @@ Desktop chapter navigation starts below the 72px sticky header, fits within the 
 - The Relay product theater uses labeled tabs, previous/next controls, one visible counter, and a 220ms crossfade with a 2–4px frame offset.
 - On mobile and tablet, the Relay tab strip remains manually scrollable and automatically centers the active feature after tab, arrow, or keyboard selection. The first and last items clamp to the strip edges, proximity snapping assists manual swipes, and reduced motion makes repositioning immediate.
 - Product tours never autoplay. Screenshots remain uncropped at 16:10 and include a direct full-resolution link.
+- Long case studies end with a labeled `Back to top` link targeting a true page-top anchor. Do not add an always-visible floating return control while the sticky header and closing action provide the same route with less visual obstruction.
 - The credential may be dragged to orbit or clicked to reverse. No ambient spin, physics simulation, lanyard treatment, or global background motion is allowed.
 - Desktop media uses a custom graphite product frame with one cobalt offset layer; mobile reduces decorative framing while preserving the screenshot and controls.
 - Do not use parallax, scroll hijacking, cursor following, magnetic controls, ambient loops, large reveal travel, or card scaling.
@@ -178,5 +179,5 @@ Raw thesis photographs and extracted figures are stored only under the ignored `
 - Full-name wordmark remains the primary recognition asset and is paired with the shifted-aperture v0 in the home control.
 - Do not restore a boxed-initial monogram or substitute another generic letter badge.
 - The shifted-aperture candidate uses opposing graphite and cobalt frame corners around a central square to communicate structure and iteration without tying the identity to one project domain.
-- Any final mark must be reviewed alongside the site, tested at 16px and 24px, and explicitly approved before production launch.
+- Any final mark must be reviewed alongside the site, tested at 16px and 24px, and explicitly approved before production launch. The favicon-sized candidate removes the two minor terminal strokes and uses a heavier keyline so its graphite/cobalt aperture remains legible at small sizes; the 32px/34px header mark remains unchanged.
 - Open Graph artwork should use the headline, name, paper field, graphite frame, and one cobalt signal.

@@ -68,9 +68,11 @@ test.describe('homepage', () => {
 
     if (testInfo.project.name === 'mobile-390') {
       await page.getByRole('button', { name: /menu/i }).click();
-      await expect(page.getByRole('navigation', { name: 'Mobile navigation' })).toBeVisible();
+      const mobileNavigation = page.getByRole('navigation', { name: 'Mobile navigation' });
+      await expect(mobileNavigation).toBeVisible();
+      expect(await mobileNavigation.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(245, 242, 234)');
       await page.keyboard.press('Escape');
-      await expect(page.getByRole('navigation', { name: 'Mobile navigation' })).toBeHidden();
+      await expect(mobileNavigation).toBeHidden();
       await expect(page.getByRole('button', { name: /menu/i })).toBeFocused();
     }
 
@@ -188,11 +190,25 @@ for (const path of ['/work/relay', '/work/frozen-shoulder-dss']) {
   test(`${path} renders its case study without runtime failures`, async ({ page }, testInfo) => {
     const runtimeErrors = watchRuntimeErrors(page);
     const response = await page.goto(path);
+    const expectedTitle = path === '/work/relay' ? 'Relay' : 'Frozen Shoulder DSS';
 
     expect(response?.ok()).toBe(true);
     await expect(page.getByRole('main')).toBeVisible();
     await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Start a conversation' })).toHaveAttribute('href', '/#contact');
+    await expect(page.getByRole('link', { name: /Back to top/i })).toHaveAttribute('href', '#case-page-top');
+    await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', `${expectedTitle} — Mark Daniel Iguban`);
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', /opengraph-image/);
+    await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute('content', `${expectedTitle} — Mark Daniel Iguban`);
+    await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute('content', /opengraph-image/);
+
+    const heroColumnCount = await page.locator('.case-hero__grid').evaluate(
+      (element) => getComputedStyle(element).gridTemplateColumns.trim().split(/\s+/).length,
+    );
+    if (testInfo.project.name === 'tablet-768') expect(heroColumnCount).toBe(1);
+    if (testInfo.project.name === 'laptop-1280' || testInfo.project.name === 'desktop-1440') {
+      expect(heroColumnCount).toBe(2);
+    }
 
     if (path === '/work/relay') {
       await expect(page.getByRole('img', { name: /Relay demo dashboard/i })).toBeVisible();
@@ -207,12 +223,18 @@ for (const path of ['/work/relay', '/work/frozen-shoulder-dss']) {
       const tablist = page.getByRole('tablist', { name: /Relay product features/i });
       const productTabs = tablist.getByRole('tab');
       await expect(productTabs).toHaveCount(6);
+      for (const tab of await productTabs.all()) {
+        const panelId = await tab.getAttribute('aria-controls');
+        expect(panelId).not.toBeNull();
+        await expect(page.locator(`#${panelId}`)).toHaveCount(1);
+      }
       await expect(productTabs.filter({ hasText: 'Dashboard' })).toHaveAttribute('aria-selected', 'true');
       await expect(productTabs.filter({ hasText: 'Calendar' })).toBeVisible();
       await productTabs.filter({ hasText: 'Timeline' }).click();
       await expect(productTabs.filter({ hasText: 'Timeline' })).toHaveAttribute('aria-selected', 'true');
       await expect(page.getByRole('img', { name: /Relay demo Gantt chart/i })).toBeVisible();
       await expect(page.getByRole('link', { name: /open full image/i })).toHaveAttribute('href', /04-gantt-project-timeline\.png/);
+      await expect(page.locator('.product-stage__controls p')).toContainText('Timeline');
 
       const tabOverflow = await tablist.evaluate((element) => ({
         horizontal: element.scrollWidth > element.clientWidth,
@@ -235,13 +257,17 @@ for (const path of ['/work/relay', '/work/frozen-shoulder-dss']) {
         });
         expect(activeTabVisibility.left).toBeGreaterThanOrEqual(-1);
         expect(activeTabVisibility.right).toBeGreaterThanOrEqual(-1);
+
+        await productTabs.filter({ hasText: 'Timeline' }).focus();
+        await page.keyboard.press('Tab');
+        await expect(page.getByRole('tabpanel')).toBeFocused();
       }
 
       if (testInfo.project.name === 'mobile-390') {
         await expect(page.locator('.case-jump')).toBeVisible();
       } else if (testInfo.project.name === 'laptop-1280' || testInfo.project.name === 'desktop-1440') {
         expect(tabOverflow.horizontal).toBe(false);
-        const stageBox = await page.locator('.product-stage__media').boundingBox();
+        const stageBox = await page.locator('.product-stage__media:not([hidden])').boundingBox();
         expect(stageBox?.width ?? 0).toBeGreaterThan(800);
         await page.locator('#challenge').scrollIntoViewIfNeeded();
         const navBox = await page.locator('.case-nav-shell').boundingBox();
@@ -257,6 +283,10 @@ for (const path of ['/work/relay', '/work/frozen-shoulder-dss']) {
       await expect(page.getByRole('img', { name: /Synthetic Frozen Shoulder DSS session report/i })).toBeVisible();
       await expect(page.getByRole('img', { name: /Privacy-edited photograph/i })).toBeVisible();
       await expect(page.getByRole('list', { name: 'Pose-processing pipeline' })).toBeVisible();
+      await expect(page.getByRole('link', { name: /Open full interface/i })).toHaveAttribute(
+        'href',
+        '/frozen-shoulder-dss/interface-calibration-demo.png',
+      );
       await expect(page.getByText('Pending re-enacted evidence')).toHaveCount(0);
     }
 
@@ -264,9 +294,23 @@ for (const path of ['/work/relay', '/work/frozen-shoulder-dss']) {
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
     );
     expect(hasHorizontalOverflow).toBe(false);
+    const accessibility = await new AxeBuilder({ page }).analyze();
+    const seriousViolations = accessibility.violations.filter(({ impact }) => impact === 'serious' || impact === 'critical');
+    expect(seriousViolations).toEqual([]);
     expect(runtimeErrors).toEqual([]);
   });
 }
+
+test('case-study closing action returns to the top', async ({ page }) => {
+  await page.goto('/work/relay');
+  await page.locator('.case-next').scrollIntoViewIfNeeded();
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(100);
+
+  await page.getByRole('link', { name: /Back to top/i }).click();
+
+  await expect(page).toHaveURL('/work/relay#case-page-top');
+  await expect.poll(() => page.evaluate(() => window.scrollY)).toBeLessThan(2);
+});
 
 test('next-project navigation starts at the destination page top', async ({ page }) => {
   await page.goto('/work/relay');
@@ -284,6 +328,12 @@ test('/work/projtrack permanently redirects to the Relay case study', async ({ r
 
   expect(response.status()).toBe(308);
   expect(response.headers().location).toBe('/work/relay');
+});
+
+test('unknown case-study slugs return 404', async ({ request }) => {
+  const response = await request.get('/work/not-a-published-case-study');
+
+  expect(response.status()).toBe(404);
 });
 
 test('unknown routes return the branded recovery page', async ({ page }, testInfo) => {

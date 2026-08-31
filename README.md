@@ -7,7 +7,7 @@ An evidence-led software-engineering portfolio built with Next.js, React, TypeSc
 - Next.js App Router with static/server-rendered content.
 - Typed portfolio content in `src/data/portfolio.ts`.
 - No database, CMS, or hosted contact form.
-- Vercel Web Analytics and Speed Insights provide privacy-conscious traffic and real-user performance measurement.
+- Vercel Web Analytics and Speed Insights packages remain installed for a future owner-approved activation, but neither integration is imported or rendered in the current application.
 - Client JavaScript is limited to navigation, the persistent light/dark appearance control, active case-study chapter tracking, the manual product tour with active-tab visibility management, copy-email feedback, and restrained reveal behavior.
 - Project evidence has an explicit publication state; only verified evidence is eligible for production.
 
@@ -66,7 +66,7 @@ The source résumé DOCX is private and ignored. Only the reviewed PDF may be pu
 
 Deploy through the Git-connected Vercel project with `https://markiguban.dev` as the canonical production domain. The `www` variant permanently redirects to the apex domain, while generated `.vercel.app` URLs remain deployment aliases. Production uses `NEXT_PUBLIC_SITE_URL=https://markiguban.dev` and `NEXT_PUBLIC_ENABLE_INDEXING=true` after unauthenticated route, metadata, robots, sitemap, and HTTPS acceptance.
 
-Keep the current combined `NEXT_PUBLIC_ENABLE_OBSERVABILITY=false` unless both Web Analytics and Speed Insights are intentionally enabled. If only free Web Analytics is approved, split this combined gate into separate analytics and Speed Insights flags before redeploying; this avoids loading a product whose billing terms were not accepted.
+Do not reintroduce either observability component until its product is explicitly approved. If only free Web Analytics is approved, add Analytics alone; keep Speed Insights absent unless its billing terms are separately accepted.
 
 ```bash
 pnpm build

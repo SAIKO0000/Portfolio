@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, ResolvingMetadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CaseStudyNav, type CaseNavItem } from '@/components/site/CaseStudyNav';
@@ -18,11 +18,17 @@ export function generateStaticParams() {
   return caseStudies.map((study) => ({ slug: study.slug }));
 }
 
-export async function generateMetadata({ params }: CaseStudyPageProps): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: CaseStudyPageProps,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const { slug } = await params;
   const study = getCaseStudy(slug);
 
   if (!study) return {};
+
+  const parentMetadata = await parent;
+  const socialImages = parentMetadata.openGraph?.images ?? [];
 
   return {
     title: study.title,
@@ -33,6 +39,15 @@ export async function generateMetadata({ params }: CaseStudyPageProps): Promise<
       description: study.summary,
       url: `/work/${study.slug}`,
       type: 'article',
+      locale: 'en_US',
+      siteName: siteConfig.name,
+      images: socialImages,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${study.title} — ${siteConfig.name}`,
+      description: study.summary,
+      images: parentMetadata.twitter?.images ?? socialImages,
     },
   };
 }
@@ -58,6 +73,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
 
   return (
     <>
+      <div id="case-page-top" aria-hidden="true" />
       <a className="skip-link" href="#case-study">Skip to case study</a>
       <SiteHeader />
       <main id="case-study">
@@ -154,7 +170,10 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
               <p className="eyebrow">Continue</p>
               {nextStudy && <Link href={`/work/${nextStudy.slug}`}>Next: {nextStudy.title} <span aria-hidden="true">↗</span></Link>}
             </div>
-            <Link href="/#contact">Start a conversation <span aria-hidden="true">↘</span></Link>
+            <div className="case-next__actions">
+              <Link href="/#contact">Start a conversation <span aria-hidden="true">↘</span></Link>
+              <a className="case-next__back-to-top" href="#case-page-top">Back to top <span aria-hidden="true">↑</span></a>
+            </div>
           </div>
         </section>
       </main>
