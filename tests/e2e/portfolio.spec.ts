@@ -366,3 +366,71 @@ test('unknown routes return the branded recovery page', async ({ page }, testInf
   );
   expect(unexpectedRuntimeErrors).toEqual([]);
 });
+
+test.describe('Job Hunt Automation transparency pages', () => {
+  test('application homepage explains the tool and its human-controlled boundary', async ({ page }) => {
+    const runtimeErrors = watchRuntimeErrors(page);
+    const response = await page.goto('/job-hunt-automation');
+
+    expect(response?.ok()).toBe(true);
+    await expect(page.getByRole('heading', { level: 1, name: 'Job Hunt Automation' })).toBeVisible();
+    await expect(page.getByText(/private, human-in-the-loop opportunity-management tool/i)).toBeVisible();
+    await expect(page.getByText(/never automatically applies for jobs/i)).toBeVisible();
+    await expect(page.getByRole('link', { name: /Read the privacy policy/i })).toHaveAttribute(
+      'href',
+      '/job-hunt-automation/privacy',
+    );
+    await expect(page.getByRole('link', { name: /Contact through the portfolio/i })).toHaveAttribute(
+      'href',
+      '/#contact',
+    );
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      /\/job-hunt-automation$/,
+    );
+    await expect(page.locator('main form')).toHaveCount(0);
+
+    const hasHorizontalOverflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    );
+    expect(hasHorizontalOverflow).toBe(false);
+
+    const accessibility = await new AxeBuilder({ page }).analyze();
+    const seriousViolations = accessibility.violations.filter(
+      ({ impact }) => impact === 'serious' || impact === 'critical',
+    );
+    expect(seriousViolations).toEqual([]);
+    expect(runtimeErrors).toEqual([]);
+  });
+
+  test('privacy policy discloses Google data handling and recovery controls', async ({ page }) => {
+    const runtimeErrors = watchRuntimeErrors(page);
+    const response = await page.goto('/job-hunt-automation/privacy');
+
+    expect(response?.ok()).toBe(true);
+    await expect(page.getByRole('heading', { level: 1, name: 'Privacy Policy' })).toBeVisible();
+    await expect(page.getByText('https://www.googleapis.com/auth/spreadsheets')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Credential Storage' })).toBeVisible();
+    await expect(page.getByText(/Windows Credential Manager/i)).toBeVisible();
+    await expect(page.getByText(/AI-assisted analysis is optional and disabled by default/i)).toBeVisible();
+    await expect(page.getByText(/not used to develop, improve, or train generalized/i)).toBeVisible();
+    await expect(page.getByText(/Revoking Google authorization and deleting local credentials are separate/i)).toBeVisible();
+    await expect(page.getByRole('link', { name: /contact section/i })).toHaveAttribute('href', '/#contact');
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      'href',
+      /\/job-hunt-automation\/privacy$/,
+    );
+
+    const hasHorizontalOverflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    );
+    expect(hasHorizontalOverflow).toBe(false);
+
+    const accessibility = await new AxeBuilder({ page }).analyze();
+    const seriousViolations = accessibility.violations.filter(
+      ({ impact }) => impact === 'serious' || impact === 'critical',
+    );
+    expect(seriousViolations).toEqual([]);
+    expect(runtimeErrors).toEqual([]);
+  });
+});
