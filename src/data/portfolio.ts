@@ -46,7 +46,21 @@ export interface MediaAsset {
   src: string;
   alt: string;
   caption: string;
+  label?: string;
+  aspectRatio?: string;
   publicationState: PublicationState;
+}
+
+export interface PreviewVideo {
+  src: string;
+  poster: string;
+  posterAlt: string;
+  description: string;
+}
+
+export interface CaseRecording extends PreviewVideo {
+  title: string;
+  context: string;
 }
 
 export interface ProjectSummary {
@@ -62,6 +76,7 @@ export interface ProjectSummary {
   links: ProjectLink[];
   evidence: EvidenceItem[];
   media: MediaAsset[];
+  previewVideo?: PreviewVideo;
 }
 
 export interface CaseStudySection {
@@ -75,28 +90,22 @@ export interface CaseStudySection {
 export interface CaseStudy extends ProjectSummary {
   sections: CaseStudySection[];
   improvements: string[];
+  recordings?: CaseRecording[];
   nextSlug?: string;
-}
-
-export interface Capability {
-  id: string;
-  title: string;
-  description: string;
-  evidenceProjectSlug: string;
 }
 
 const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
 export const siteConfig: SiteConfig = {
   name: 'Mark Daniel Iguban',
-  headline: 'I build dependable software for complex, real-world workflows.',
+  headline: 'I build reliable automations and full-stack tools for real workflows.',
   introduction:
-    'I’m Mark Daniel Iguban, a computer science graduate working across full-stack products and applied computer vision.',
+    'I’m Mark Daniel Iguban, an automation specialist and full-stack engineer. I build practical systems that keep people in control of important decisions.',
   description:
-    'Portfolio of Mark Daniel Iguban, a software engineer focused on full-stack products, applied computer vision, and dependable backend systems.',
+    'Mark Daniel Iguban builds rule-based automations and full-stack software for real workflows. Available for freelance projects and relevant engineering roles.',
   email: 'igubanmark0@gmail.com',
   location: 'Philippines / remote',
-  opportunity: 'Seeking full-time software-engineering roles',
+  opportunity: 'Open to freelance automation projects and relevant engineering roles',
   socialProfiles: [
     {
       platform: 'linkedin',
@@ -127,14 +136,90 @@ export const siteConfig: SiteConfig = {
   resumePath: '/Mark-Daniel-Iguban-Resume.pdf',
 };
 
+const autodev: CaseStudy = {
+  slug: 'autodev',
+  title: 'AutoDev Lead Intake',
+  label: 'n8n workflow automation',
+  summary: 'A rule-based intake system that accepts service requests, stores a verifiable receipt, and routes a human-review queue into private follow-up workflows.',
+  role: 'Sole designer and developer',
+  year: '2026',
+  technologies: ['n8n', 'Next.js', 'Google Sheets', 'Telegram'],
+  outcome: 'Controlled local runs demonstrated web intake, stored receipt readback, private follow-up, and deletion; public hosting remains pending.',
+  size: 'featured',
+  links: [],
+  evidence: [],
+  previewVideo: {
+    src: '/projects/autodev/illustrative-film.mp4',
+    poster: '/projects/autodev/illustrative-film-poster.png',
+    posterAlt: 'AutoDev animated overview poster with the message “Two ways in. One clear next step.”',
+    description: 'This animation explains the intake journey; it is not a recording of a live run. The case study shows screenshots from controlled local tests.',
+  },
+  media: [
+    { id: 'autodev-intake', kind: 'image', src: '/projects/autodev/intake-workflow.png', alt: 'n8n Lead Intake canvas with validation, deduplication, storage, and routing nodes.', caption: 'Shared rule-based intake validates, deduplicates, stores, and routes test requests.', label: 'Lead Intake workflow', aspectRatio: '16 / 9', publicationState: 'verified' },
+    { id: 'autodev-architecture', kind: 'diagram', src: '/projects/autodev/autodev-system-overview.png', alt: 'Illustrated AutoDev system diagram connecting web and app-role Messenger intake to n8n, private integrations, and human review.', caption: 'Illustrated system map; the connected workflow captures supply run evidence.', label: 'System architecture', aspectRatio: '16 / 9', publicationState: 'verified' },
+    { id: 'autodev-operations', kind: 'image', src: '/projects/autodev/lead-operations-workflow.png', alt: 'Complete n8n Lead Operations canvas, from webhook and scheduled checks through private alerts, reminders, Sheet updates, and cleanup.', caption: 'Full workflow map of private follow-up, including alerts, reminders, Sheet updates, and cleanup.', label: 'Lead Operations', aspectRatio: '15 / 7', publicationState: 'verified' },
+    { id: 'autodev-messenger', kind: 'image', src: '/projects/autodev/messenger-intake-workflow.png', alt: 'n8n Messenger Intake canvas connected to the shared intake workflow.', caption: 'App-role Messenger intake hands requests to the same rule-based path; public access is not approved.', label: 'Messenger Intake', aspectRatio: '16 / 9', publicationState: 'verified' },
+    { id: 'autodev-queue', kind: 'image', src: '/projects/autodev/human-review-queue.png', alt: 'Cropped n8n queue row showing review destination, routing reason, and pending status.', caption: 'A stored test row reaches a pending human-review queue; routing is illustrative.', label: 'Human-review queue', aspectRatio: '31 / 7', publicationState: 'verified' },
+    { id: 'autodev-sheet', kind: 'image', src: '/projects/autodev/private-sheet.png', alt: 'Cropped private Google Sheet showing a fictional request row and staff follow-up columns.', caption: 'A fictional request appears in the owner-only Sheet with follow-up fields.', label: 'Private Sheet', aspectRatio: '53 / 6', publicationState: 'verified' },
+    { id: 'autodev-telegram', kind: 'image', src: '/projects/autodev/telegram-owner-alert.png', alt: 'Frame from a controlled local recording showing AutoDev web and Messenger owner alerts in Telegram, with unrelated chats blurred.', caption: 'Telegram received owner alerts for both entry channels; unrelated chats are blurred.', label: 'Telegram alerts', aspectRatio: '16 / 9', publicationState: 'verified' },
+    { id: 'autodev-calendar', kind: 'image', src: '/projects/autodev/calendar-reminder.png', alt: 'Calendar event created for next-day owner follow-up in a controlled local run.', caption: 'The controlled run produced a next-day reminder for the owner.', label: 'Calendar reminder', aspectRatio: '16 / 9', publicationState: 'verified' },
+    { id: 'autodev-ledger', kind: 'image', src: '/projects/autodev/operations-ledger.png', alt: 'n8n operations ledger table showing controlled follow-up state with masked identifiers.', caption: 'The operations ledger records follow-up state so handoffs and cleanup can be inspected.', label: 'Operations ledger', publicationState: 'verified' },
+    { id: 'autodev-retention', kind: 'image', src: '/projects/autodev/retention-workflow.png', alt: 'n8n Data Retention workflow canvas showing the request lifecycle cleanup path.', caption: 'A separate retention workflow defines cleanup beyond the initial handoff.', label: 'Retention workflow', aspectRatio: '16 / 9', publicationState: 'verified' },
+    { id: 'autodev-inventory', kind: 'image', src: '/projects/autodev/workflow-inventory.png', alt: 'Cropped n8n inventory listing ten AutoDev workflows without instance-wide execution statistics.', caption: 'The inventory shows the project’s workflow scope; it is not an execution or outcome metric.', label: 'Workflow inventory', publicationState: 'verified' },
+  ],
+  recordings: [
+    { title: 'Web intake run', src: '/projects/autodev/web-intake-local-demo.mp4', poster: '/projects/autodev/web-intake-local-poster.png', posterAlt: 'Web intake form from a controlled local AutoDev run.', description: 'The complete web-channel recording follows submission through receipt, owner Sheet, and Calendar reminder, with original audio.', context: 'Controlled local test · web channel' },
+    { title: 'Messenger intake run', src: '/projects/autodev/messenger-app-role-local-demo.mp4', poster: '/projects/autodev/messenger-app-role-local-poster.png', posterAlt: 'AutoDev Messenger chat from an app-role test account.', description: 'The complete app-role Messenger run includes Telegram and Sheet follow-up, with original audio. Only unrelated chat lists are blurred; public Messenger access is not demonstrated.', context: 'Controlled local test · app-role account' },
+  ],
+  sections: [
+    { id: 'challenge', label: 'Challenge', title: 'A service request needs a trustworthy handoff, not another lost inbox message.', paragraphs: ['AutoDev explores how a small service business could collect web and Messenger requests, show what happened to each submission, and keep follow-up visible to its owner. The boundary is deliberate: routing rules organize work, while a person reviews and decides what to do next.'] },
+    { id: 'approach', label: 'Approach', title: 'One intake path records the request and returns a verifiable receipt.', paragraphs: ['I built the web entry and shared n8n intake workflow, then connected an owner-only queue to Google Sheets, Telegram, Brevo fallback, and a next-day Calendar reminder. Validation, duplicate prevention, stored readback, redacted proof, deletion, and retention behavior were exercised with fictional requests.'], points: ['Messenger was demonstrated only through an app-role account, not public Meta access.', 'Routing categories are illustrative rules, not AI qualification or CRM synchronization.', 'A private human-review queue remains the operational handoff.'] },
+    { id: 'result', label: 'Result', title: 'Controlled local runs showed the complete handoff and its limits.', paragraphs: ['The workflow canvases show how the system is built. The queue, Sheet, Telegram, Calendar, and ledger captures show observed states from controlled local tests; the system map is an illustration, not run evidence. The two full-length recordings show the web and app-role Messenger entry paths and private follow-up. There is no public hosted demo yet, and hosted acceptance remains the next gate.'] },
+  ],
+  improvements: ['Complete hosted acceptance and only then publish a live-demo link.', 'Bring the public source repository up to the documented version before adding a source link.', 'Add a narrated end-to-end test walkthrough as a later milestone.'],
+  nextSlug: 'job-hunt-automation',
+};
+
+const jobHunt: CaseStudy = {
+  slug: 'job-hunt-automation',
+  title: 'Job Hunt Automation',
+  label: 'Local Python automation',
+  summary: 'A daily local assistant that gathers approved job feeds, applies deterministic fit and deduplication rules, and prepares a Google Sheets queue for manual review.',
+  role: 'Sole designer and developer',
+  year: '2026',
+  technologies: ['Python', 'Google Sheets', 'Windows Task Scheduler', 'Himalayas', 'Jobicy'],
+  outcome: 'A working local run produces a reviewable opportunity queue while applications and messages remain manual.',
+  size: 'complementary',
+  links: [{ label: 'View source', href: 'https://github.com/SAIKO0000/jobhunt-automation', kind: 'source', publicationState: 'verified' }],
+  evidence: [],
+  previewVideo: {
+    src: '/projects/job-hunt-automation/illustrative-film.mp4',
+    poster: '/projects/job-hunt-automation/illustrative-film-poster.png',
+    posterAlt: 'Job Hunt animated overview poster with the message “Too many listings.”',
+    description: 'This animation explains the workflow; it is not a recording of a live run. The dashboard captures are real, and applications remain manual.',
+  },
+  media: [
+    { id: 'job-dashboard', kind: 'image', src: '/projects/job-hunt-automation/dashboard.png', alt: 'Google Sheets dashboard showing local run health, opportunity counts, and manual pipeline navigation.', caption: 'October 7, 2026 dashboard capture from a local run; counts are a point-in-time queue, not hiring outcomes.', label: 'Dashboard', aspectRatio: '16 / 9', publicationState: 'verified' },
+    { id: 'job-review', kind: 'image', src: '/projects/job-hunt-automation/review-queue.png', alt: 'Google Sheets technical opportunity queue with fields for fit, review, and next actions.', caption: 'Human-readable opportunity queue for manual review and application decisions.', label: 'Review queue', aspectRatio: '16 / 9', publicationState: 'verified' },
+    { id: 'job-architecture', kind: 'diagram', src: '/projects/job-hunt-automation/architecture.png', alt: 'Architecture diagram showing scheduled local feed collection, deterministic processing, Google Sheets, and human review.', caption: 'Architecture overview: scheduled collection and rule-based processing stop at a human review boundary.', label: 'Architecture', aspectRatio: '16 / 9', publicationState: 'verified' },
+  ],
+  sections: [
+    { id: 'challenge', label: 'Challenge', title: 'Finding relevant openings should not consume the time needed to evaluate them.', paragraphs: ['Repeatedly checking job boards creates duplicates and context switching. I wanted a local assistant that prepares a consistent review queue without deciding where to apply or contacting employers on my behalf.'] },
+    { id: 'approach', label: 'Approach', title: 'A scheduled Python run applies explicit rules before writing to Sheets.', paragraphs: ['A daily Windows run collects listings from the approved Himalayas and Jobicy feeds, normalizes them, applies deterministic fit rules and deduplication, and updates a Google Sheets workbook. The dashboard, technical queue, and pipeline make the next human action visible.'], points: ['No automatic application, message, or outreach is sent.', 'Optional Gemini and Ollama paths are disabled, not active production AI.', 'The workbook supports manual review, status tracking, and follow-up.'] },
+    { id: 'result', label: 'Result', title: 'The local workflow makes the search reviewable while keeping the final decision manual.', paragraphs: ['The October 7 screenshots show a working local dashboard and queue. They are not evidence of interviews or offers. The architecture diagram explains how data reaches the workbook and where automation stops.'] },
+  ],
+  improvements: ['Continue reviewing feed quality and rule drift as sources change.', 'Keep manual decisions explicit if new integrations are added.'],
+  nextSlug: 'relay',
+};
+
 const relay: CaseStudy = {
   slug: 'relay',
   title: 'Relay',
   label: 'Full-stack product engineering',
   summary:
-    'A project-operations workspace built for an electrical-engineering company, carrying schedules, tasks, responsibilities, and reporting between teams.',
-  role: 'Full-stack co-developer · Equal two-person build',
-  year: '2025',
+    'A project-operations workspace for GYG Power Systems that connects schedules, tasks, responsibilities, and reporting in one workflow.',
+  role: 'Full-stack co-developer',
+  year: 'Jul 2025–Aug 2026',
   technologies: ['Next.js', 'React', 'TypeScript', 'Supabase', 'Firebase'],
   outcome:
     'The work strengthened my approach to translating operational rules into understandable interfaces and maintainable data flows.',
@@ -266,7 +351,7 @@ const frozenShoulder: CaseStudy = {
   summary:
     'A rehabilitation decision-support prototype that turns pose observations into structured range-of-motion and exercise-session feedback.',
   role: 'Researcher and software developer',
-  year: '2026',
+  year: 'Dec 2025–May 2026',
   technologies: ['Python', 'OpenCV', 'MediaPipe', 'Computer vision'],
   outcome:
     'The project taught me to treat reliability, explainability, and privacy as product requirements—not post-processing details.',
@@ -349,78 +434,10 @@ const frozenShoulder: CaseStudy = {
     'Validate reliability across more camera positions, movement conditions, and representative sessions.',
     'Define a formal reference protocol and error-analysis method before publishing performance metrics.',
   ],
-  nextSlug: 'relay',
+  nextSlug: 'autodev',
 };
 
-export const caseStudies: CaseStudy[] = [relay, frozenShoulder];
-
-export const supportingProjects: ProjectSummary[] = [
-  {
-    slug: 'accounting-modernization',
-    title: 'Accounting Modernization',
-    label: 'Backend and data systems',
-    summary:
-      'A .NET and PostgreSQL modernization effort centered on financial correctness, auditability, and clearer system boundaries.',
-    role: 'Software developer',
-    year: '2026',
-    technologies: ['.NET', 'C#', 'PostgreSQL'],
-    outcome: 'Focused on reliable backend behavior and traceable changes in a legacy-system context.',
-    size: 'supporting',
-    links: [
-      {
-        label: 'View repository',
-        href: 'https://github.com/SAIKO0000/accounting-system',
-        kind: 'source',
-        publicationState: 'verified',
-      },
-    ],
-    evidence: [],
-    media: [],
-  },
-  {
-    slug: 'resource-hive',
-    title: 'Resource Hive',
-    label: 'Booking workflow',
-    summary:
-      'A Firebase-backed room-reservation product shaped around booking flow, shared-resource visibility, and team delivery.',
-    role: 'Developer and project contributor',
-    year: '2025',
-    technologies: ['JavaScript', 'Tailwind CSS', 'Firebase'],
-    outcome: 'Practiced translating a shared-resource process into a usable end-to-end booking flow.',
-    size: 'supporting',
-    links: [
-      {
-        label: 'View repository',
-        href: 'https://github.com/SAIKO0000/Resource-Hive',
-        kind: 'source',
-        publicationState: 'verified',
-      },
-    ],
-    evidence: [],
-    media: [],
-  },
-];
-
-export const capabilities: Capability[] = [
-  {
-    id: 'full-stack',
-    title: 'Full-stack product engineering',
-    description: 'I connect user workflows, typed interfaces, application behavior, and persistent data.',
-    evidenceProjectSlug: 'relay',
-  },
-  {
-    id: 'computer-vision',
-    title: 'Applied computer vision',
-    description: 'I turn uncertain visual input into conservative, inspectable product feedback.',
-    evidenceProjectSlug: 'frozen-shoulder-dss',
-  },
-  {
-    id: 'backend-data',
-    title: 'Backend and data systems',
-    description: 'I care about correctness, auditability, and clear boundaries in data-heavy systems.',
-    evidenceProjectSlug: 'accounting-modernization',
-  },
-];
+export const caseStudies: CaseStudy[] = [autodev, jobHunt, relay, frozenShoulder];
 
 export function isEvidencePublishable(item: EvidenceItem): boolean {
   if (item.publicationState !== 'verified' || !item.approvedForPublic) return false;
@@ -443,8 +460,4 @@ export function verifiedMedia(items: MediaAsset[]): MediaAsset[] {
 
 export function getCaseStudy(slug: string): CaseStudy | undefined {
   return caseStudies.find((study) => study.slug === slug);
-}
-
-export function getProjectTitle(slug: string): string {
-  return [...caseStudies, ...supportingProjects].find((project) => project.slug === slug)?.title ?? slug;
 }

@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export const alt = 'Mark Daniel Iguban — software engineer portfolio';
+export const alt = 'Mark Daniel Iguban — automation specialist and full-stack engineer portfolio';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -25,10 +25,10 @@ export default function OpenGraphImage() {
           <div style={{ fontSize: 28, fontWeight: 700 }}>Mark Daniel Iguban</div>
         </div>
         <div style={{ display: 'flex', maxWidth: 970, fontSize: 72, lineHeight: 1.02, letterSpacing: '-3px', fontWeight: 700 }}>
-          I build dependable software for complex, real-world workflows.
+          I build reliable automations and full-stack tools for real workflows.
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 22 }}>
-          <span>Full-stack products · Applied computer vision</span>
+          <span>Workflow automation · Full-stack engineering</span>
           <span>Philippines / remote</span>
         </div>
       </div>

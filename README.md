@@ -1,6 +1,6 @@
 # Mark Daniel Iguban — Portfolio
 
-An evidence-led software-engineering portfolio built with Next.js, React, TypeScript, and Tailwind CSS. The Frame/Shift design system presents selected work through recruiter-friendly summaries and deeper technical case studies.
+An evidence-led automation and software-engineering portfolio built with Next.js, React, TypeScript, and Tailwind CSS. The Frame/Shift design system presents four projects through recruiter-friendly summaries and deeper technical case studies.
 
 ## Architecture
 
@@ -8,14 +8,17 @@ An evidence-led software-engineering portfolio built with Next.js, React, TypeSc
 - Typed portfolio content in `src/data/portfolio.ts`.
 - No database, CMS, or hosted contact form.
 - Vercel Web Analytics and Speed Insights packages remain installed for a future owner-approved activation, but neither integration is imported or rendered in the current application.
-- Client JavaScript is limited to navigation, the persistent light/dark appearance control, active case-study chapter tracking, the manual product tour with active-tab visibility management, copy-email feedback, and restrained reveal behavior.
+- Client JavaScript is limited to navigation, System/Light/Dark controls, project previews that load video only after a click, accessible evidence galleries and image dialogs, the skills tabs, copy-email feedback, and restrained reveal behavior.
 - Project evidence has an explicit publication state; only verified evidence is eligible for production.
 
 ## Routes
 
-- `/` — homepage and selected work.
+- `/` — homepage with Featured Projects, Core Skills, Experience, Education, and Contact.
+- `/work/autodev` — rule-based lead-intake automation case study.
+- `/work/job-hunt-automation` — local Python job-search automation case study.
 - `/work/relay` — Relay, the flagship full-stack case study. The retired `/work/projtrack` route permanently redirects here.
 - `/work/frozen-shoulder-dss` — applied-computer-vision case study.
+- `/job-hunt-automation` and `/job-hunt-automation/privacy` — public tool information and privacy policy.
 - Unmatched paths return the branded, recovery-focused 404 page.
 
 ## Local setup
@@ -37,7 +40,7 @@ pnpm typecheck
 pnpm build
 ```
 
-The permanent Playwright suite covers the homepage, both case studies, and the custom 404 in Chrome at 390x844, 768x1024, 1280x720, 1440x900, and 1920x1080. It includes recruiter-flow, responsive-overflow, product-tour navigation, runtime, reduced-motion, mobile-navigation, recovery, and automated accessibility checks. Run it against a production build in a second terminal:
+The permanent Playwright suite covers the homepage, all four case studies, the Job Hunt transparency pages, and the custom 404 in Chrome at 390x844, 768x1024, 1280x720, 1440x900, and 1920x1080. It includes recruiter-flow, responsive-overflow, gallery, video-loading, runtime, reduced-motion, mobile-navigation, recovery, and automated accessibility checks. Run it against a production build in a second terminal:
 
 ```bash
 pnpm build

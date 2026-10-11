@@ -22,14 +22,14 @@ export default function NotFound() {
             <h1 id="not-found-title">This page slipped out of frame.</h1>
             <p>
               The address may have changed, or the page may never have existed. You can return to the
-              portfolio or continue directly to the selected work.
+              portfolio or continue directly to the projects.
             </p>
             <div className="not-found-actions">
               <Link className="primary-action" href="/">
                 Return home <span aria-hidden="true">↙</span>
               </Link>
-              <Link className="arrow-link" href="/#work">
-                View selected work <span aria-hidden="true">↘</span>
+              <Link className="arrow-link" href="/#projects">
+                View projects <span aria-hidden="true">↘</span>
               </Link>
             </div>
           </div>

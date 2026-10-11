@@ -8,9 +8,9 @@ export function ProjectCover({ project, variant }: ProjectCoverProps) {
     ? {
         index: '01',
         eyebrow: 'Project operations',
-        meta: '2025 / Live demo',
+        meta: '2025–2026 / Live demo',
         annotation: 'Plan / Schedule / Report',
-        category: 'Full-stack · Two-person build',
+        category: 'Full-stack · Product workflows',
       }
     : {
         index: '02',

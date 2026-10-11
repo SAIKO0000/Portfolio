@@ -1,5 +1,9 @@
+'use client';
+
 import Image from 'next/image';
+import { useRef, useState } from 'react';
 import type { MediaAsset } from '@/data/portfolio';
+import { EvidenceImageDialog } from './EvidenceImageDialog';
 
 interface FrozenShoulderEvidenceProps {
   assets: MediaAsset[];
@@ -29,6 +33,9 @@ const pipelineSteps = [
 ];
 
 export function FrozenShoulderEvidence({ assets }: FrozenShoulderEvidenceProps) {
+  const [enlarged, setEnlarged] = useState<MediaAsset | null>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
+  const open = (asset: MediaAsset, button: HTMLElement) => { openerRef.current = button; setEnlarged(asset); };
   const interfaceAsset = assets.find((asset) => asset.id === 'frozen-interface');
   const reportAsset = assets.find((asset) => asset.id === 'frozen-session-report');
   const fieldAsset = assets.find((asset) => asset.id === 'frozen-field-context');
@@ -46,12 +53,11 @@ export function FrozenShoulderEvidence({ assets }: FrozenShoulderEvidenceProps) 
       </div>
 
       <article className="research-evidence__primary">
-        <a
+        <button
+          type="button"
           className="research-evidence__frame research-evidence__frame--interface"
-          href={interfaceAsset.src}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Open the sanitized Frozen Shoulder DSS interface capture at full size"
+          onClick={(event) => open(interfaceAsset, event.currentTarget)}
+          aria-label="Enlarge the sanitized Frozen Shoulder DSS interface capture"
         >
           <Image
             src={interfaceAsset.src}
@@ -60,15 +66,13 @@ export function FrozenShoulderEvidence({ assets }: FrozenShoulderEvidenceProps) 
             height={889}
             sizes="(min-width: 1024px) 66vw, calc(100vw - 32px)"
           />
-        </a>
+        </button>
 
         <div className="research-evidence__copy">
           <p className="evidence-index-label">01 / Working interface</p>
           <h3>Calibration gives each movement an explicit starting state.</h3>
           <p className="research-evidence__caption">{interfaceAsset.caption}</p>
-          <a className="arrow-link" href={interfaceAsset.src} target="_blank" rel="noreferrer">
-            Open full interface <span aria-hidden="true">↗</span>
-          </a>
+          <button className="arrow-link evidence-open-link" type="button" onClick={(event) => open(interfaceAsset, event.currentTarget)}>Enlarge interface <span aria-hidden="true">↗</span></button>
           <dl className="research-evidence__facts">
             <div>
               <dt>Observe</dt>
@@ -88,12 +92,11 @@ export function FrozenShoulderEvidence({ assets }: FrozenShoulderEvidenceProps) 
 
       <div className="research-evidence__supporting">
         <article className="research-evidence__report">
-          <a
+          <button
+            type="button"
             className="research-evidence__frame research-evidence__frame--report"
-            href={reportAsset.src}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Open the simulated session report at full size"
+            onClick={(event) => open(reportAsset, event.currentTarget)}
+            aria-label="Enlarge the simulated session report"
           >
             <Image
               src={reportAsset.src}
@@ -102,14 +105,12 @@ export function FrozenShoulderEvidence({ assets }: FrozenShoulderEvidenceProps) 
               height={1543}
               sizes="(min-width: 1024px) 56vw, calc(100vw - 32px)"
             />
-          </a>
+          </button>
           <div className="research-evidence__module-copy">
             <p className="evidence-index-label">02 / Reviewable output</p>
             <h3>A session becomes evidence someone can inspect.</h3>
             <p>{reportAsset.caption}</p>
-            <a className="arrow-link" href={reportAsset.src} target="_blank" rel="noreferrer">
-              Open full demonstration graph <span aria-hidden="true">↗</span>
-            </a>
+            <button className="arrow-link evidence-open-link" type="button" onClick={(event) => open(reportAsset, event.currentTarget)}>Enlarge demonstration graph <span aria-hidden="true">↗</span></button>
           </div>
         </article>
 
@@ -134,12 +135,11 @@ export function FrozenShoulderEvidence({ assets }: FrozenShoulderEvidenceProps) 
       </div>
 
       <article className="research-evidence__context">
-        <a
+        <button
+          type="button"
           className="research-evidence__frame research-evidence__frame--context"
-          href={fieldAsset.src}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Open the sanitized field prototype photograph at full size"
+          onClick={(event) => open(fieldAsset, event.currentTarget)}
+          aria-label="Enlarge the sanitized field prototype photograph"
         >
           <Image
             src={fieldAsset.src}
@@ -148,13 +148,14 @@ export function FrozenShoulderEvidence({ assets }: FrozenShoulderEvidenceProps) 
             height={1086}
             sizes="(min-width: 1024px) 42vw, calc(100vw - 32px)"
           />
-        </a>
+        </button>
         <div className="research-evidence__copy">
           <p className="evidence-index-label">04 / Field context</p>
           <h3>Designed for ordinary laptop hardware, not a lab-only setup.</h3>
           <p>{fieldAsset.caption}</p>
         </div>
       </article>
+      <EvidenceImageDialog asset={enlarged} onClose={() => setEnlarged(null)} returnFocusTo={openerRef} />
     </div>
   );
 }

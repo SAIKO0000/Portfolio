@@ -15,6 +15,7 @@
 /.tmp-visual/
 /playwright-report/
 /test-results/
+/.tmp-tools/
 
 # next.js
 /.next/
@@ -29,6 +30,8 @@
 
 # private editable source documents
 /resume*.docx
+/Mark-Daniel-Iguban-VA-Resume.docx
+/~$*.docx
 /.private-assets/
 
 # superseded local source assets

@@ -1,8 +1,8 @@
 # Frame/Shift Design System
 
-Status: recruiter-flow redesign implemented and browser-reviewed; shifted-aperture identity candidate is in review; final project assets remain a production gate.
+Status: recruiter-flow redesign implemented and browser-reviewed; the supplied cat mark is active in the header for review; final project assets remain a production gate.
 
-Frame/Shift is an internal working name, not visitor-facing branding. The public identity is **Mark Daniel Iguban**. The previous boxed MI monogram was removed because it read as a generic initial badge. The current v0 pairs the full-name wordmark with a shifted-aperture candidate; the full name remains primary and the compact mark is not final until Mark approves it.
+Frame/Shift is an internal working name, not visitor-facing branding. The public identity is **Mark Daniel Iguban**. The previous boxed MI monogram was removed because it read as a generic initial badge. The header now pairs the full-name wordmark with Mark's transparent cat SVG: charcoal variant `11` on light and near-white variant `10` on dark. The full name remains primary.
 
 ## Design intent
 
@@ -61,8 +61,8 @@ Prefer left alignment. Centered text is reserved for an earned pull quote or clo
 - Desktop: 12 columns, 32px gutters.
 - Maximum content width: 1240px.
 - Desktop hero: seven-column statement and five-column evidence index.
-- Selected work: Relay seven columns and Frozen Shoulder five columns.
-- Mobile semantic order: Relay, Frozen Shoulder, Accounting, Resource Hive.
+- Selected work: two seven/five rows, with AutoDev and Relay in the larger columns and Job Hunt and Frozen Shoulder in the smaller columns.
+- Mobile semantic order: AutoDev, Job Hunt, Relay, Frozen Shoulder.
 - Homepage section rhythm favors `48 / 64 / 72`; case studies may use `96 / 128` where long-form reading earns it.
 - Macro spacing tokens remain `8 / 16 / 24 / 32 / 48 / 64 / 96 / 128`.
 - `4` and `12` are limited to component internals or optical correction.
@@ -79,28 +79,28 @@ Prefer left alignment. Centered text is reserved for an earned pull quote or clo
 
 Homepage order:
 
-1. Navigation: Work, About, Résumé, Contact.
+1. Navigation: centered Home, Projects, Skills, Experience, Education, Contact; appearance control at right. The résumé download remains on the homepage, not in the header.
 2. Split hero with the site's only inverse-cobalt panel.
-3. Selected work: Relay then Frozen Shoulder DSS.
-4. Supporting work: Accounting Modernization and Resource Hive as editorial rows.
-5. Evidence-linked capabilities.
-6. About and education.
+3. Featured Projects: four screenshot-led cards in two visible groups, Automation and Development, with right-side desktop category jumps and inline mobile links rather than hidden filters. Each full card links to its case study except its independent video control.
+4. Skills: three keyboard-accessible AI & Data, Development, and Delivery tabs with user-confirmed tools and methods; AWS re/Start coursework stays explicitly in progress.
+5. Experience: GYG professional role and a separate AWS re/Start current-training entry.
+6. Education: Cavite State University degree and August 2026 graduation.
 7. Direct contact.
 8. Minimal footer.
 
-The hero evidence index contains role, graduate status, location/remote availability, full-time opportunity status, and the résumé action. Do not add a separate proof strip.
+The hero evidence index contains focus, graduate status, location/remote availability, freelance and relevant-role availability, and the résumé action. Do not add a separate proof strip.
 
 The homepage omits numbered chapter labels. Plain section names make the page easier to scan, while project numbers remain legitimate identity and ordering devices. At 390x844, the headline, introduction, and primary action must fit before the evidence panel. At 1280x720, the entire split hero must fit. At 1440x900, the selected-work heading and the beginning of project evidence should also be visible.
 
-The header stays available while scrolling. Its active state may identify Work, About, or Contact, but the resume download must never appear active merely because no section is selected. The complete mark-and-name lockup is the persistent home control: selecting it on the homepage returns to the absolute top, while selecting it from another route returns to the homepage at the top. Same-page movement is smooth unless reduced motion is requested; cross-route movement is immediate. Section-to-section movement is provided by the sticky navigation and hero action; redundant next-section buttons are not added.
+The header stays available while scrolling. Six centered section links share one cobalt underline that follows the viewport, direct hashes, and clicks. The résumé link is absent from desktop and mobile header navigation; the homepage download remains available. At narrower widths the existing accessible menu replaces the crowded desktop links. The complete mark-and-name lockup is the persistent home control: selecting it on the homepage returns to the absolute top, while selecting it from another route returns to the homepage at the top. Same-page movement is smooth unless reduced motion is requested; cross-route movement is immediate. Legacy `#work` and `#about` anchors land at Projects and Skills.
 
-About remains a calm narrative-and-education section. Personal interests stay in the copy instead of becoming a decorative background system.
+The former About bento and interest tiles are removed. Experience keeps GYG work and AWS re/Start visually and semantically distinct: the latter is a 12-week training program, not employment or an earned certification. Skills include tools Mark has used beyond the current four projects; their presence does not imply professional proficiency or project evidence. Current AWS re/Start coursework remains clearly marked. Education contains both the computer-science degree and senior high school.
 
 Contact combines the site's interactive developer credential with a conversion-first action sequence: a visible selectable email address, a compact primary `Copy email` action with an in-button success state, a friendlier `Open Gmail` web-composer link, and the Elsewhere social index. The visible address is intentionally plain text so it does not duplicate the Gmail action or rely on an operating-system `mailto:` handler. The contact utility uses a dependable two-tier structure: the address receives the full first row, followed by two balanced actions. Only exceptionally narrow screens stack the actions. Case-study closing actions route to this section with the label `Start a conversation`. Do not add a lanyard, global background treatment, or ambient decoration around the credential.
 
-The existing evidence-linked capability section owns technical positioning. A future Toolkit extension may add a compact, grouped inventory of verified languages, frameworks, data tools, infrastructure, and design software, but it must not become a standalone logo cloud. Labels carry meaning; monochrome icons are secondary scanning aids, and important technologies should point back to work where they were used.
+The Skills section owns technical positioning. Group user-confirmed tools under AI & Data, Development, and Delivery without evidence links. Labels carry meaning; monochrome icons or restrained abbreviations are secondary scanning aids. Do not add proficiency percentages, years-of-experience badges, or imply that every tool runs in the featured projects.
 
-Homepage project covers are intentional 16:10 Frame/Shift compositions, not evidence placeholders. Multiple type scales and asymmetric placement establish hierarchy, while every annotation names real project scope: Relay uses project operations, live demo, core workflow, and equal two-person build context; Frozen Shoulder uses rehabilitation DSS, research, feedback workflow, and CPU-friendly computer-vision context. Real interface evidence appears inside each case study.
+Homepage automation cards use 16:9 posters from user-activated animated overviews, labeled as animations rather than live demos. Relay and Frozen Shoulder use verified real interface captures. Small project-specific identity strips distinguish each card without covering the image, inventing results, or introducing a new palette. The case studies carry real screenshots, process, role, and limitation detail.
 
 ### Case-study composition
 
@@ -116,8 +116,8 @@ Desktop chapter navigation starts below the 72px sticky header, fits within the 
 
 ## Interaction and motion
 
-- The header appearance control follows the operating-system preference until the visitor makes an explicit choice; that choice persists locally without a theme-provider dependency.
-- The appearance-control icon uses the existing 220ms response timing; palette changes are immediate to avoid low-contrast intermediate states, and reduced motion makes the icon response effectively immediate.
+- The header appearance controls pair the original sun/moon manual switch with a computer icon for System. System follows the operating-system preference; choosing sun/moon saves the opposite of the current visible theme, while choosing the computer clears the manual override.
+- The appearance icons use the existing 220ms response timing; palette changes are immediate to avoid low-contrast intermediate states, and reduced motion makes the icon response effectively immediate.
 - 140ms: press and focus response.
 - 220ms: hover and frame-offset response.
 - 360ms: one restrained entrance transition.
@@ -126,7 +126,7 @@ Desktop chapter navigation starts below the 72px sticky header, fits within the 
 - A frame keyline may move 2–4px to expose cobalt on hover or focus.
 - The Relay product theater uses labeled tabs, previous/next controls, one visible counter, and a 220ms crossfade with a 2–4px frame offset.
 - On mobile and tablet, the Relay tab strip remains manually scrollable and automatically centers the active feature after tab, arrow, or keyboard selection. The first and last items clamp to the strip edges, proximity snapping assists manual swipes, and reduced motion makes repositioning immediate.
-- Product tours never autoplay. Screenshots remain uncropped at 16:10 and include a direct full-resolution link.
+- Product tours never autoplay. Engineering captures remain contained in a stable image canvas; the whole image opens an accessible fit/actual-size dialog. AutoDev's full-length local recordings retain their audio and load only on click, with unrelated chat lists blurred in the Messenger recording.
 - Long case studies end with a labeled `Back to top` link targeting a true page-top anchor. Do not add an always-visible floating return control while the sticky header and closing action provide the same route with less visual obstruction.
 - The credential may be dragged to orbit or clicked to reverse. No ambient spin, physics simulation, lanyard treatment, or global background motion is allowed.
 - Desktop media uses a custom graphite product frame with one cobalt offset layer; mobile reduces decorative framing while preserving the screenshot and controls.
@@ -166,7 +166,7 @@ When any requirement is missing, omit the claim. Do not render pending evidence 
 | Accounting | Architecture/data-flow diagram | Pending | Accurate to public repository |
 | Accounting | API, migration, audit, or ledger artifact | Pending | Real and safe to disclose |
 | Resource Hive | Product capture | Pending | Real and free of personal data |
-| Portfolio | Distinctive identity mark and favicon | Candidate in review | Shifted-aperture v0 is implemented and scale-tested; approval pending |
+| Portfolio | Header mark and favicon | Cat identity in review | Supplied charcoal/near-white variants now appear in the header and browser tab |
 | Portfolio | Open Graph image | Pending | Uses approved identity and canonical URL |
 | Portfolio | Résumé PDF | Pending | Reviewed; phone only inside PDF |
 
@@ -176,8 +176,15 @@ Raw thesis photographs and extracted figures are stored only under the ignored `
 
 ## Identity assets
 
-- Full-name wordmark remains the primary recognition asset and is paired with the shifted-aperture v0 in the home control.
+- Full-name wordmark remains the primary recognition asset and is paired with the supplied transparent cat mark in the home control and mobile menu. The same artwork is horizontally flipped in both themes.
 - Do not restore a boxed-initial monogram or substitute another generic letter badge.
-- The shifted-aperture candidate uses opposing graphite and cobalt frame corners around a central square to communicate structure and iteration without tying the identity to one project domain.
-- Any final mark must be reviewed alongside the site, tested at 16px and 24px, and explicitly approved before production launch. The favicon-sized candidate removes the two minor terminal strokes and uses a heavier keyline so its graphite/cobalt aperture remains legible at small sizes; the 32px/34px header mark remains unchanged.
+- The header uses `public/icons/oneworks-avatar-cat-256 (11).svg` in light mode and `(10).svg` in dark mode; these neutral variants fit the paper/graphite palettes without adding another accent color.
+- The browser tab uses the same charcoal/near-white cat variants through color-scheme-aware icon links. The 404 artwork still uses the shifted-aperture candidate; review that remaining identity treatment and 16px/24px favicon legibility before production launch.
 - Open Graph artwork should use the headline, name, paper field, graphite frame, and one cobalt signal.
+
+## Current refinement: compact credentials and mobile navigation
+
+- Keep the Frame/Shift paper/charcoal, cobalt, square-border, Archivo/IBM Plex Mono identity. The right-side Projects navigator should occupy a narrow column without pulling the four-card grid conspicuously off center.
+- Core Skills uses a centered, narrower content area and compact, centered icon/label tiles. Preserve the three accessible tabs and the complete confirmed skills inventory.
+- Experience uses semantic lists with visible cobalt markers. AWS re/Start remains clearly labeled as training, not employment or an earned certification.
+- Below the desktop navigation breakpoint, use a full-viewport menu with restrained slide/fade motion, native modal focus behavior, reduced-motion support, the six section links, GitHub/LinkedIn, appearance controls, and a résumé download. Keep the desktop header free of the extra line before its theme controls.

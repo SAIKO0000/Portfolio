@@ -1,8 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { useRef, useState, type KeyboardEvent } from 'react';
 import type { MediaAsset } from '@/data/portfolio';
+import { EvidenceImageDialog } from './EvidenceImageDialog';
 
 interface ProductTourProps {
   assets: MediaAsset[];
@@ -20,123 +21,50 @@ const featureLabels: Record<string, string> = {
 
 export function ProductTour({ assets, product }: ProductTourProps) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const tabListRef = useRef<HTMLDivElement | null>(null);
-  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const [enlarged, setEnlarged] = useState<MediaAsset | null>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
   const activeAsset = assets[activeIndex];
-
-  useEffect(() => {
-    const tabList = tabListRef.current;
-    const activeTab = tabRefs.current[activeIndex];
-    if (!tabList || !activeTab || tabList.scrollWidth <= tabList.clientWidth) return;
-
-    const preferredLeft = activeTab.offsetLeft - ((tabList.clientWidth - activeTab.offsetWidth) / 2);
-    const maximumLeft = tabList.scrollWidth - tabList.clientWidth;
-    const left = Math.min(maximumLeft, Math.max(0, preferredLeft));
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    tabList.scrollTo({
-      left,
-      behavior: reducedMotion ? 'auto' : 'smooth',
-    });
-  }, [activeIndex]);
-
   if (!activeAsset) return null;
 
-  const select = (index: number) => {
-    setActiveIndex((index + assets.length) % assets.length);
+  const select = (index: number) => setActiveIndex((index + assets.length) % assets.length);
+  const open = (asset: MediaAsset, button: HTMLElement) => {
+    openerRef.current = button;
+    setEnlarged(asset);
   };
-
-  const handleTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
-    let nextIndex: number | undefined;
-
-    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (index + 1) % assets.length;
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (index - 1 + assets.length) % assets.length;
-    if (event.key === 'Home') nextIndex = 0;
-    if (event.key === 'End') nextIndex = assets.length - 1;
-
-    if (nextIndex === undefined) return;
-    event.preventDefault();
-    select(nextIndex);
-    tabRefs.current[nextIndex]?.focus();
+  const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'ArrowRight') { event.preventDefault(); select(activeIndex + 1); }
+    if (event.key === 'ArrowLeft') { event.preventDefault(); select(activeIndex - 1); }
+    if (event.key === 'Home') { event.preventDefault(); select(0); }
+    if (event.key === 'End') { event.preventDefault(); select(assets.length - 1); }
   };
 
   return (
-    <div className="product-stage">
-      <div className="product-stage__active">
-        <p className="eyebrow">Product view / {String(activeIndex + 1).padStart(2, '0')}</p>
-        <h2>{featureLabels[activeAsset.id] ?? `View ${activeIndex + 1}`}</h2>
-        <p>{activeAsset.caption}</p>
-        <a href={activeAsset.src} target="_blank" rel="noreferrer">
-          Open full image <span aria-hidden="true">↗</span>
-        </a>
-      </div>
-
-      <div
-        ref={tabListRef}
-        className="product-stage__tabs"
-        role="tablist"
-        aria-label={`${product} product features`}
-      >
-        {assets.map((asset, index) => (
-          <button
-            key={asset.id}
-            ref={(element) => { tabRefs.current[index] = element; }}
-            id={`${asset.id}-tab`}
-            type="button"
-            role="tab"
-            aria-selected={activeIndex === index}
-            aria-controls={`${asset.id}-panel`}
-            tabIndex={activeIndex === index ? 0 : -1}
-            onClick={() => select(index)}
-            onKeyDown={(event) => handleTabKeyDown(event, index)}
-          >
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <strong>{featureLabels[asset.id] ?? `View ${index + 1}`}</strong>
-            <i aria-hidden="true" />
-          </button>
-        ))}
-      </div>
-
-      {assets.map((asset, index) => {
-        const isActive = activeIndex === index;
-
-        return (
-          <div
-            key={asset.id}
-            id={`${asset.id}-panel`}
-            className="product-stage__media"
-            role="tabpanel"
-            aria-labelledby={`${asset.id}-tab`}
-            tabIndex={isActive ? 0 : -1}
-            hidden={!isActive}
-          >
-            {isActive && (
-              <div className="product-stage__canvas">
-                <Image
-                  src={asset.src}
-                  alt={asset.alt}
-                  width={1600}
-                  height={1000}
-                  sizes="(min-width: 1280px) 900px, (min-width: 1024px) 72vw, (min-width: 768px) calc(100vw - 48px), calc(100vw - 32px)"
-                />
-              </div>
-            )}
+    <>
+      <div className="product-stage" aria-label={`${product} evidence gallery`} onKeyDown={onKeyDown}>
+        <div className="product-stage__controls" aria-label={`${product} image controls`}>
+          <p className="eyebrow">Evidence gallery</p>
+          <div>
+            <button type="button" onClick={() => select(activeIndex - 1)} aria-label="Previous image">←</button>
+            <span aria-live="polite" aria-atomic="true">{String(activeIndex + 1).padStart(2, '0')} / {String(assets.length).padStart(2, '0')}</span>
+            <button type="button" onClick={() => select(activeIndex + 1)} aria-label="Next image">→</button>
           </div>
-        );
-      })}
-
-      <div className="product-stage__controls" aria-label={`${product} showcase controls`}>
-        <button type="button" onClick={() => select(activeIndex - 1)} aria-label="Show previous feature">
-          <span aria-hidden="true">←</span>
+        </div>
+        <button
+          className="product-stage__canvas"
+          type="button"
+          onClick={(event) => open(activeAsset, event.currentTarget)}
+          aria-label={`Enlarge ${activeAsset.label ?? featureLabels[activeAsset.id] ?? `image ${activeIndex + 1}`}`}
+          title="Enlarge image"
+        >
+          <Image key={activeAsset.id} src={activeAsset.src} alt={activeAsset.alt} fill sizes="(min-width: 1280px) 1100px, calc(100vw - 32px)" />
         </button>
-        <p aria-live="polite">
-          <span className="sr-only">{featureLabels[activeAsset.id] ?? `View ${activeIndex + 1}`}, feature </span>
-          {String(activeIndex + 1).padStart(2, '0')} / {String(assets.length).padStart(2, '0')}
-        </p>
-        <button type="button" onClick={() => select(activeIndex + 1)} aria-label="Show next feature">
-          <span aria-hidden="true">→</span>
-        </button>
+        <div className="product-stage__caption">
+          <p className="eyebrow">{String(activeIndex + 1).padStart(2, '0')} / {activeAsset.kind === 'diagram' ? 'Illustrated diagram' : product === 'Relay' ? 'Project capture' : 'Controlled local capture'}</p>
+          <h2>{activeAsset.label ?? featureLabels[activeAsset.id] ?? `Image ${activeIndex + 1}`}</h2>
+          <p>{activeAsset.caption}</p>
+        </div>
       </div>
-    </div>
+      <EvidenceImageDialog asset={enlarged} onClose={() => setEnlarged(null)} returnFocusTo={openerRef} />
+    </>
   );
 }

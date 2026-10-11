@@ -122,6 +122,7 @@ export default function JobHuntAutomationPage() {
                     Read the privacy policy <span aria-hidden="true">↗</span>
                   </Link>
                   <Link className={styles.inlineLink} href="/#contact">Contact through the portfolio</Link>
+                  <Link className={styles.inlineLink} href="/work/job-hunt-automation">View the project case study</Link>
                 </div>
               </div>
             </section>

@@ -5,6 +5,7 @@ import { CaseStudyNav, type CaseNavItem } from '@/components/site/CaseStudyNav';
 import { FrozenShoulderEvidence } from '@/components/site/FrozenShoulderEvidence';
 import { ProjectCover } from '@/components/site/ProjectCover';
 import { ProductTour } from '@/components/site/ProductTour';
+import { ProjectVideoPreview } from '@/components/site/ProjectVideoPreview';
 import { SiteFooter } from '@/components/site/SiteFooter';
 import { SiteHeader } from '@/components/site/SiteHeader';
 import { StructuredData } from '@/components/site/StructuredData';
@@ -79,7 +80,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
       <main id="case-study">
         <header className="case-hero site-container">
           <div className="case-hero__breadcrumb">
-            <Link href="/#work">Selected work</Link>
+            <Link href="/#projects">Projects</Link>
             <span aria-hidden="true">/</span>
             <span>{study.title}</span>
           </div>
@@ -115,7 +116,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
             </div>
             <dl className="case-meta">
               <div><dt>Role</dt><dd>{study.role}</dd></div>
-              <div><dt>Year</dt><dd>{study.year}</dd></div>
+              <div><dt>Period</dt><dd>{study.year}</dd></div>
               <div><dt>Stack</dt><dd>{study.technologies.join(' · ')}</dd></div>
             </dl>
           </div>
@@ -128,13 +129,42 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
             <FrozenShoulderEvidence assets={publicMedia} />
           </section>
         ) : hasProductShowcase ? (
-          <section id="showcase" className="case-showcase site-container" aria-label={`${study.title} product showcase`}>
+          <section id="showcase" className="case-showcase site-container" aria-label={`${study.title} evidence showcase`}>
             <ProductTour assets={publicMedia} product={study.title} />
           </section>
         ) : (
           <div className="case-cover-stage site-container">
             <ProjectCover project={study.title} variant={coverVariant} />
           </div>
+        )}
+
+        {study.recordings && study.recordings.length > 0 && (
+          <section className="case-recordings site-container" aria-label="Controlled local recordings">
+            <div className="case-recordings__intro">
+              <p className="eyebrow">Recorded local tests</p>
+              <h2>Two entry paths, one human-review boundary.</h2>
+              <p>Full-length recordings with their original audio show controlled local runs. Only unrelated chat lists are blurred in the Messenger recording. Messenger uses an app-role account; neither recording is a public hosted demo.</p>
+            </div>
+            <div className="case-recordings__grid">
+              {study.recordings.map((recording) => (
+                <article key={recording.src}>
+                  <h3>{recording.title}</h3>
+                  <ProjectVideoPreview title={recording.title} preview={recording} label={recording.context} videoAriaLabel={`${recording.title} controlled local recording`} />
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {study.previewVideo && study.slug !== 'autodev' && (
+          <section className="case-film site-container" aria-label={`${study.title} animated overview`}>
+            <div>
+              <p className="eyebrow">Optional explainer</p>
+              <h2>See the workflow at a glance</h2>
+              <p>{study.previewVideo.description}</p>
+            </div>
+            <ProjectVideoPreview title={study.title} preview={study.previewVideo} />
+          </section>
         )}
 
         <div className="case-layout site-container">

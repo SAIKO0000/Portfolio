@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, type MouseEvent } from 'react';
-import { ShiftMark } from './ShiftMark';
+import { SiteBrandIcon } from './SiteBrandIcon';
 
 const returnHomeScrollKey = 'portfolio-return-home-top';
 
@@ -60,7 +60,7 @@ export function SiteWordmark() {
   return (
     <Link className="site-wordmark" href="/#site-top" scroll onClick={handleHomeClick}>
       <span className="site-wordmark__icon" aria-hidden="true">
-        <ShiftMark />
+        <SiteBrandIcon />
       </span>
       <span className="site-wordmark__keyline" aria-hidden="true" />
       <span className="site-wordmark__copy">

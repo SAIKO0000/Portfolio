@@ -19,7 +19,7 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
   title: {
-    default: `${siteConfig.name} — Software Engineer`,
+    default: `${siteConfig.name} — Automation Specialist & Full-stack Engineer`,
     template: `%s — ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -27,6 +27,10 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.name, url: siteConfig.siteUrl }],
   creator: siteConfig.name,
   keywords: [
+    'Automation Specialist',
+    'Workflow Automation',
+    'n8n Developer',
+    'Python Automation',
     'Software Engineer',
     'Full-stack Developer',
     'Next.js Developer',
@@ -35,17 +39,23 @@ export const metadata: Metadata = {
     'Philippines',
   ],
   alternates: { canonical: '/' },
+  icons: {
+    icon: [
+      { url: '/icons/oneworks-avatar-cat-256%20(11).svg', type: 'image/svg+xml' },
+      { url: '/icons/oneworks-avatar-cat-256%20(10).svg', type: 'image/svg+xml', media: '(prefers-color-scheme: dark)' },
+    ],
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    title: `${siteConfig.name} — Software Engineer`,
+    title: `${siteConfig.name} — Automation Specialist & Full-stack Engineer`,
     description: siteConfig.description,
     siteName: siteConfig.name,
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${siteConfig.name} — Software Engineer`,
+    title: `${siteConfig.name} — Automation Specialist & Full-stack Engineer`,
     description: siteConfig.description,
   },
 };
@@ -57,16 +67,16 @@ export const viewport: Viewport = {
 
 const themeInitializer = `
   (function () {
-    try {
-      var storedTheme = window.localStorage.getItem('portfolio-theme');
-      var theme = storedTheme === 'light' || storedTheme === 'dark'
-        ? storedTheme
-        : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      document.documentElement.dataset.theme = theme;
-      document.documentElement.style.colorScheme = theme;
-      var themeColor = document.querySelector('meta[name="theme-color"]');
-      if (themeColor) themeColor.setAttribute('content', theme === 'dark' ? '#181815' : '#F5F2EA');
-    } catch (_) {}
+    var storedTheme;
+    try { storedTheme = window.localStorage.getItem('portfolio-theme'); } catch (_) {}
+    var systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var theme = storedTheme === 'light' || storedTheme === 'dark'
+      ? storedTheme
+      : systemDark ? 'dark' : 'light';
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.style.colorScheme = theme;
+    var themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) themeColor.setAttribute('content', theme === 'dark' ? '#181815' : '#F5F2EA');
   })();
 `;
 
