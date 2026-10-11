@@ -55,7 +55,7 @@ export interface PreviewVideo {
   src: string;
   poster: string;
   posterAlt: string;
-  description: string;
+  description?: string;
 }
 
 export interface CaseRecording extends PreviewVideo {
@@ -168,8 +168,8 @@ const autodev: CaseStudy = {
     { id: 'autodev-inventory', kind: 'image', src: '/projects/autodev/workflow-inventory.png', alt: 'Cropped n8n inventory listing ten AutoDev workflows without instance-wide execution statistics.', caption: 'The inventory shows the project’s workflow scope; it is not an execution or outcome metric.', label: 'Workflow inventory', publicationState: 'verified' },
   ],
   recordings: [
-    { title: 'Web intake run', src: '/projects/autodev/web-intake-local-demo.mp4', poster: '/projects/autodev/web-intake-local-poster.png', posterAlt: 'Web intake form from a controlled local AutoDev run.', description: 'The complete web-channel recording follows submission through receipt, owner Sheet, and Calendar reminder, with original audio.', context: 'Controlled local test · web channel' },
-    { title: 'Messenger intake run', src: '/projects/autodev/messenger-app-role-local-demo.mp4', poster: '/projects/autodev/messenger-app-role-local-poster.png', posterAlt: 'AutoDev Messenger chat from an app-role test account.', description: 'The complete app-role Messenger run includes Telegram and Sheet follow-up, with original audio. Only unrelated chat lists are blurred; public Messenger access is not demonstrated.', context: 'Controlled local test · app-role account' },
+    { title: 'Web intake run', src: '/projects/autodev/web-intake-local-demo.mp4', poster: '/projects/autodev/web-intake-local-poster.png', posterAlt: 'Web intake form from a controlled local AutoDev run.', context: 'Controlled local test · web channel' },
+    { title: 'Messenger intake run', src: '/projects/autodev/messenger-app-role-local-demo.mp4', poster: '/projects/autodev/messenger-app-role-local-poster.png', posterAlt: 'AutoDev Messenger chat from an app-role test account.', context: 'Controlled local test · app-role account' },
   ],
   sections: [
     { id: 'challenge', label: 'Challenge', title: 'A service request needs a trustworthy handoff, not another lost inbox message.', paragraphs: ['AutoDev explores how a small service business could collect web and Messenger requests, show what happened to each submission, and keep follow-up visible to its owner. The boundary is deliberate: routing rules organize work, while a person reviews and decides what to do next.'] },

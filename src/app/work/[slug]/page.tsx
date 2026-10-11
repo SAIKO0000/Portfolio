@@ -143,7 +143,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
             <div className="case-recordings__intro">
               <p className="eyebrow">Recorded local tests</p>
               <h2>Two entry paths, one human-review boundary.</h2>
-              <p>Full-length recordings with their original audio show controlled local runs. Only unrelated chat lists are blurred in the Messenger recording. Messenger uses an app-role account; neither recording is a public hosted demo.</p>
+              <p>Follow a web request and an app-role Messenger request through intake and private follow-up.</p>
             </div>
             <div className="case-recordings__grid">
               {study.recordings.map((recording) => (

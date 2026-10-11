@@ -28,7 +28,7 @@ export function ProjectVideoPreview({ title, preview, label = 'Animated overview
         {activated ? (
           <video ref={videoRef} controls playsInline preload="none" poster={preview.poster} aria-label={videoAriaLabel ?? `${title} animated overview`} onClick={(event) => event.stopPropagation()}>
             <source src={preview.src} type="video/mp4" />
-            Your browser does not support this video. {preview.description}
+            Your browser does not support this video.{preview.description ? ` ${preview.description}` : ''}
           </video>
         ) : (
           <>
@@ -40,7 +40,7 @@ export function ProjectVideoPreview({ title, preview, label = 'Animated overview
         )}
       </div>
       <p className="project-preview__label">{label}</p>
-      <p className="project-preview__description">{preview.description}</p>
+      {preview.description && <p className="project-preview__description">{preview.description}</p>}
     </div>
   );
 }
