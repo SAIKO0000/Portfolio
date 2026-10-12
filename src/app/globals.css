@@ -3170,7 +3170,7 @@ button {
 
   .case-nav-shell {
     position: sticky;
-    top: 72px;
+    top: 73px;
   }
 
   .case-nav {
@@ -3593,6 +3593,7 @@ button {
 
 @media (min-width: 1180px) {
   .site-header__inner { display: grid; min-height: 64px; grid-template-columns: minmax(250px, 1fr) auto minmax(180px, 1fr); gap: 20px; }
+  .case-nav-shell { top: 65px; }
   .desktop-nav { position: relative; display: flex; gap: clamp(12px, 1.65vw, 24px); align-self: stretch; }
   .desktop-nav a {
     color: var(--nav-muted);

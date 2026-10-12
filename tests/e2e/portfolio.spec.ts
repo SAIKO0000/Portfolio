@@ -482,13 +482,15 @@ for (const path of ['/work/autodev', '/work/job-hunt-automation', '/work/relay',
 
       if (testInfo.project.name === 'mobile-390') {
         await expect(page.locator('.case-jump')).toBeVisible();
-      } else if (testInfo.project.name === 'laptop-1280' || testInfo.project.name === 'desktop-1440') {
+      } else if (['laptop-1280', 'desktop-1440', 'wide-desktop-1920'].includes(testInfo.project.name)) {
         const stageBox = await page.locator('.product-stage__canvas').boundingBox();
         expect(stageBox?.width ?? 0).toBeGreaterThan(800);
         await page.locator('#challenge').scrollIntoViewIfNeeded();
         const navBox = await page.locator('.case-nav-shell').boundingBox();
+        const headerBox = await page.locator('.site-header').boundingBox();
         expect(navBox).not.toBeNull();
-        expect(navBox?.y ?? 0).toBeGreaterThanOrEqual(72);
+        expect(headerBox).not.toBeNull();
+        expect(Math.abs((navBox?.y ?? 0) - (headerBox?.y ?? 0) - (headerBox?.height ?? 0))).toBeLessThanOrEqual(1);
         expect((navBox?.y ?? 0) + (navBox?.height ?? Infinity)).toBeLessThanOrEqual(testInfo.project.use.viewport?.height ?? Infinity);
       }
     }
