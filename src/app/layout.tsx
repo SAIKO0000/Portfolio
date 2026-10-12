@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Archivo, IBM_Plex_Mono } from 'next/font/google';
+import { AnalyticsConsent } from '@/components/site/AnalyticsConsent';
 import { siteConfig } from '@/data/portfolio';
 import './globals.css';
 
@@ -19,25 +20,13 @@ const plexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
   title: {
-    default: `${siteConfig.name} — Automation Specialist & Full-stack Engineer`,
+    default: `${siteConfig.name} — Software Engineer | Workflow Automation`,
     template: `%s — ${siteConfig.name}`,
   },
   description: siteConfig.description,
   applicationName: `${siteConfig.name} Portfolio`,
   authors: [{ name: siteConfig.name, url: siteConfig.siteUrl }],
   creator: siteConfig.name,
-  keywords: [
-    'Automation Specialist',
-    'Workflow Automation',
-    'n8n Developer',
-    'Python Automation',
-    'Software Engineer',
-    'Full-stack Developer',
-    'Next.js Developer',
-    'TypeScript Developer',
-    'Computer Vision',
-    'Philippines',
-  ],
   alternates: { canonical: '/' },
   icons: {
     icon: [
@@ -49,13 +38,13 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    title: `${siteConfig.name} — Automation Specialist & Full-stack Engineer`,
+    title: `${siteConfig.name} — Software Engineer | Workflow Automation`,
     description: siteConfig.description,
     siteName: siteConfig.name,
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${siteConfig.name} — Automation Specialist & Full-stack Engineer`,
+    title: `${siteConfig.name} — Software Engineer | Workflow Automation`,
     description: siteConfig.description,
   },
 };
@@ -93,6 +82,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         {children}
+        <AnalyticsConsent />
       </body>
     </html>
   );

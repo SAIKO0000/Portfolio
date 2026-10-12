@@ -19,6 +19,7 @@ An evidence-led automation and software-engineering portfolio built with Next.js
 - `/work/relay` — Relay, the flagship full-stack case study. The retired `/work/projtrack` route permanently redirects here.
 - `/work/frozen-shoulder-dss` — applied-computer-vision case study.
 - `/job-hunt-automation` and `/job-hunt-automation/privacy` — public tool information and privacy policy.
+- `/privacy` — the portfolio's optional Google Analytics disclosure and consent details.
 - Unmatched paths return the branded, recovery-focused 404 page.
 
 ## Local setup

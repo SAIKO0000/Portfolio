@@ -100,9 +100,9 @@ export const siteConfig: SiteConfig = {
   name: 'Mark Daniel Iguban',
   headline: 'I build reliable automations and full-stack tools for real workflows.',
   introduction:
-    'I’m Mark Daniel Iguban, an automation specialist and full-stack engineer. I build practical systems that keep people in control of important decisions.',
+    'I’m Mark Daniel Iguban, a computer science graduate in the Philippines. I build rule-based n8n and Python automations alongside full-stack tools, with clear handoffs for the people who use them.',
   description:
-    'Mark Daniel Iguban builds rule-based automations and full-stack software for real workflows. Available for freelance projects and relevant engineering roles.',
+    'Mark Daniel Iguban is a Philippines-based software engineer focused on workflow automation and full-stack development. Explore his n8n, Python, and Next.js case studies.',
   email: 'igubanmark0@gmail.com',
   location: 'Philippines / remote',
   opportunity: 'Open to freelance automation projects and relevant engineering roles',
@@ -132,7 +132,7 @@ export const siteConfig: SiteConfig = {
       href: 'https://www.facebook.com/MarkDaniel.Iguban',
     },
   ],
-  siteUrl: configuredSiteUrl ?? 'http://localhost:3000',
+  siteUrl: configuredSiteUrl ?? 'https://markiguban.dev',
   resumePath: '/Mark-Daniel-Iguban-Resume.pdf',
 };
 

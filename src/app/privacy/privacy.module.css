@@ -1,0 +1,140 @@
+.page {
+  min-height: calc(100vh - 145px);
+  padding-block: clamp(48px, 7vw, 96px) clamp(64px, 9vw, 128px);
+}
+
+.shell {
+  display: grid;
+  gap: clamp(48px, 7vw, 72px);
+}
+
+.header {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--graphite);
+}
+
+.eyebrow {
+  grid-column: 1 / span 3;
+  margin: 4px 0 0;
+  color: var(--cobalt);
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.075em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.header h1,
+.lead {
+  grid-column: 4 / -1;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.lead {
+  max-width: 65ch;
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: clamp(1.125rem, 1.7vw, 1.35rem);
+  line-height: 1.5;
+}
+
+.sections {
+  display: grid;
+  gap: 32px;
+  max-width: 760px;
+  margin-left: calc((100% - 11 * 32px) / 12 * 3 + 3 * 32px);
+}
+
+.sections section {
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.sections h2 {
+  margin: 0 0 12px;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+}
+
+.sections p {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.sections p:last-child {
+  margin-bottom: 0;
+}
+
+.sections strong {
+  color: var(--graphite);
+  font-weight: 600;
+}
+
+.sections a,
+.lead a,
+.bottom a {
+  color: var(--graphite);
+  text-decoration-color: var(--cobalt);
+  text-underline-offset: 4px;
+}
+
+.sections a:hover,
+.sections a:focus-visible,
+.lead a:hover,
+.lead a:focus-visible,
+.bottom a:hover,
+.bottom a:focus-visible {
+  color: var(--cobalt);
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 760px;
+  margin-left: calc((100% - 11 * 32px) / 12 * 3 + 3 * 32px);
+  padding-top: 20px;
+  border-top: 1px solid var(--graphite);
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.bottom p {
+  margin: 0;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .header {
+    grid-template-columns: 1fr;
+  }
+
+  .eyebrow,
+  .header h1,
+  .lead {
+    grid-column: 1;
+  }
+
+  .sections,
+  .bottom {
+    margin-left: 0;
+  }
+}

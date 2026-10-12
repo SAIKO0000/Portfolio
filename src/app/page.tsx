@@ -187,11 +187,26 @@ export default function Home() {
       <StructuredData
         data={{
           '@context': 'https://schema.org',
-          '@type': 'Person',
+          '@type': 'WebSite',
+          '@id': `${siteConfig.siteUrl}/#website`,
           name: siteConfig.name,
-          url: siteConfig.siteUrl,
+          alternateName: 'markiguban.dev',
+          url: `${siteConfig.siteUrl}/`,
+          publisher: { '@id': `${siteConfig.siteUrl}/#person` },
+        }}
+      />
+      <StructuredData
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'Person',
+          '@id': `${siteConfig.siteUrl}/#person`,
+          name: siteConfig.name,
+          url: `${siteConfig.siteUrl}/`,
+          description: siteConfig.description,
+          image: `${siteConfig.siteUrl}/portrait2.jpg`,
           email: `mailto:${siteConfig.email}`,
-          jobTitle: 'Automation Specialist and Full-stack Engineer',
+          jobTitle: 'Software Engineer',
+          knowsAbout: ['Workflow automation', 'n8n', 'Python automation', 'Full-stack development', 'Next.js', 'TypeScript'],
           alumniOf: { '@type': 'CollegeOrUniversity', name: 'Cavite State University' },
           sameAs: siteConfig.socialProfiles.map(({ href }) => href),
         }}

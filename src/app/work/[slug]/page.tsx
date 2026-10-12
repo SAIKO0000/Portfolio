@@ -215,7 +215,8 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
           name: study.title,
           description: study.summary,
           url: `${siteConfig.siteUrl}/work/${study.slug}`,
-          creator: { '@type': 'Person', name: siteConfig.name, url: siteConfig.siteUrl },
+          creator: { '@id': `${siteConfig.siteUrl}/#person` },
+          isPartOf: { '@id': `${siteConfig.siteUrl}/#website` },
           keywords: study.technologies,
           ...(publicMedia[0] ? { image: `${siteConfig.siteUrl}${publicMedia[0].src}` } : {}),
         }}

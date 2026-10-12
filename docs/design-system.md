@@ -87,7 +87,7 @@ Homepage order:
 5. Experience: GYG professional role and a separate AWS re/Start current-training entry.
 6. Education: Cavite State University degree and August 2026 graduation.
 7. Direct contact.
-8. Minimal footer.
+8. Minimal footer with a portfolio privacy link and analytics-choice control when GA4 is configured.
 
 The hero evidence index contains focus, graduate status, location/remote availability, freelance and relevant-role availability, and the résumé action. Do not add a separate proof strip.
 
