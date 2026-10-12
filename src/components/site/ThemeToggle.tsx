@@ -33,7 +33,7 @@ function applyTheme(preference: ThemePreference) {
   document.documentElement.dataset.theme = theme;
   document.documentElement.style.colorScheme = theme;
   document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')
-    ?.setAttribute('content', theme === 'dark' ? '#181815' : '#F5F2EA');
+    ?.setAttribute('content', theme === 'dark' ? '#181815' : '#FAF9F6');
 }
 
 function notify() {

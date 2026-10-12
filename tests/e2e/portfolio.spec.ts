@@ -73,7 +73,9 @@ test.describe('homepage', () => {
     await expect(page.locator('#education')).toContainText('Senior High School');
     await expect(page.locator('#education')).toContainText('2020–2022');
     await expect(page.locator('#experience')).toContainText('60 scholars from 800+ applicants');
-    await expect(page.locator('#experience')).toContainText('Current training · not employment');
+    await expect(page.locator('#experience')).toContainText('Current training');
+    await expect(page.locator('#experience')).not.toContainText('not employment');
+    await expect(page.locator('#experience')).not.toContainText('no AWS certification is claimed');
     await expect(page.locator('#experience a').filter({ hasText: 'About AWS re/Start' })).toHaveAttribute('href', 'https://aws.amazon.com/training/restart/');
     await expect(page.getByRole('heading', { name: 'Personal interests' })).toHaveCount(0);
     await expect(page.locator('#contact .developer-credential')).toHaveCount(1);
@@ -129,7 +131,7 @@ test.describe('homepage', () => {
       await expect(dialog.getByRole('link', { name: 'Download résumé' })).toBeVisible();
       await expect(dialog.getByRole('link', { name: 'GitHub' })).toBeVisible();
       await expect(dialog.getByRole('link', { name: 'LinkedIn' })).toBeVisible();
-      expect(await mobileNavigation.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(245, 242, 234)');
+      expect(await mobileNavigation.evaluate((element) => getComputedStyle(element).backgroundColor)).toBe('rgb(250, 249, 246)');
       await page.keyboard.press('Escape');
       await expect(mobileNavigation).toBeHidden();
       await expect(page.getByRole('button', { name: /menu/i })).toBeFocused();

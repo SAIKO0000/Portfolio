@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f5f2ea;
+  --paper: #faf9f6;
   --white: #ffffff;
   --surface: #ffffff;
   --graphite: #171717;
@@ -11,6 +11,7 @@
   --on-cobalt: #ffffff;
   --line: rgba(23, 23, 23, 0.28);
   --muted: rgba(23, 23, 23, 0.68);
+  --nav-muted: #74716c;
   --signal-wash: rgba(36, 87, 230, 0.13);
   --material-highlight: rgba(255, 255, 255, 0.62);
   --space-1: 8px;
@@ -38,6 +39,7 @@
   --on-cobalt: #ffffff;
   --line: rgba(241, 238, 230, 0.22);
   --muted: rgba(241, 238, 230, 0.72);
+  --nav-muted: #9b9994;
   --signal-wash: rgba(124, 154, 255, 0.15);
   --material-highlight: rgba(255, 255, 255, 0.08);
   color-scheme: dark;
@@ -3546,7 +3548,6 @@ button {
 .experience-entry li::marker { color: var(--cobalt); }
 .experience-entry li + li { margin-top: 8px; }
 .experience-entry--training { padding-inline: clamp(20px, 2.5vw, 32px); background: var(--signal-wash); }
-.experience-entry__note { color: var(--muted); font-size: 14px; }
 .experience-entry--training .experience-entry__side .eyebrow { color: var(--graphite); }
 .education-list { display: grid; gap: 16px; }
 .education-entry {
@@ -3591,11 +3592,21 @@ button {
 }
 
 @media (min-width: 1180px) {
-  .site-header__inner { display: grid; grid-template-columns: minmax(250px, 1fr) auto minmax(180px, 1fr); gap: 20px; }
+  .site-header__inner { display: grid; min-height: 64px; grid-template-columns: minmax(250px, 1fr) auto minmax(180px, 1fr); gap: 20px; }
   .desktop-nav { position: relative; display: flex; gap: clamp(12px, 1.65vw, 24px); align-self: stretch; }
-  .desktop-nav a { font-size: 12px; white-space: nowrap; }
+  .desktop-nav a {
+    color: var(--nav-muted);
+    font-family: var(--font-archivo), Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+    white-space: nowrap;
+    transition: color var(--press) ease;
+  }
   .desktop-nav a::before { display: none; }
-  .desktop-nav a[aria-current='location'] { color: var(--cobalt); }
+  .desktop-nav a:hover,
+  .desktop-nav a:focus-visible,
+  .desktop-nav a[aria-current='location'] { color: var(--graphite); }
   .desktop-nav__underline {
     position: absolute;
     bottom: -1px;

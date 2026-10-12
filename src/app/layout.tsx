@@ -62,7 +62,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   colorScheme: 'light dark',
-  themeColor: '#F5F2EA',
+  themeColor: '#FAF9F6',
 };
 
 const themeInitializer = `
@@ -76,7 +76,7 @@ const themeInitializer = `
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
     var themeColor = document.querySelector('meta[name="theme-color"]');
-    if (themeColor) themeColor.setAttribute('content', theme === 'dark' ? '#181815' : '#F5F2EA');
+    if (themeColor) themeColor.setAttribute('content', theme === 'dark' ? '#181815' : '#FAF9F6');
   })();
 `;
 

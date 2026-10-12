@@ -132,14 +132,13 @@ export default function Home() {
               </div>
             </article>
             <article className="experience-entry experience-entry--training">
-              <div className="experience-entry__side"><span className="eyebrow">Current training · not employment</span><span>October 2026 – present</span></div>
+              <div className="experience-entry__side"><span className="eyebrow">Current training</span><span>October 2026 – present</span></div>
               <div><h3>AWS re/Start Scholar <span>· FutureSmart Year 2 Batch 31</span></h3>
                 <ul>
                   <li>Selected as one of 60 scholars from 800+ applicants for a 12-week cloud-computing program.</li>
                   <li>Building hands-on foundations in AWS, Linux, Python, networking, security, databases, and cloud operations.</li>
                   <li>Preparing for the AWS Certified Cloud Practitioner (CLF-C02) exam while developing technical and professional skills.</li>
                 </ul>
-                <p className="experience-entry__note">Training and exam preparation are in progress; no AWS certification is claimed.</p>
                 <a className="arrow-link" href="https://aws.amazon.com/training/restart/" target="_blank" rel="noopener noreferrer">About AWS re/Start <span aria-hidden="true">↗</span></a>
               </div>
             </article>

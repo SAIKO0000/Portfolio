@@ -33,11 +33,12 @@ Mark's 46 saved components consistently favor tactile controls, retro hardware, 
 
 | Token | Light | Dark | Use |
 | --- | --- | --- | --- |
-| Paper | `#F5F2EA` | `#181815` | Dominant page field |
+| Paper | `#FAF9F6` | `#181815` | Dominant warm off-white page field |
 | Surface | `#FFFFFF` | `#22221E` | Necessary panels and section contrast |
 | Graphite | `#171717` | `#F1EEE6` | Primary text, keylines, and controls |
 | Signal cobalt | `#2457E6` | `#7C9AFF` | Links, focus, and small signals |
 | Inverse cobalt | `#2457E6` | `#2048BD` | Hero evidence panel and white-on-cobalt surfaces |
+| Header secondary text | `#74716C` | `#9B9994` | Inactive desktop links; active link remains graphite |
 
 Use white text on the inverse cobalt panel. Never place graphite body text on that panel. Surface and paper need a graphite keyline when their boundary matters. Cobalt links require an underline or another non-color cue. Focus must remain visible without hover. Project screenshots retain their source colors and are never filtered to imitate the selected theme.
 
@@ -112,7 +113,7 @@ Homepage automation cards use 16:9 posters from user-activated animated overview
 
 Relay's Showcase spans the full 1240px content width before the narrower reading column. Its custom Frame/Shift Product Theater keeps the 16:10 screenshot dominant, uses a thin graphite frame with one 6px cobalt offset, and avoids stock laptop shells, decorative controls, or perspective effects. Desktop uses a six-item vertical feature rail beside the screenshot. Mobile and tablet follow the semantic reading order of active-feature summary, horizontally scrollable tabs, screenshot, then previous/next controls. Every tab retains a valid tab-panel relationship, and a direct full-resolution image link remains available because dense desktop interfaces cannot remain fully legible at phone width.
 
-Desktop chapter navigation starts below the 72px sticky header, fits within the remaining viewport, and marks the active chapter. Mobile uses a non-sticky `Jump to` disclosure instead of consuming viewport height with a second sticky bar.
+Desktop chapter navigation starts below the sticky header, fits within the remaining viewport, and marks the active chapter. Mobile uses a non-sticky `Jump to` disclosure instead of consuming viewport height with a second sticky bar.
 
 ## Interaction and motion
 
@@ -183,6 +184,8 @@ Raw thesis photographs and extracted figures are stored only under the ignored `
 - Open Graph artwork should use the headline, name, paper field, graphite frame, and one cobalt signal.
 
 ## Current refinement: compact credentials and mobile navigation
+
+The desktop header uses 16px Archivo at 650 weight within a 64px bar. Inactive links recede to a contrast-safe gray; the active label stays graphite with the cobalt underline. The light-theme field is now warm off-white rather than a stronger beige, while the dark palette and identity assets remain unchanged.
 
 - Keep the Frame/Shift paper/charcoal, cobalt, square-border, Archivo/IBM Plex Mono identity. The right-side Projects navigator should occupy a narrow column without pulling the four-card grid conspicuously off center.
 - Core Skills uses a centered, narrower content area and compact, centered icon/label tiles. Preserve the three accessible tabs and the complete confirmed skills inventory.
