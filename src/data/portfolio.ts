@@ -88,6 +88,7 @@ export interface CaseStudySection {
 }
 
 export interface CaseStudy extends ProjectSummary {
+  opening: string;
   sections: CaseStudySection[];
   improvements: string[];
   recordings?: CaseRecording[];
@@ -141,6 +142,7 @@ const autodev: CaseStudy = {
   title: 'AutoDev Lead Intake',
   label: 'n8n workflow automation',
   summary: 'A rule-based intake system that accepts service requests, stores a verifiable receipt, and routes a human-review queue into private follow-up workflows.',
+  opening: 'I designed the web entry and shared n8n intake, then connected an owner-only review queue to Sheets, alerts, and reminders. Workflow captures and full local-test recordings show the handoff; Messenger was tested only with an app-role account, and there is no public hosted demo yet.',
   role: 'Sole designer and developer',
   year: '2026',
   technologies: ['n8n', 'Next.js', 'Google Sheets', 'Telegram'],
@@ -185,6 +187,7 @@ const jobHunt: CaseStudy = {
   title: 'Job Hunt Automation',
   label: 'Local Python automation',
   summary: 'A daily local assistant that gathers approved job feeds, applies deterministic fit and deduplication rules, and prepares a Google Sheets queue for manual review.',
+  opening: 'I built the Windows-scheduled Python collector and rule-based review pipeline. Local dashboard and queue captures show its output; applications and outreach stay manual, and the optional AI paths are disabled.',
   role: 'Sole designer and developer',
   year: '2026',
   technologies: ['Python', 'Google Sheets', 'Windows Task Scheduler', 'Himalayas', 'Jobicy'],
@@ -218,6 +221,7 @@ const relay: CaseStudy = {
   label: 'Full-stack product engineering',
   summary:
     'A project-operations workspace for GYG Power Systems that connects schedules, tasks, responsibilities, and reporting in one workflow.',
+  opening: 'As one of two full-stack developers, I worked across project views, shared data models, and report exports. The public demo uses synthetic records so the product can be inspected; it does not establish quantified productivity gains.',
   role: 'Full-stack co-developer',
   year: 'Jul 2025–Aug 2026',
   technologies: ['Next.js', 'React', 'TypeScript', 'Supabase', 'Firebase'],
@@ -350,6 +354,7 @@ const frozenShoulder: CaseStudy = {
   label: 'Applied computer vision',
   summary:
     'A rehabilitation decision-support prototype that turns pose observations into structured range-of-motion and exercise-session feedback.',
+  opening: 'I built CPU-only pose processing and session-reporting components for this research prototype. Sanitized interface and report captures show the workflow; it has not been clinically validated.',
   role: 'Researcher and software developer',
   year: 'Dec 2025–May 2026',
   technologies: ['Python', 'OpenCV', 'MediaPipe', 'Computer vision'],

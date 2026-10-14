@@ -89,6 +89,7 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
               <p className="eyebrow">{study.label}</p>
               <h1>{study.title}</h1>
               <p className="case-hero__summary">{study.summary}</p>
+              <p className="case-hero__opening">{study.opening}</p>
               {publicLinks.length > 0 && (
                 <div className="case-actions">
                   {publicLinks.map((link) => link.kind === 'live' ? (
