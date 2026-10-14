@@ -42,8 +42,6 @@ Build an evidence-led portfolio for Mark Daniel Iguban, an automation specialist
 
 ## Now — review checkpoint
 
-- [ ] After the GitHub push, verify the Git-connected deployment serves the new routes, reviewed media, and current résumé, and still emits the intended canonical URLs and robots rules. The local Vercel CLI token is invalid, so confirm its environment configuration in the dashboard or after reconnecting the CLI. Verification: unauthenticated production checks and the served résumé hash.
-
 - [ ] Review the remodeled Projects, Skills, Experience, and Education sections at desktop and mobile sizes, including image legibility, AutoDev's leading hierarchy, category jumps, theme selection, navigation underline, and the distinction between screenshots and illustrative films. Verification: explicit approve/revise decision from Mark.
 
 - [ ] Review the revised Relay case study at desktop and mobile sizes, focusing on the immediate full-width Showcase, readable screenshots, concise Challenge → Approach → Result flow, and viewport-safe chapter navigation. Verification: explicit approve/revise decision from Mark.
@@ -88,6 +86,8 @@ Build an evidence-led portfolio for Mark Daniel Iguban, an automation specialist
 - Domain auto-renew is disabled. Missing the manual renewal window would interrupt the portfolio and could weaken accumulated search signals; maintain independent 60-day and 30-day reminders.
 
 ## Completed
+
+- [x] Deployed commit `ec9b522` through the Git-connected Vercel production project as `dpl_HxkTFm4zbkNDmjAJ5dVRcfhsHB1h` on 2026-10-14. Verified all public routes and case-study canonical URLs, production robots and six-route sitemap, `www` and retired ProjTrack 308 redirects, résumé SHA-256 parity, and eight live mobile/desktop case-study browser checks. The Vercel CLI connection worked for deployment inspection.
 
 - [x] Added evidence-bound openings to all four case studies and top-aligned desktop role, period, and stack facts so longer introductions cannot push them down. Restored the existing homepage introduction. Evidence: lint, typecheck, production build, desktop/mobile visual checks, and 43 passing focused browser tests on 2026-10-14; release separately authorized by Mark.
 
